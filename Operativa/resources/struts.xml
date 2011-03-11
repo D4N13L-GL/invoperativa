@@ -11,8 +11,7 @@
 		value="ApplicationResources" />
 
 	<package name="default" extends="struts-default" namespace="/">
-		<action name="login" method="authenticate"
-			class="operativa.action.LoginAction">
+		<action name="login" method="authenticate" class="operativa.action.LoginAction">
 			<result name="success">/WEB-INF/jsp/Welcome.jsp</result>
 			<result name="error">/WEB-INF/jsp/Login.jsp</result>
 		</action>
