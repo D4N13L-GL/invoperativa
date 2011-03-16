@@ -32,6 +32,7 @@
 	
 
 	<mapping class="operativa.bean.entity.Usuario"/>
+	<mapping class="operativa.bean.entity.Fabrica"/>
 
 </session-factory>
 
