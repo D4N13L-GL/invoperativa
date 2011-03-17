@@ -20,6 +20,18 @@
 			<result name="abmFabricas">/WEB-INF/jsp/abm/fabricasAbm.jsp</result>
 		</action>
 		
+		<action name="abmFabricasWelcome" class="operativa.action.WelcomeAction" method="initAbmFabricas">
+			<result name="abmFabricas">/WEB-INF/jsp/abm/fabricasAbm.jsp</result>
+		</action>
+		
+		<action name="abmDestinosWelcome" class="operativa.action.WelcomeAction" method="initAbmDestinos">
+			<result name="abmDestinos">/WEB-INF/jsp/abm/destinosAbm.jsp</result>
+		</action>
+		
+		<action name="abmUsuariosWelcome" class="operativa.action.WelcomeAction" method="initAbmUsuarios">
+			<result name="abmUsuarios">/WEB-INF/jsp/abm/usuariosAbm.jsp</result>
+		</action>
+		
 		<action name="abmFabricas" class="operativa.action.FabricasAbmAction">
 			<result name="exito">/WEB-INF/jsp/Welcome.jsp</result>
 			<result name="error">/WEB-INF/jsp/abm/fabricasAbm.jsp</result>
