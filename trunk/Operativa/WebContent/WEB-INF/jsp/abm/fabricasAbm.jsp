@@ -28,10 +28,9 @@
           };
           map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
         }
-        
-		var actualMarker;
-		var lastMarker;
+
         function codeAddress() {
+		  var markers = new Array();
           var direccion = document.getElementById("direccion").value;
           if (geocoder) {
             geocoder.geocode( { 'address': direccion}, function(results, status) {
@@ -40,23 +39,17 @@
                     alert('Debe ser más específico en la ubicación. Múltiples localizaciones posibles');
                 else{
                 	map.setCenter(results[0].geometry.location);
-					lastMarker = actualMarker;
-					
-					actualMarker = new google.maps.Marker({
+					markers.push(new google.maps.Marker({
                 	    					map: map, 
                     						position: results[0].geometry.location,
                     						icon: 'http://google-maps-icons.googlecode.com/files/factory.png'  
-                						});
-					alert("alskdjasklj");			
-					lastMarker.setMap(null);
+                        		}));
 
-					//alert("ASKDLJ");
-					//document.getElementById('latitud').value = results[0].geometry.location.lat();
-					//alert("ASKDLJ 213");
-					//document.getElementById('longitud').value = results[0].geometry.location.lng();
-					//alert("ASKDLJ ghdfhdfjh");
-					//document.getElementById('localizacion').value = results[0].address_components.long_name;
-                }
+					document.getElementById('latitud').value = results[0].geometry.location.lat();
+					document.getElementById('longitud').value = results[0].geometry.location.lng();
+					document.getElementById('localizacion').value = results[0].address_components.long_name;
+
+				}
 				
               } else {
                 alert("No se pudo localizar");
@@ -64,6 +57,7 @@
             });
           }
         }
+        
               
 
 </script>
@@ -72,19 +66,18 @@
 <body onload="initialize()">
 	
 	<s:form action="abmFabricas.action" method="post">
-		
-		Dirección: <input id="direccion" type="textbox" size="60" >
+		Dirección: <input type="text" id="direccion" size="60" >
     	<input type="button" value="Localizar" onclick="codeAddress()">
-
-		<div id="map_canvas" style="width: 500px; height: 500px;"></div>
-		
-		<s:hidden name="localizacion" />
-		<s:hidden name="latitud" />
-		<s:hidden name="longitud" />
+		<s:hidden id="localizacion" name="localizacion" />
+		<s:hidden id="latitud" name="latitud" />
+		<s:hidden id="longitud" name="longitud" />
 		<s:textfield name="nombre" key="label.nombreFabrica" size="20"/>
 		<s:textfield name="produccion" key="label.produccion" size="20"/>
 		<s:submit method="crearFabrica" key="label.guardar" />
-	
+		
+		Ubicación:
+		<div id="map_canvas" style="width: 500px; height: 500px;"></div>
+
 	</s:form>
 </body>
 </html>

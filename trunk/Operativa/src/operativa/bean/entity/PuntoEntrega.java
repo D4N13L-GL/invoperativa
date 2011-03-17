@@ -9,9 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Fabrica")
-public class Fabrica {
-	
+@Table(name="punto_entrega")
+public class PuntoEntrega {
 	@Id
     @Column(name="id", length=8)
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -26,8 +25,8 @@ public class Fabrica {
 	private String localizacion;
 	
 	@Basic
-	@Column(name="produccion")
-	private Integer produccion;
+	@Column(name="demanda")
+	private Integer demanda;
 	
 	@Basic
 	@Column(name="latitud")
@@ -77,12 +76,11 @@ public class Fabrica {
 		this.localizacion = localizacion;
 	}
 
-	public Integer getProduccion() {
-		return produccion;
+	public Integer getDemanda() {
+		return demanda;
 	}
 
-	public void setProduccion(Integer produccion) {
-		this.produccion = produccion;
+	public void setDemanda(Integer demanda) {
+		this.demanda = demanda;
 	}
-
 }
