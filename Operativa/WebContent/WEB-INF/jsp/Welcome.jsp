@@ -2,3 +2,10 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
 <jsp:include page="menu.jsp" />
+
+<html>
+	<br />
+	<br />
+	<h4>Bienvenido, elija una opción del menú para comenzar.</h4>
+
+</html>

@@ -6,7 +6,7 @@
 </head>
 
 <body bgcolor="grey">
-<h4>Introduce login info</h4>
+<h5>Ingrese los datos de logueo:</h5>
 <s:actionerror />
 <s:form action="login.action" method="post">
 	<s:textfield name="username" key="label.username" size="20" />

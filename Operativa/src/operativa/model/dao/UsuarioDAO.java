@@ -14,49 +14,6 @@ import org.hibernate.ejb.criteria.CriteriaBuilderImpl;
 
 public class UsuarioDAO {
 
-	private List<Usuario> userlist;
-	private Usuario user;
-
-	public void delete(Integer id) {
-
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		Transaction tx = null;
-		try
-		{
-			tx = session.beginTransaction();
-			user=(Usuario)session.get(Usuario.class,id);
-			session.delete(user);
-			tx.commit();
-			
-		}catch (RuntimeException e) {
-			if(tx != null) tx.rollback();
-			throw e;
-		} finally {
-			session.close();
-		}
-	}
-	
-	public List getAllUsers() {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		try
-		{
-			session.beginTransaction();
-			userlist=session.createQuery("from Usuarios").list();
-			return userlist;
-			
-		}
-		catch(Exception e)
-		{
-			System.out.print("Error while fetching "+e);
-			return null;
-		}
-		finally
-		{
-			session.close();
-		}
-		
-	}
-	
 	public Usuario getUser(String user, String pass) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
@@ -64,7 +21,7 @@ public class UsuarioDAO {
 			Criteria c = session.createCriteria(Usuario.class);
 			c.add(Restrictions.eq("username", user));
 			c.add(Restrictions.eq("password", pass));
-			List usuarios = c.list();
+			List<Usuario> usuarios = c.list();
 			return (Usuario) ((usuarios.size() > 0 ) ? usuarios.get(0) : null);
 		}finally {
 			session.close();
@@ -72,36 +29,14 @@ public class UsuarioDAO {
 		
 	}
 	
-	public void insert(Usuario usr) {
+	public void crearUsuario(Usuario usr) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction tx=null;
-		try {
-			tx = session.beginTransaction();
-			session.save(usr);
-			tx.commit();
-		} catch (RuntimeException e) {
-			if(tx != null) tx.rollback();
-			throw e;
-		} finally {
-			session.close();
-		}
 		
+		tx = session.beginTransaction();
+		session.save(usr);
+		tx.commit();
 	}
 	
-	public void update(Usuario usr) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction tx = null;
-		try {
-			tx=session.beginTransaction();
-			session.update(usr);
-			tx.commit();
-		}catch (RuntimeException e) {
-			if(tx != null) tx.rollback();
-			throw e;
-		} finally {
-			session.close();
-		}
-		
-	}
 	
 }

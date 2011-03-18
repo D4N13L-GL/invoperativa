@@ -33,6 +33,7 @@
 
 	<mapping class="operativa.bean.entity.Usuario"/>
 	<mapping class="operativa.bean.entity.Fabrica"/>
+	<mapping class="operativa.bean.entity.PuntoEntrega"/>
 
 </session-factory>
 
