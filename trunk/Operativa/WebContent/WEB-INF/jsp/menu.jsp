@@ -1,7 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head><title>Bienvenido</title><meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 
 <!-- *** QuickMenu copyright (c) 2007, OpenCube Inc. All Rights Reserved.
 
@@ -203,7 +203,7 @@
 
 		<ul>
 		<li><span class="qmtitle" >Datos</span></li>
-		<li><a href="javascript:void(0)">Usuarios</a></li>
+		<li><a href="<s:url action="abmUsuariosWelcome.action" />">Usuarios</a></li>
 		<li><a href="<s:url action="abmFabricasWelcome.action" />">Fábricas</a></li>
 		<li><a href="javascript:void(0)">Puntos de Destino</a></li>
 		<li><span class="qmdivider qmdividerx" ></span></li>

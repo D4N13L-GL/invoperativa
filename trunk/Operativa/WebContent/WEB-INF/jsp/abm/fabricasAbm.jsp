@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>ABM de Fábricas</title>
+<title>Gestión de Fábricas</title>
 </head>
 
 <script type="text/javascript"

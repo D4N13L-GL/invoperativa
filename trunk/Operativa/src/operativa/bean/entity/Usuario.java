@@ -3,6 +3,8 @@ package operativa.bean.entity;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -13,6 +15,7 @@ public class Usuario {
 	
 	@Id
     @Column(name="id", length=8)
+    @GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
 	@Basic
