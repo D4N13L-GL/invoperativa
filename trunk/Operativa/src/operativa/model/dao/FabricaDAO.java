@@ -21,7 +21,7 @@ public class FabricaDAO {
 		nueva.setProduccion(Integer.parseInt(produccion));
 		nueva.setLatitud(Float.parseFloat(latitud));
 		nueva.setLongitud(Float.parseFloat(longitud));
-			
+		
 		session.save(nueva);
 		
 		tx.commit();

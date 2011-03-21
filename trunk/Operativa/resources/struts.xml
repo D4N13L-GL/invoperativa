@@ -18,7 +18,7 @@
 		</action>
 		
 		<action name="abmFabricasWelcome" class="operativa.action.WelcomeAction" method="initAbmFabricas">
-			<result name="abmFabricas">/WEB-INF/jsp/abm/fabricasAbm.jsp</result>
+			<result name="abmFabricas">/WEB-INF/jsp/abm/fabricasAbm.jsp</result>			
 		</action>
 		
 		<action name="abmPuntosEntregaWelcome" class="operativa.action.WelcomeAction" method="initAbmPuntosEntrega">
