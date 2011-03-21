@@ -17,9 +17,11 @@
 
         var map;
         var geocoder;
+        var directions = new google.maps.DirectionsService();
         
         function initialize() {
           geocoder = new google.maps.Geocoder();
+          var renderer = new google.maps.DirectionsRenderer();
           var latlng = new google.maps.LatLng(-38.00,-57.33);
           var myOptions = {
             zoom: 8,
@@ -27,8 +29,25 @@
             mapTypeId: google.maps.MapTypeId.ROADMAP
           };
           map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+		  renderer.setMap(map);
+		  renderer.setPanel(document.getElementById("directions"));	  
+          
+          var request = {
+        	      origin: "La Rioja 3506, Mar del Plata",
+        	      destination: "Rawson 777, Mar del Plata",
+        	      travelMode: google.maps.DirectionsTravelMode.DRIVING
+          };
+
+          directions.route(request, function(result, status) {
+        	    if (status == google.maps.DirectionsStatus.OK) {
+        	      renderer.setDirections(result);
+        	    }
+          });       
+                   
         }
 
+		var directions;
         function codeAddress() {
 		  var markers = new Array();
           var direccion = document.getElementById("direccion").value;
@@ -49,8 +68,7 @@
 					document.getElementById('longitud').value = results[0].geometry.location.lng();
 					document.getElementById('localizacion').value = results[0].address_components.long_name;
 
-				}
-				
+				}				
               } else {
                 alert("No se pudo localizar");
               }
@@ -63,9 +81,16 @@
 </script>
 
 
-<body onload="initialize()">
-	
+<body onload="initialize()" style="
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	color: #000000;">
 	<s:form action="abmFabricas.action" method="post">
+		<div id="front_image" style="background: url(images/blue_background.jpg);
+									 background-image: url(images/blue_background.jpg);
+									 font-size: 22px;">
+			Aqui puedes agregar fabricas al sistema brindando su direccion
+		</div>	
 		Dirección: <input type="text" id="direccion" size="60" >
     	<input type="button" value="Localizar" onclick="codeAddress()">
 		<s:hidden id="localizacion" name="localizacion" />
@@ -74,9 +99,29 @@
 		<s:textfield name="nombre" key="label.nombreFabrica" size="20"/>
 		<s:textfield name="produccion" key="label.produccion" size="20"/>
 		<s:submit method="crearFabrica" key="label.guardar" />
-		
-		Ubicación:
-		<div id="map_canvas" style="width: 500px; height: 500px;"></div>
+		<div id="map_container" style="background-color: #000000;
+									   position: absolute;
+									   margin-right: 10px;	
+									   width: 530px; 
+									   height: 530px;
+									   top: 100;
+									   right: 0 ">		
+		<div id="map_canvas" style="position: relative;
+									top: 15px;
+									left: 15px;    
+									width: 500px; 
+									height: 500px;"></div>
+		</div>	
+		<p></p>
+		Direcciones:
+		<div id="directions" style= "background-image: url(images/blue_background);
+									background-repeat: no-repeat;
+      								background-position: left top;
+									position: relative; 
+									top: 100; 
+									left: 0; 
+									width: 600px; 
+									height: 450px;"></div>
 
 	</s:form>
 </body>
