@@ -22,10 +22,11 @@ el proyecto de operativa.
    * Bajo la carpeta *Java Resources*->*Resources* encontramos en invoperativa.sql y lo corremos para crear la base
 
    * Luego vamos a *Window*-> *Preferences* -> desplegamos *Server* -> *Runtime Enviroment* y ahi ubicamos donde instalamos el *tomcat*
+
+   * Luego debemos configurar el archivo xml de hibernate ingresando la informacion de nuestra base de datos (user, pass).
   
    * Una vez que hicimos esto ponemos click-derecho en el proyecto y vamos a *Run as...*-> *Run on server* y seleccionamso el Tomcat
 
    * Si tira algun error vamos a el buildpath y verificamos en la solapa   *Libraries* que nos puede tirar un error en el JRE, ponemos click derecho y seleccionamos el nuestro
 
    * Una vez que tenes todo esto ya podes codear como un champion
-
