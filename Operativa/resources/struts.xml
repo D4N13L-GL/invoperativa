@@ -9,35 +9,62 @@
 	<constant name="struts.devMode" value="false" />
 	<constant name="struts.custom.i18n.resources"
 		value="ApplicationResources" />
-
+	
+	<include file="struts-default.xml"/>
+	
 	<package name="default" extends="struts-default" namespace="/">
+	
+		<default-interceptor-ref name="paramsPrepareParamsStack"/>
 		
 		<action name="login" class="operativa.action.LoginAction">
 			<result name="success">/WEB-INF/jsp/Welcome.jsp</result>
 			<result name="error">/WEB-INF/jsp/Login.jsp</result>
 		</action>
 		
+		<!-- WELCOME PAGE -->
+		
 		<action name="abmFabricasWelcome" class="operativa.action.WelcomeAction" method="initAbmFabricas">
-			<result name="abmFabricas">/WEB-INF/jsp/abm/fabricasAbm.jsp</result>			
+			<result name="abmFabricas" type="redirect-action">listFabrica</result>			
 		</action>
 		
 		<action name="abmPuntosEntregaWelcome" class="operativa.action.WelcomeAction" method="initAbmPuntosEntrega">
-			<result name="abmPuntosEntrega">/WEB-INF/jsp/abm/puntosEntregaAbm.jsp</result>
+			<result name="abmPuntosEntrega" type="redirect-action">listPuntosEntrega</result>
 		</action>
 		
 		<action name="abmUsuariosWelcome" class="operativa.action.WelcomeAction" method="initAbmUsuarios">
-			<result name="abmUsuarios">/WEB-INF/jsp/abm/usuariosAbm.jsp</result>
+			<result name="abmUsuarios" type="redirect-action">listUsuarios</result>
 		</action>
 		
-		<action name="abmFabricas" class="operativa.action.FabricasAbmAction">
-			<result name="exito">/WEB-INF/jsp/Welcome.jsp</result>
-			<result name="error">/WEB-INF/jsp/abm/fabricasAbm.jsp</result>
-		</action>
+		<!-- FIN WELCOME PAGE -->
+		
 		
 		<action name="abmUsuarios" class="operativa.action.UsuariosAbmAction">
 			<result name="exito">/WEB-INF/jsp/Welcome.jsp</result>
 			<result name="error">/WEB-INF/jsp/abm/usuariosAbm.jsp</result>
 		</action>
 		
+		
+		
+		<!-- FABRICAS ABM -->
+		
+		<action name="saveFabrica" method="save" class="operativa.action.FabricasAbmAction">
+           <result name="success" type="redirect-action">listFabrica</result>
+        </action>
+        <action name="updateFabrica" method="update" class="operativa.action.FabricasAbmAction">
+           <result name="success" type="redirect-action">listFabrica</result>
+        </action>        
+        <action name="listFabrica" method="list" class="operativa.action.FabricasAbmAction">
+            <result name="success">/WEB-INF/jsp/abm/fabricasAbm.jsp</result>
+        </action>
+        <action name="editFabrica" method="edit" class="operativa.action.FabricasAbmAction">
+            <result name="success">/WEB-INF/jsp/abm/fabricasModificacion.jsp</result>
+        </action>
+        <action name="deleteFabrica" method="delete" class="operativa.action.FabricasAbmAction">
+            <result name="success" type="redirect-action">listFabrica</result>
+        </action>
+        
+        <!-- FIN FABRICAS ABM -->
+        
+       
 	</package>
 </struts>

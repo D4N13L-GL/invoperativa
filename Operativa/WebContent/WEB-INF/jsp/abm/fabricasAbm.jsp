@@ -1,10 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
+<style type="text/css">
+table.imagetable {
+	font-family: verdana,arial,sans-serif;
+	font-size:11px;
+	color:#333333;
+	border-width: 1px;
+	border-color: #999999;
+	border-collapse: collapse;
+	width: 50%;
+}
+table.imagetable th {
+	background:#b5cfd2;
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #999999;
+}
+table.imagetable td {
+	background:#dcddc0;
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #999999;
+}
+</style>
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Gestión de Fábricas</title>
 </head>
@@ -17,11 +44,9 @@
 
         var map;
         var geocoder;
-        var directions = new google.maps.DirectionsService();
         
         function initialize() {
           geocoder = new google.maps.Geocoder();
-          var renderer = new google.maps.DirectionsRenderer();
           var latlng = new google.maps.LatLng(-38.00,-57.33);
           var myOptions = {
             zoom: 8,
@@ -30,27 +55,25 @@
           };
           map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 
-		  renderer.setMap(map);
-		  renderer.setPanel(document.getElementById("directions"));	  
-          
-          var request = {
-        	      origin: "La Rioja 3506, Mar del Plata",
-        	      destination: "Rawson 777, Mar del Plata",
-        	      travelMode: google.maps.DirectionsTravelMode.DRIVING
-          };
 
-          directions.route(request, function(result, status) {
-        	    if (status == google.maps.DirectionsStatus.OK) {
-        	      renderer.setDirections(result);
-        	    }
-          });       
-                   
+          google.maps.event.addListener(map, 'click', function(event) {
+        	  codeLatLng(event.latLng);
+          });
+                  
         }
 
-		var directions;
+        function placeMarker(location) {
+            var newMark = new google.maps.Marker({
+                position: location,
+                map: map,
+                icon: 'http://google-maps-icons.googlecode.com/files/factory.png'  
+            });
+            map.setCenter(location);
+        }
+
         function codeAddress() {
 		  var markers = new Array();
-          var direccion = document.getElementById("direccion").value;
+          var direccion = document.getElementById("saveFabrica_localizacion").value;
           if (geocoder) {
             geocoder.geocode( { 'address': direccion}, function(results, status) {
               if (status == google.maps.GeocoderStatus.OK) {
@@ -64,65 +87,131 @@
                     						icon: 'http://google-maps-icons.googlecode.com/files/factory.png'  
                         		}));
 
-					document.getElementById('latitud').value = results[0].geometry.location.lat();
-					document.getElementById('longitud').value = results[0].geometry.location.lng();
-					document.getElementById('localizacion').value = results[0].address_components.long_name;
+					componentes = results[0].address_components;
+					direccion = "";
+					for(var i = 0; i < componentes.length; i++){
+						direccion+=componentes[i].short_name;
+						if (i != componentes.length - 1)
+							direccion+=", ";
+					}
+					latitud = results[0].geometry.location.lat();
+					longitud = results[0].geometry.location.lng();
+					
+					document.getElementById('saveFabrica_latitud').value = (latitud+'').replace('.',',');
+					document.getElementById('saveFabrica_longitud').value = (longitud+'').replace('.', ',');
+					document.getElementById('saveFabrica_localizacion').value = direccion;
 
-				}				
+				}
+				
               } else {
                 alert("No se pudo localizar");
               }
             });
           }
         }
+        var infowindow = new google.maps.InfoWindow();
+
+        function codeLatLng(latlng) {
+ 
+            if (geocoder) {
+              geocoder.geocode({'latLng': latlng}, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                  if (results[1]) {
+                    map.setZoom(11);
+                    marker = new google.maps.Marker({
+                        position: latlng, 
+                        map: map
+                    }); 
+
+                    componentes = results[0].address_components;
+					direccion = "";
+					for(var i = 0; i < componentes.length; i++){
+						direccion+=componentes[i].short_name;
+						if (i != componentes.length - 1)
+							direccion+=", ";
+					}
+
+					latitud = results[0].geometry.location.lat();
+					longitud = results[0].geometry.location.lng();
+					
+					document.getElementById('saveFabrica_latitud').value = (latitud+'').replace('.',',');
+					document.getElementById('saveFabrica_longitud').value = (longitud+'').replace('.', ',');
+					document.getElementById('saveFabrica_localizacion').value = direccion;
+					
+                  }
+                } else {
+                  alert("Geocoder failed due to: " + status);
+                }
+              });
+            }
+          }
         
               
 
 </script>
 
+<body onload="initialize()" style="font-family: verdana,arial,sans-serif;
+								   font-size:15px;">
 
-<body onload="initialize()" style="
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 13px;
-	color: #000000;">
-	<s:form action="abmFabricas.action" method="post">
-		<div id="front_image" style="background: url(images/blue_background.jpg);
-									 background-image: url(images/blue_background.jpg);
-									 font-size: 22px;">
-			Aqui puedes agregar fabricas al sistema brindando su direccion
-		</div>	
-		Dirección: <input type="text" id="direccion" size="60" >
-    	<input type="button" value="Localizar" onclick="codeAddress()">
-		<s:hidden id="localizacion" name="localizacion" />
-		<s:hidden id="latitud" name="latitud" />
-		<s:hidden id="longitud" name="longitud" />
-		<s:textfield name="nombre" key="label.nombreFabrica" size="20"/>
-		<s:textfield name="produccion" key="label.produccion" size="20"/>
-		<s:submit method="crearFabrica" key="label.guardar" />
-		<div id="map_container" style="background-color: #000000;
-									   position: absolute;
-									   margin-right: 10px;	
-									   width: 530px; 
-									   height: 530px;
-									   top: 100;
-									   right: 0 ">		
-		<div id="map_canvas" style="position: relative;
-									top: 15px;
-									left: 15px;    
-									width: 500px; 
-									height: 500px;"></div>
-		</div>	
-		<p></p>
-		Direcciones:
-		<div id="directions" style= "background-image: url(images/blue_background);
-									background-repeat: no-repeat;
-      								background-position: left top;
-									position: relative; 
-									top: 100; 
-									left: 0; 
-									width: 600px; 
-									height: 450px;"></div>
+	<br />
+    <div id="abm" style="position:absolute; 
+    					 top:150;
+                         left:0;
+                         width: 300px; 
+                         height: 500px;
+                         margin-left: 30px;
+                         margin-top: 50px">
+                        
+		<s:form action="saveFabrica.action">
+		<s:hidden name="id" />
+		<s:textfield name="nombre" label="Nombre" />
+		<s:textfield name="localizacion" label="Dirección" size="70" />
+		<s:textfield name="latitud" label="Latitud" />
+		<s:textfield name="longitud" label="Longitud" />
+		<s:textfield name="produccion" label="Producción" />
+		<input type="button" value="Localizar" onclick="codeAddress()">
+		<s:submit value="Guardar" />
+		</s:form>
+    </div>
+	
+    <div id="map_canvas" style="width: 500px; 
+                                height: 500px;
+                                right:0;
+                                position:absolute;
+                                margin-right:60px"></div>
 
-	</s:form>
+<br />
+	<div style="position:relative; 
+	            top:270px; 
+	            left:0px;
+	            margin-left: 20px;">
+	<table cellpadding="5px" border="1" class="imagetable">
+		<tr>
+			<th>Nombre</th>
+			<th>Localizaci&oacute;n</th>
+			<th>Latitud</th>
+			<th>Longitud</th>
+			<th>Producci&oacute;n</th>
+			<th></th>
+			<th></th>
+		</tr>
+		<s:iterator value="fabricaList" status="fabricastatus">
+			<tr>
+				<td><s:property value="nombre" /></td>
+				<td><s:property value="localizacion" /></td>
+				<td><s:property value="latitud" /></td>
+				<td><s:property value="longitud" /></td>
+				<td><s:property value="produccion" /></td>
+				<td><s:url id="editURL" action="editFabrica">
+					<s:param name="id" value="%{id}"></s:param>
+				</s:url> <s:a href="%{editURL}">Editar</s:a></td>
+				<td><s:url id="deleteURL" action="deleteFabrica">
+					<s:param name="id" value="%{id}"></s:param>
+				</s:url> <s:a href="%{deleteURL}">Eliminar</s:a></td>
+			</tr>
+		</s:iterator>
+	</table>
+	</div>
+
 </body>
 </html>

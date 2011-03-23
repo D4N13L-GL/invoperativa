@@ -1,68 +1,97 @@
 package operativa.action;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.struts2.ServletActionContext;
+
+import operativa.bean.entity.Fabrica;
 import operativa.model.dao.FabricaDAO;
 
-public class FabricasAbmAction {
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.ModelDriven;
+
+public class FabricasAbmAction extends ActionSupport implements ModelDriven<Fabrica>{
 	
-	private FabricaDAO fabricaDao = new FabricaDAO();
+	private static final long serialVersionUID = 1L;
+
+	private FabricaDAO fabricaDAO = new FabricaDAO();
+	private List<Fabrica> fabricaList;
+	private Fabrica fabrica = new Fabrica();
 	
-	private String localizacion;
-	private String produccion;
-	private String nombre;
+	/**
+	 * Crea o actualiza una fabrica
+	 * @return
+	 */
+	public String save()
+	{	
+		fabricaDAO.save(fabrica);
+		return SUCCESS;
+	}
 	
-	public String getLocalizacion() {
-		return localizacion;
+	/**
+	 * Crea o actualiza una fabrica
+	 * @return
+	 */
+	public String update()
+	{	
+		fabricaDAO.update(fabrica);
+		return SUCCESS;
 	}
-
-	public void setLocalizacion(String localizacion) {
-		this.localizacion = localizacion;
-	}
-
-	public String getProduccion() {
-		return produccion;
-	}
-
-	public void setProduccion(String produccion) {
-		this.produccion = produccion;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public String getLatitud() {
-		return latitud;
-	}
-
-	public void setLatitud(String latitud) {
-		this.latitud = latitud;
-	}
-
-	public String getLongitud() {
-		return longitud;
-	}
-
-	public void setLongitud(String longitud) {
-		this.longitud = longitud;
-	}
-
-	private String latitud;
-	private String longitud;
 	
-	public String crearFabrica(){
-		try{
-			fabricaDao.crearFabrica(localizacion, nombre, produccion, latitud, longitud);
-			return "exito";
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			return "error";
-		}
-		
+	/**
+	 * Lista todas las fabricas
+	 * @return
+	 */
+	public String list()
+	{
+		fabricaList = fabricaDAO.list();
+		return SUCCESS;
+	}
+	
+	/**
+	 * Borra una fabrica
+	 * @return
+	 */
+	public String delete()
+	{
+		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
+		fabricaDAO.delete(Integer.parseInt(request.getParameter("id")));
+		return SUCCESS;
+	}
+	
+	/**
+	 * Obtiene una unica fabrica segun un ID
+	 * @return
+	 */
+	public String edit()
+	{
+		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
+		fabrica = fabricaDAO.listById(Integer.parseInt(request.getParameter("id")));
+		return SUCCESS;
+	}
+	
+	public Fabrica getFabrica() {
+		return fabrica;
+	}
+
+	public void setFabrica(Fabrica fabrica) {
+		this.fabrica = fabrica;
+	}
+
+	public List<Fabrica> getFabricaList() {
+		return fabricaList;
+	}
+
+	public void setFabricaList(List<Fabrica> fabricaList) {
+		this.fabricaList = fabricaList;
+	}
+
+	@Override
+	public Fabrica getModel() {
+		return fabrica;
 	}
 	
 }
