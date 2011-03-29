@@ -47,6 +47,6 @@ public class LoginAction extends ActionSupport {
 	
 	public String register()
 	{
-		return "success";
+		return "register";
 	}
 }

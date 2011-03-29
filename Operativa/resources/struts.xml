@@ -19,11 +19,7 @@
 		<action name="login" class="operativa.action.LoginAction">
 			<result name="success">/WEB-INF/jsp/Welcome.jsp</result>
 			<result name="error">/WEB-INF/jsp/Login.jsp</result>
-		</action>
-		
-<!-- 		Nuevo Botón -->
-		<action name="register" class="operativa.action.LoginAction">
-			<result name="success">/WEB-INF/jsp/abm/usuariosModificacion.jsp</result>
+			<result name="register">/WEB-INF/jsp/abm/usuariosAbm.jsp</result>
 		</action>
 		
 		<!-- WELCOME PAGE -->

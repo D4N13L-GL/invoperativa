@@ -92,7 +92,7 @@ a:hover, a:active, a:focus { /* este grupo de selectores proporcionará a un usu
 <body>
 
 <div class="container">
-  <div class="header"> <jsp:include page="/WEB-INF/jsp/purecssmenu.jsp" /> </div>
+  <div class="header">  </div>
   <div class="content">
   	<br/><br/><br/>
 	<h5>Ingrese los datos del nuevo usuario:</h5>
