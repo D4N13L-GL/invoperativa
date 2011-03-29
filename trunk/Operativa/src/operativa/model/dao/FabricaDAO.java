@@ -10,6 +10,8 @@ import org.hibernate.Transaction;
 
 public class FabricaDAO{
 	
+	//TODO: Esto se puede mejorar... Habría que hacer un diseño antes de mandarse a codear!
+
 	private Session getSession(){
 		return HibernateUtil.getSessionFactory().getCurrentSession();
 	}

@@ -16,5 +16,12 @@
 	<s:password name="password" key="label.password" size="20" cssClass="p" />
 	<s:submit method="execute" key="label.login" align="center" />
 </s:form>
+
+<s:form action="login.action" method="post">
+	<s:submit method="register" key="Registrarse" align="center" />
+</s:form>
+
+
+
 </body>
 </html>

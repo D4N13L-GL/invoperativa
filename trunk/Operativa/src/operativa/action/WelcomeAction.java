@@ -13,4 +13,5 @@ public class WelcomeAction {
 	public String initAbmPuntosEntrega(){
 		return "abmPuntosEntrega";
 	}
+	
 }
