@@ -21,6 +21,11 @@
 			<result name="error">/WEB-INF/jsp/Login.jsp</result>
 		</action>
 		
+<!-- 		Nuevo Botón -->
+		<action name="register" class="operativa.action.LoginAction">
+			<result name="success">/WEB-INF/jsp/abm/usuariosModificacion.jsp</result>
+		</action>
+		
 		<!-- WELCOME PAGE -->
 		
 		<action name="abmFabricasWelcome" class="operativa.action.WelcomeAction" method="initAbmFabricas">
@@ -65,6 +70,25 @@
         
         <!-- FIN FABRICAS ABM -->
         
+        <!-- USUARIOS ABM -->
+		
+		<action name="saveUsuario" method="save" class="operativa.action.UsuariosAbmAction">
+           <result name="success" type="redirect-action">listUsuario</result>
+        </action>
+        <action name="updateUsuario" method="update" class="operativa.action.UsuariosAbmAction">
+           <result name="success" type="redirect-action">listUsuario</result>
+        </action>        
+        <action name="listUsuarios" method="list" class="operativa.action.UsuariosAbmAction">
+            <result name="success">/WEB-INF/jsp/abm/usuariosAbm.jsp</result>
+        </action>
+        <action name="editUsuario" method="edit" class="operativa.action.UsuariosAbmAction">
+            <result name="success">/WEB-INF/jsp/abm/usuariosModificacion.jsp</result>
+        </action>
+        <action name="deleteUsuario" method="delete" class="operativa.action.UsuariosAbmAction">
+            <result name="success" type="redirect-action">listUsuario</result>
+        </action>
+        
+        <!-- FIN USUARIOS ABM -->
        
 	</package>
 </struts>

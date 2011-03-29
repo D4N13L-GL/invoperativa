@@ -28,7 +28,7 @@ public class LoginAction extends ActionSupport {
 		}
 		return "error";
 	}
-
+	
 	public String getUsername() {
 		return username;
 	}
@@ -43,5 +43,10 @@ public class LoginAction extends ActionSupport {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public String register()
+	{
+		return "success";
 	}
 }
