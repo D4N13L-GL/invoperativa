@@ -10,103 +10,64 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
-import operativa.bean.entity.Fabrica;
 import operativa.bean.entity.Usuario;
-import operativa.model.dao.FabricaDAO;
-import operativa.model.dao.UsuarioDAO;
+import operativa.model.dao.UserDAO;
 
 public class UsuariosAbmAction extends ActionSupport implements ModelDriven<Usuario>{
-	
-	private UsuarioDAO usuariosDao = new UsuarioDAO();
-	
-	private String username;
-	private String password;
-	
-	public String getUsername() {
-		return username;
-	}
-	
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	
-	public String getPassword() {
-		return password;
-	}
-	
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
-	public String crearUsuario(){
-		try{
-			Usuario u = new Usuario();
-			u.setUsername(username);
-			u.setPassword(password);
-			usuariosDao.crearUsuario(u);
-			return "exito";
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			return "error";
-		}
-	}
 
-	//Cambios que hice...
 	
-	private UsuarioDAO usuarioDAO = new UsuarioDAO();
+	private UserDAO userDAO = new UserDAO();
 	private List<Usuario> usersList;
 	private Usuario user = new Usuario();
 	
 	/**
-	 * Crea o actualiza una fabrica
+	 * Crea o actualiza una Usuario
 	 * @return
 	 */
 	public String save()
 	{	
-		usuarioDAO.crearUsuario(user);
+		userDAO.makePersistent(this.getUser());
 		return SUCCESS;
 	}
 	
 	/**
-	 * Crea o actualiza una fabrica
+	 * Crea o actualiza un usuario
 	 * @return
 	 */
 	public String update()
 	{	
-		usuarioDAO.update(user);
+		userDAO.persistUpdate(this.getUser());
 		return SUCCESS;
 	}
 	
 	/**
-	 * Lista todas las fabricas
+	 * Lista todas los usuarios
 	 * @return
 	 */
 	public String list()
 	{
-		usersList = usuarioDAO.list();
+		this.usersList = this.userDAO.findAll();
 		return SUCCESS;
 	}
 	
 	/**
-	 * Borra una fabrica
+	 * Borra un usuario
 	 * @return
 	 */
 	public String delete()
 	{
-		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
-		usuarioDAO.delete(Integer.parseInt(request.getParameter("id")));
+		this.userDAO.makeTransient(this.getUser().getId());
 		return SUCCESS;
 	}
 	
 	/**
-	 * Obtiene una unica fabrica segun un ID
+	 * Obtiene un unico usuario segun un ID
 	 * @return
 	 */
 	public String edit()
 	{
 		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
-		user = usuarioDAO.listById(Integer.parseInt(request.getParameter("id")));
+		user = userDAO.findById((Integer.parseInt(request.getParameter("id"))), false);
 		return SUCCESS;
 	}
 	

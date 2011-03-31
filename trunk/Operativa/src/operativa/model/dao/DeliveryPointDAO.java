@@ -1,11 +1,11 @@
 package operativa.model.dao;
 
-import operativa.bean.entity.PuntoEntrega;
+import operativa.bean.entity.PuntoDestino;
 
-public class DeliveryPointDAO extends GenericHibernateDAO<PuntoEntrega, Long> {
+public class DeliveryPointDAO extends GenericHibernateDAO<PuntoDestino, Integer> {
 
 	@Override
-	public void makeTransient(Long id) {
+	public void makeTransient(Integer id) {
 		// TODO Auto-generated method stub
 		
 	}

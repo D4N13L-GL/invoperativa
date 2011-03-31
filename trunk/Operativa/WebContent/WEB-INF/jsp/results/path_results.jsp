@@ -44,26 +44,29 @@ body {
 </style>
 </head>
 <body>
-<div id="header"></div>
-<div id="page">
-  <div id="topbar"> </div>
-<div id="left_container">
-    	<div id="left_top_container">
-        </div>
-        <div id="left_bottom_container">
-        </div>
-    </div>
+	<s:form action="" method="post">
+		<div id="header"></div>
+		<div id="page">
+  			<div id="topbar"> </div>
+				<div id="left_container">
+    				<div id="left_top_container">
+        			</div>
+        			<div id="left_bottom_container">
+        			</div>
+    			</div>
     
-    <div id="right_container">
-    	<div id="right_top_container">
-        	<div id="map_canvas"></div>
-        </div>
-        <div id="right_bottom_container"> 
-       	  <div id="results_table"></div>
-        </div>    	
-    </div>
+    			<div id="right_container">
+    				<div id="right_top_container">
+        				<div id="map_canvas">
+                    	</div>
+        			</div>
+        			<div id="right_bottom_container"> 
+       	  				<div id="results_table"></div>
+        			</div>    	
+    			</div>
 	
-</div>  
+		</div>
+	</s:form>  
 
 </body>
 </html>
