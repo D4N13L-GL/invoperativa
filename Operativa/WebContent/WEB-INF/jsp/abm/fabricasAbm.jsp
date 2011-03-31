@@ -97,8 +97,8 @@ table.imagetable td {
 					latitud = results[0].geometry.location.lat();
 					longitud = results[0].geometry.location.lng();
 					
-					document.getElementById('saveFabrica_latitud').value = (latitud+'').replace('.',',');
-					document.getElementById('saveFabrica_longitud').value = (longitud+'').replace('.', ',');
+					document.getElementById('saveFabrica_latitud').value = (latitud+'');
+					document.getElementById('saveFabrica_longitud').value = (longitud+'');
 					document.getElementById('saveFabrica_localizacion').value = direccion;
 
 				}
@@ -164,7 +164,7 @@ table.imagetable td {
                         
 		<s:form action="saveFabrica.action">
 		<s:hidden name="id" />
-		<s:textfield name="nombre" label="Nombre" />
+		<s:textfield name="nombre" label="Nombre"/>
 		<s:textfield name="localizacion" label="Dirección" size="70" />
 		<s:textfield name="latitud" label="Latitud" />
 		<s:textfield name="longitud" label="Longitud" />

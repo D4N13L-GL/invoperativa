@@ -1,25 +1,27 @@
 package operativa.action;
 
+
+import operativa.bean.entity.Factory;
+import operativa.model.dao.FactoryDAO;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
 
-import operativa.bean.entity.Fabrica;
-import operativa.model.dao.FabricaDAO;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
-public class FabricasAbmAction extends ActionSupport implements ModelDriven<Fabrica>{
+public class FabricasAbmAction extends ActionSupport implements ModelDriven<Factory>{
 	
-	private static final long serialVersionUID = 1L;
 
-	private FabricaDAO fabricaDAO = new FabricaDAO();
-	private List<Fabrica> fabricaList;
-	private Fabrica fabrica = new Fabrica();
+	private FactoryDAO fabricaDao = new FactoryDAO();
+
+	private static final long serialVersionUID = 1L;
+	private List<Factory> fabricaList;
+	private Factory fabrica = new Factory();
 	
 	/**
 	 * Crea o actualiza una fabrica
@@ -27,7 +29,7 @@ public class FabricasAbmAction extends ActionSupport implements ModelDriven<Fabr
 	 */
 	public String save()
 	{	
-		fabricaDAO.save(fabrica);
+		this.fabricaDao.makePersistent(fabrica);
 		return SUCCESS;
 	}
 	
@@ -37,7 +39,7 @@ public class FabricasAbmAction extends ActionSupport implements ModelDriven<Fabr
 	 */
 	public String update()
 	{	
-		fabricaDAO.update(fabrica);
+		fabricaDao.persistUpdate(fabrica);
 		return SUCCESS;
 	}
 	
@@ -47,7 +49,7 @@ public class FabricasAbmAction extends ActionSupport implements ModelDriven<Fabr
 	 */
 	public String list()
 	{
-		fabricaList = fabricaDAO.list();
+		fabricaList = fabricaDao.findAll();
 		return SUCCESS;
 	}
 	
@@ -58,7 +60,9 @@ public class FabricasAbmAction extends ActionSupport implements ModelDriven<Fabr
 	public String delete()
 	{
 		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
-		fabricaDAO.delete(Integer.parseInt(request.getParameter("id")));
+		Factory toDelete = new Factory();
+		toDelete.setId(Integer.parseInt(request.getParameter("id")));
+		fabricaDao.makeTransient(toDelete);
 		return SUCCESS;
 	}
 	
@@ -69,29 +73,28 @@ public class FabricasAbmAction extends ActionSupport implements ModelDriven<Fabr
 	public String edit()
 	{
 		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
-		fabrica = fabricaDAO.listById(Integer.parseInt(request.getParameter("id")));
+		fabrica = fabricaDao.findById(Integer.parseInt((request.getParameter("id"))),false);
 		return SUCCESS;
 	}
 	
-	public Fabrica getFabrica() {
+	public Factory getFabrica() {
 		return fabrica;
 	}
 
-	public void setFabrica(Fabrica fabrica) {
+	public void setFabrica(Factory fabrica) {
 		this.fabrica = fabrica;
 	}
 
-	public List<Fabrica> getFabricaList() {
+	public List<Factory> getFabricaList() {
 		return fabricaList;
 	}
 
-	public void setFabricaList(List<Fabrica> fabricaList) {
+	public void setFabricaList(List<Factory > fabricaList) {
 		this.fabricaList = fabricaList;
 	}
 
 	@Override
-	public Fabrica getModel() {
+	public Factory  getModel() {
 		return fabrica;
 	}
-	
 }

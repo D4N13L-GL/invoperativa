@@ -1,7 +1,7 @@
 package operativa.action;
 
 import operativa.bean.entity.Usuario;
-import operativa.model.dao.UsuarioDAO;
+import operativa.model.dao.UserDAO;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -14,8 +14,9 @@ public class LoginAction extends ActionSupport {
 	public String execute() {
 
 		try {
-			UsuarioDAO dao = new UsuarioDAO();
-			Usuario u = dao.getUser(username, password);
+			UserDAO dao = new UserDAO();
+			
+			Usuario u = dao.findUser(username, password);
 			if (u != null) {
 				return "success";
 			} else {
