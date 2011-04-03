@@ -168,7 +168,7 @@ table.imagetable td {
 		<s:textfield name="localizacion" label="Dirección" size="70" />
 		<s:textfield name="latitud" label="Latitud" />
 		<s:textfield name="longitud" label="Longitud" />
-		<s:textfield name="produccion" label="Producción" />
+		<s:textfield name="demanda" label="Demanda" />
 		<input type="button" value="Localizar" onclick="codeAddress()">
 		<s:submit value="Guardar" />
 		</s:form>
@@ -191,7 +191,7 @@ table.imagetable td {
 			<th>Localizaci&oacute;n</th>
 			<th>Latitud</th>
 			<th>Longitud</th>
-			<th>Producci&oacute;n</th>
+			<th>Demanda</th>
 			<th></th>
 			<th></th>
 		</tr>
@@ -201,7 +201,7 @@ table.imagetable td {
 				<td><s:property value="localizacion" /></td>
 				<td><s:property value="latitud" /></td>
 				<td><s:property value="longitud" /></td>
-				<td><s:property value="produccion" /></td>
+				<td><s:property value="demanda" /></td>
 				<td><s:url id="editURL" action="editPuntoDestino">
 					<s:param name="id" value="%{id}"></s:param>
 				</s:url> <s:a href="%{editURL}">Editar</s:a></td>

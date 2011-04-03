@@ -15,7 +15,7 @@
 		<s:textfield name="localizacion" label="Dirección" value="%{puntoDestino.localizacion}" size="70"/>
 		<s:textfield name="latitud" label="Latitud" value="%{puntoDestino.latitud}" />
 		<s:textfield name="longitud" label="Longitud" value="%{puntoDestino.longitud}"/>
-		<s:textfield name="produccion" label="Producción" value="%{puntoDestino.produccion}" />
+		<s:textfield name="demanda" label="Demanda" value="%{puntoDestino.demanda}" />
 		<s:submit />
 	
 	</s:form>
