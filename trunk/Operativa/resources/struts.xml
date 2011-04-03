@@ -44,7 +44,25 @@
 			<result name="error">/WEB-INF/jsp/abm/usuariosAbm.jsp</result>
 		</action>
 		
+		<!-- PUNTO DESTINO ABM -->
 		
+		<action name="savePuntoDestino" method="save" class="operativa.action.PuntosDestinoAbmAction">
+           <result name="success" type="redirect-action">listPuntoDestino</result>
+        </action>
+        <action name="updatePuntoDestino" method="update" class="operativa.action.PuntosDestinoAbmAction">
+           <result name="success" type="redirect-action">listPuntoDestino</result>
+        </action>        
+        <action name="listPuntoDestino" method="list" class="operativa.action.PuntosDestinoAbmAction">
+            <result name="success">/WEB-INF/jsp/abm/puntosDestinoAbm.jsp</result>
+        </action>
+        <action name="editPuntoDestino" method="edit" class="operativa.action.PuntosDestinoAbmAction">
+            <result name="success">/WEB-INF/jsp/abm/puntosDestinoModificacion.jsp</result>
+        </action>
+        <action name="deletePuntoDestino" method="delete" class="operativa.action.PuntosDestinoAbmAction">
+            <result name="success" type="redirect-action">listPuntoDestino</result>
+        </action>
+        
+        <!-- FIN PUNTO DESTINO ABM -->
 		
 		<!-- FABRICAS ABM -->
 		
