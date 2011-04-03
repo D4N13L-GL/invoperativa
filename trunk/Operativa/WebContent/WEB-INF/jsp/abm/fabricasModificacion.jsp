@@ -11,12 +11,18 @@
 <body>
 	<s:form action="updateFabrica.action">
 		<s:hidden name="id" />
-		<s:textfield name="nombre" label="Nombre de la Fábrica" value="%{fabrica.nombre}" />
-		<s:textfield name="localizacion" label="Dirección" value="%{fabrica.localizacion}" size="70"/>
-		<s:textfield name="latitud" label="Latitud" value="%{fabrica.latitud}" />
-		<s:textfield name="longitud" label="Longitud" value="%{fabrica.longitud}"/>
-		<s:textfield name="produccion" label="Producción" value="%{fabrica.produccion}" />
-		<s:submit />
+		<s:hidden name="id" />
+		<s:textfield name="nombre" label="Nombre"/>
+		<s:textfield name="latitud" label="Latitud" />
+		<s:textfield name="longitud" label="Longitud" />
+		<s:textfield name="produccion" label="Producción" />
+		<table>
+			<tr>
+				<td><s:textfield name="localizacion" label="Dirección" size="70" /></td>
+				<td><input type="button" value="Localizar" onclick="codeAddress()"></td>
+			</tr>
+		</table>
+		<s:submit value="Guardar" />
 	
 	</s:form>
 </body>

@@ -165,11 +165,15 @@ table.imagetable td {
 		<s:form action="saveFabrica.action">
 		<s:hidden name="id" />
 		<s:textfield name="nombre" label="Nombre"/>
-		<s:textfield name="localizacion" label="Dirección" size="70" />
 		<s:textfield name="latitud" label="Latitud" />
 		<s:textfield name="longitud" label="Longitud" />
 		<s:textfield name="produccion" label="Producción" />
-		<input type="button" value="Localizar" onclick="codeAddress()">
+		<table>
+			<tr>
+				<td><s:textfield name="localizacion" label="Dirección" size="70" /></td>
+				<td><input type="button" value="Localizar" onclick="codeAddress()"></td>
+			</tr>
+		</table>
 		<s:submit value="Guardar" />
 		</s:form>
     </div>
