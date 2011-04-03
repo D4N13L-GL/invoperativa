@@ -73,14 +73,12 @@ implements GenericDAO<T, ID> {
 		Transaction tx =  this.session.getTransaction();
 		tx.begin();
 		getSession().save(entity);
-		tx.commit();
 		return entity;
 	}
 	
 	public T persistUpdate(T entity){
 		Transaction tx = this.session.beginTransaction();
 		getSession().update(entity);
-		tx.commit();
 		return entity;
 	}
 
@@ -88,7 +86,6 @@ implements GenericDAO<T, ID> {
 		Transaction tx =  this.session.getTransaction();
 		tx.begin();
 		getSession().delete(entity);
-		tx.commit();
 	}
 	
 	public abstract void makeTransient(ID id);
@@ -116,5 +113,9 @@ implements GenericDAO<T, ID> {
 			crit.add(c);
 		}
 		return crit.list();
+	}
+	
+	public void commit(){
+		session.getTransaction().commit();
 	}
 }

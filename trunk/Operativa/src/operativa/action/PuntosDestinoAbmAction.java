@@ -5,8 +5,13 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import operativa.bean.entity.Costo;
+import operativa.bean.entity.Factory;
 import operativa.bean.entity.PuntoDestino;
+import operativa.model.dao.CostoDAO;
 import operativa.model.dao.DeliveryPointDAO;
+import operativa.model.dao.FactoryDAO;
+import operativa.utils.DistanceUtils;
 
 import org.apache.struts2.ServletActionContext;
 
@@ -17,7 +22,9 @@ import com.opensymphony.xwork2.ModelDriven;
 public class PuntosDestinoAbmAction extends ActionSupport implements ModelDriven<PuntoDestino>{
 	
 
+	private FactoryDAO fabricaDao = new FactoryDAO();
 	private DeliveryPointDAO deliveryPointDao = new DeliveryPointDAO();
+	private CostoDAO costoDao = new CostoDAO();
 
 	private static final long serialVersionUID = 1L;
 	private List<PuntoDestino> puntoDestinoList;
@@ -30,7 +37,26 @@ public class PuntosDestinoAbmAction extends ActionSupport implements ModelDriven
 	public String save()
 	{	
 		this.deliveryPointDao.makePersistent(puntoDestino);
+		calcularCostos();
+		deliveryPointDao.commit();
 		return SUCCESS;
+	}
+	
+	/**
+	 * Calcula los costos (distancias) entre la fabrica y todos los puntos de destino
+	 * para crear registros nuevos en la tabla COSTO
+	 */
+	private void calcularCostos() {
+		List<Factory> fabricas = fabricaDao.findAll();
+		for (Factory fabrica : fabricas) {
+			Float costo = DistanceUtils.getInstance().getDistance(fabrica.getLatitud(), fabrica.getLongitud(), 
+										puntoDestino.getLatitud(), puntoDestino.getLongitud());
+			Costo nuevo = new Costo();
+			nuevo.setFabrica(fabrica.getId());
+			nuevo.setDestino(puntoDestino.getId());
+			nuevo.setCosto(costo);
+			costoDao.makePersistent(nuevo);
+		}
 	}
 	
 	/**
