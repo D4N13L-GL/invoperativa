@@ -28,8 +28,8 @@
 			<result name="abmFabricas" type="redirect-action">listFabrica</result>			
 		</action>
 		
-		<action name="abmPuntosEntregaWelcome" class="operativa.action.WelcomeAction" method="initAbmPuntosEntrega">
-			<result name="abmPuntosEntrega" type="redirect-action">listPuntosEntrega</result>
+		<action name="abmPuntosDestinoWelcome" class="operativa.action.WelcomeAction" method="initAbmPuntosEntrega">
+			<result name="abmPuntosEntrega" type="redirect-action">listPuntoDestino</result>
 		</action>
 		
 		<action name="abmUsuariosWelcome" class="operativa.action.WelcomeAction" method="initAbmUsuarios">

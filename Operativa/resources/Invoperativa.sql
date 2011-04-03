@@ -17,7 +17,7 @@ UserName VARCHAR(30) NOT NULL,
 Password VARCHAR(30) NOT NULL,
 PRIMARY KEY(Id)) ENGINE=INNODB;
 
-create table Punto_Entrega(
+create table Punto_Destino(
 Id INT NOT NULL AUTO_INCREMENT,
 Nombre VARCHAR(50) NOT NULL,
 Localizacion VARCHAR(255),
@@ -29,10 +29,10 @@ PRIMARY KEY(Id)) ENGINE=INNODB;
 create table Costo(
 Id INT NOT NULL AUTO_INCREMENT,
 Fabrica_Id INT NOT NULL,
-Punto_Entrega_Id INT NOT NULL,
+Punto_Destino_Id INT NOT NULL,
 Costo float(10,5) NOT NULL,
 PRIMARY KEY (Id)
 ) ENGINE=INNODB;
 
 alter table costo add constraint foreign key (fabrica_id) references fabrica(id);
-alter table costo add constraint foreign key (punto_entrega_id) references punto_entrega(id);
+alter table costo add constraint foreign key (Punto_Destino_id) references punto_destino(id);
