@@ -10,7 +10,7 @@
 	<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 	<property name="connection.url">jdbc:mysql://localhost:3306/invoperativa</property>
 	<property name="connection.username">root</property>
-	<property name="connection.password"></property>
+	<property name="connection.password">admin</property>
 	
 	<!-- JDBC connection pool (use the built-in) -->
 	<property name="connection.pool_size">1</property>
@@ -32,8 +32,9 @@
 	
 
 	<mapping class="operativa.bean.entity.Usuario"/>
-	<mapping class="operativa.bean.entity.Fabrica"/>
-	<mapping class="operativa.bean.entity.PuntoEntrega"/>
+	<mapping class="operativa.bean.entity.Factory"/>
+	<mapping class="operativa.bean.entity.PuntoDestino"/>
+	<mapping class="operativa.bean.entity.Costo"/>
 
 </session-factory>
 

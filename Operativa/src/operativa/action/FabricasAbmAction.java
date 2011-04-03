@@ -1,14 +1,19 @@
 package operativa.action;
 
 
-import operativa.bean.entity.Factory;
-import operativa.model.dao.FactoryDAO;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.struts2.ServletActionContext;
+import operativa.bean.entity.Costo;
+import operativa.bean.entity.Factory;
+import operativa.bean.entity.PuntoDestino;
+import operativa.model.dao.CostoDAO;
+import operativa.model.dao.DeliveryPointDAO;
+import operativa.model.dao.FactoryDAO;
+import operativa.utils.DistanceUtils;
 
+import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -18,23 +23,45 @@ public class FabricasAbmAction extends ActionSupport implements ModelDriven<Fact
 	
 
 	private FactoryDAO fabricaDao = new FactoryDAO();
+	private DeliveryPointDAO puntoDesinoDao = new DeliveryPointDAO();
+	private CostoDAO costoDao = new CostoDAO();
 
 	private static final long serialVersionUID = 1L;
 	private List<Factory> fabricaList;
 	private Factory fabrica = new Factory();
 	
 	/**
-	 * Crea o actualiza una fabrica
+	 * Crea una fabrica y calcula los costos a todos los puntos de destino
+	 * insertandolos en la tabla COSTO
 	 * @return
 	 */
 	public String save()
 	{	
 		this.fabricaDao.makePersistent(fabrica);
+		calcularCostos();
+		fabricaDao.commit();
 		return SUCCESS;
 	}
 	
 	/**
-	 * Crea o actualiza una fabrica
+	 * Calcula los costos (distancias) entre la fabrica y todos los puntos de destino
+	 * para crear registros nuevos en la tabla COSTO
+	 */
+	private void calcularCostos() {
+		List<PuntoDestino> destinos = puntoDesinoDao.findAll();
+		for (PuntoDestino puntoDestino : destinos) {
+			Float costo = DistanceUtils.getInstance().getDistance(fabrica.getLatitud(), fabrica.getLongitud(), 
+										puntoDestino.getLatitud(), puntoDestino.getLongitud());
+			Costo nuevo = new Costo();
+			nuevo.setFabrica(fabrica.getId());
+			nuevo.setDestino(puntoDestino.getId());
+			nuevo.setCosto(costo);
+			costoDao.makePersistent(nuevo);
+		}
+	}
+
+	/**
+	 * Actualiza una fabrica
 	 * @return
 	 */
 	public String update()
