@@ -11,12 +11,17 @@
 <body>
 	<s:form action="updatePuntoDestino.action">
 		<s:hidden name="id" />
-		<s:textfield name="nombre" label="Nombre de la Fábrica" value="%{puntoDestino.nombre}" />
-		<s:textfield name="localizacion" label="Dirección" value="%{puntoDestino.localizacion}" size="70"/>
-		<s:textfield name="latitud" label="Latitud" value="%{puntoDestino.latitud}" />
-		<s:textfield name="longitud" label="Longitud" value="%{puntoDestino.longitud}"/>
-		<s:textfield name="demanda" label="Demanda" value="%{puntoDestino.demanda}" />
-		<s:submit />
+		<s:textfield name="nombre" label="Nombre"/>
+		<s:textfield name="latitud" label="Latitud" />
+		<s:textfield name="longitud" label="Longitud" />
+		<s:textfield name="demanda" label="Demanda" />
+		<table>
+			<tr>
+				<td><s:textfield name="localizacion" label="Dirección" size="70" /></td>
+				<td><input type="button" value="Localizar" onclick="codeAddress()"></td>
+			</tr>
+		</table>
+		<s:submit value="Guardar" />
 	
 	</s:form>
 </body>
