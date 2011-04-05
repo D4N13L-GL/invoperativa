@@ -2,7 +2,6 @@ package operativa.model.dao;
 
 import java.util.List;
 
-import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
 import operativa.bean.entity.Usuario;
