@@ -1,6 +1,7 @@
 package operativa.action;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +30,8 @@ public class FabricasAbmAction extends ActionSupport implements ModelDriven<Fact
 	private static final long serialVersionUID = 1L;
 	private List<Factory> fabricaList;
 	private Factory fabrica = new Factory();
+	
+	private List<PuntoDestino> destinoList = new ArrayList<PuntoDestino>();
 	
 	/**
 	 * Crea una fabrica y calcula los costos a todos los puntos de destino
@@ -77,6 +80,7 @@ public class FabricasAbmAction extends ActionSupport implements ModelDriven<Fact
 	public String list()
 	{
 		fabricaList = fabricaDao.findAll();
+		destinoList = puntoDesinoDao.findAll();
 		return SUCCESS;
 	}
 	
@@ -123,5 +127,13 @@ public class FabricasAbmAction extends ActionSupport implements ModelDriven<Fact
 	@Override
 	public Factory  getModel() {
 		return fabrica;
+	}
+
+	public List<PuntoDestino> getDestinoList() {
+		return destinoList;
+	}
+
+	public void setDestinoList(List<PuntoDestino> destinoList) {
+		this.destinoList = destinoList;
 	}
 }

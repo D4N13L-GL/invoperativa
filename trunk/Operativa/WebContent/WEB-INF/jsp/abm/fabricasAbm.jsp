@@ -37,7 +37,7 @@ table.imagetable td {
 </head>
 
 <script type="text/javascript"
-   src="http://maps.google.com/maps/api/js?sensor=false">
+   src="http://maps.google.com/maps/api/js?libraries=geometry&sensor=false">
 </script>
 
 <script type="text/javascript">
@@ -145,7 +145,41 @@ table.imagetable td {
               });
             }
           }
+        var directionsService = new google.maps.DirectionsService();
+
+		function getDistance(origen, destino){
+			 alert(origen + ";" + destino);
+		     var request = {
+			    origin:origen, 
+			    destination:destino,
+			    travelMode: google.maps.DirectionsTravelMode.DRIVING
+			  };
+			  directionsService.route(request, function(result, status) {
+			    if (status == google.maps.DirectionsStatus.OK) {
+				    var totalDist = 0;
+				    var legs = result.routes[0].legs;
+			      	for (var i = 0; i < legs.length; i++)
+				      	totalDist += legs[i].distance.value;
+			      	alert('Distancia total: ' + totalDist);
+			    }
+			    else 
+				    alert(status);
+			  });
+						 
+		}
         
+        function calculateDistance(){
+			div = document.getElementById('destinos');
+			destinos = div.getElementsByTagName('input');
+			alert(destinos.length);
+			for (var i = 0; i < destinos.length; i++){
+				origen = destinos[i].value;
+				destinos[i].value = getDistance(origen, document.getElementById('saveFabrica_localizacion').value);
+			}
+				
+			
+        }
+		
               
 
 </script>
@@ -174,7 +208,8 @@ table.imagetable td {
 				<td><input type="button" value="Localizar" onclick="codeAddress()"></td>
 			</tr>
 		</table>
-		<s:submit value="Guardar" />
+		<s:submit value="Guardar" onclick="calculateDistance();"/>
+		<input type="button" onclick="calculateDistance()" value="ASD" />
 		</s:form>
     </div>
 	
@@ -215,6 +250,11 @@ table.imagetable td {
 			</tr>
 		</s:iterator>
 	</table>
+	</div>
+	<div id="destinos">
+		<s:iterator value="destinoList" status="destinoStatus">
+			<input type="hidden" id='desino_<s:property value="id" />' value='<s:property value="localizacion" />' />
+		</s:iterator>
 	</div>
 
 </body>
