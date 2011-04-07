@@ -7,14 +7,11 @@ import java.util.List;
 import operativa.utils.HibernateUtil;
 
 import org.hibernate.Criteria;
-import org.hibernate.Hibernate;
 import org.hibernate.LockMode;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Example;
-
-import com.opensymphony.module.sitemesh.Factory;
 
 public abstract class GenericHibernateDAO<T, ID extends Serializable>
 implements GenericDAO<T, ID> {
@@ -22,6 +19,7 @@ implements GenericDAO<T, ID> {
 	private Class<T> persistentClass;
 	protected Session session;
 
+	@SuppressWarnings("unchecked")
 	public GenericHibernateDAO() {
 		this.persistentClass = (Class<T>) ((ParameterizedType) getClass()
                         .getGenericSuperclass()).getActualTypeArguments()[0];
@@ -42,9 +40,9 @@ implements GenericDAO<T, ID> {
 		return persistentClass;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	public T findById(ID id, boolean lock) {	
-		Transaction tx = this.session.beginTransaction();
+		this.session.beginTransaction();
 		T entity;
 		if (lock)
 			entity = (T) getSession().load(getPersistentClass(), id, LockMode.UPGRADE);
@@ -59,7 +57,7 @@ implements GenericDAO<T, ID> {
 
 	@SuppressWarnings("unchecked")
 	public List<T> findByExample(T exampleInstance, String[] excludeProperty) {
-		Transaction tx = this.session.beginTransaction();
+		this.session.beginTransaction();
 		Criteria crit = getSession().createCriteria(getPersistentClass());
 		Example example =  Example.create(exampleInstance);
 		for (String exclude : excludeProperty) {
@@ -77,7 +75,7 @@ implements GenericDAO<T, ID> {
 	}
 	
 	public T persistUpdate(T entity){
-		Transaction tx = this.session.beginTransaction();
+		this.session.beginTransaction();
 		getSession().update(entity);
 		return entity;
 	}
@@ -107,7 +105,7 @@ implements GenericDAO<T, ID> {
 	 */
 	@SuppressWarnings("unchecked")
 	protected List<T> findByCriteria(Criterion... criterion) {
-		Transaction tx = this.session.beginTransaction();
+		this.session.beginTransaction();
 		Criteria crit = getSession().createCriteria(getPersistentClass());
 		for (Criterion c : criterion) {
 			crit.add(c);
