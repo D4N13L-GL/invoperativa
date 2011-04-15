@@ -1,0 +1,42 @@
+@CHARSET "ISO-8859-1";
+table.imagetable { 
+font-family: verdana,arial,sans-serif; 
+font-size:8px; 
+color:#333333; 
+border-width: 1px; 
+border-color: #999999; 
+border-collapse: collapse; 
+width: 50%; } 
+
+table.imagetable th { 
+background:#b5cfd2; 
+border-width: 1px; 
+padding: 8px; 
+border-style: solid; 
+border-color: #999999; } 
+
+table.imagetable td { 
+background:#dcddc0; 
+border-width: 1px; 
+padding: 8px}
+
+#buttonBar {
+border-width: 0px 1px 1px;
+border-style: solid;
+border-color: black;
+color: white;
+margin-bottom: 12px;
+background-color: #7a7;
+height: 1.6em;
+padding: 5px;
+}
+input.btn { 
+color:#050; 
+font: bold small 'trebuchet ms',helvetica,sans-serif; 
+} 
+
+.buttonRegister {
+	color:#010;
+	font: bold small 'trebuchet ms',helvetica,sans-serif; 
+	} 
+}
