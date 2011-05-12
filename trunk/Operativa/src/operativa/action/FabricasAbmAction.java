@@ -56,8 +56,8 @@ public class FabricasAbmAction extends ActionSupport implements ModelDriven<Fact
 			Float costo = DistanceUtils.getInstance().getDistance(fabrica.getLatitud(), fabrica.getLongitud(), 
 										puntoDestino.getLatitud(), puntoDestino.getLongitud());
 			Costo nuevo = new Costo();
-			nuevo.setFabrica(fabrica.getId());
-			nuevo.setDestino(puntoDestino.getId());
+			nuevo.setFabrica(fabrica);
+			nuevo.setDestino(puntoDestino);
 			nuevo.setCosto(costo);
 			costoDao.makePersistent(nuevo);
 		}
