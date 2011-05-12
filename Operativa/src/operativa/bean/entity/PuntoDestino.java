@@ -35,6 +35,12 @@ public class PuntoDestino {
 	@Basic
 	@Column(name="longitud")
 	private Float longitud;
+	
+//	@OneToMany (cascade = {CascadeType.ALL},
+//			fetch = FetchType.EAGER)
+//	@JoinColumn (name = "punto_destino_id")
+//	@Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
+//	private List<Costo> costos = new ArrayList<Costo>();
 
 	public Float getLatitud() {
 		return latitud;
@@ -83,4 +89,12 @@ public class PuntoDestino {
 	public void setDemanda(Integer demanda) {
 		this.demanda = demanda;
 	}
+
+//	public List<Costo> getCostos() {
+//		return costos;
+//	}
+//
+//	public void setCostos(ArrayList<Costo> costos) {
+//		this.costos = costos;
+//	}
 }

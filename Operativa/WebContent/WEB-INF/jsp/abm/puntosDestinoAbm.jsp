@@ -145,7 +145,37 @@ table.imagetable td {
               });
             }
           }
+        var directionsService = new google.maps.DirectionsService();
+
+		function getDistance(origen, destino){
+		     var request = {
+			    origin:origen, 
+			    destination:destino,
+			    travelMode: google.maps.DirectionsTravelMode.DRIVING
+			  };
+			  directionsService.route(request, function(result, status) {
+			    if (status == google.maps.DirectionsStatus.OK) {
+				    var totalDist = 0;
+				    var legs = result.routes[0].legs;
+			      	for (var i = 0; i < legs.length; i++)
+				      	totalDist += legs[i].distance.value;
+			    }
+			    else 
+				    alert(status);
+			  });
+						 
+		}
         
+        function calculateDistance(){
+			div = document.getElementById('destinos');
+			destinos = div.getElementsByTagName('input');
+			for (var i = 0; i < destinos.length; i++){
+				origen = destinos[i].value;
+				destinos[i].value = getDistance(origen, document.getElementById('saveFabrica_localizacion').value);
+			}
+				
+			
+        }
               
 
 </script>
@@ -174,7 +204,7 @@ table.imagetable td {
 				<td><input type="button" value="Localizar" onclick="codeAddress()"></td>
 			</tr>
 		</table>
-		<s:submit value="Guardar" />
+		<s:submit value="Guardar" onclick="calculateDistance()"/>
 		</s:form>
     </div>
 	
@@ -215,6 +245,11 @@ table.imagetable td {
 			</tr>
 		</s:iterator>
 	</table>
+	</div>
+	<div id="fabricas">
+		<s:iterator value="fabricaList" status="fabricaStatus">
+			<input type="hidden" id='fabrica_<s:property value="id" />' value='<s:property value="localizacion" />' />
+		</s:iterator>
 	</div>
 
 </body>

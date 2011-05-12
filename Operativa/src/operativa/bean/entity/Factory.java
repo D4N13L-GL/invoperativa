@@ -36,7 +36,13 @@ public class Factory {
 	@Basic
 	@Column(name="longitud")
 	private Float longitud;
-
+	
+//	@OneToMany (cascade = {CascadeType.ALL},
+//			fetch = FetchType.EAGER)
+//	@JoinColumn (name = "fabrica_id")
+//	@Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
+//	private List<Costo> costos = new ArrayList<Costo>();
+	
 	public Float getLatitud() {
 		return latitud;
 	}
@@ -84,5 +90,13 @@ public class Factory {
 	public void setProduccion(Integer produccion) {
 		this.produccion = produccion;
 	}
+
+//	public List<Costo> getCostos() {
+//		return costos;
+//	}
+//
+//	public void setCostos(ArrayList<Costo> costos) {
+//		this.costos = costos;
+//	}
 
 }

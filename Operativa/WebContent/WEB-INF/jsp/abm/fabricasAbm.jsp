@@ -148,7 +148,6 @@ table.imagetable td {
         var directionsService = new google.maps.DirectionsService();
 
 		function getDistance(origen, destino){
-			 alert(origen + ";" + destino);
 		     var request = {
 			    origin:origen, 
 			    destination:destino,
@@ -160,7 +159,6 @@ table.imagetable td {
 				    var legs = result.routes[0].legs;
 			      	for (var i = 0; i < legs.length; i++)
 				      	totalDist += legs[i].distance.value;
-			      	alert('Distancia total: ' + totalDist);
 			    }
 			    else 
 				    alert(status);
@@ -171,7 +169,6 @@ table.imagetable td {
         function calculateDistance(){
 			div = document.getElementById('destinos');
 			destinos = div.getElementsByTagName('input');
-			alert(destinos.length);
 			for (var i = 0; i < destinos.length; i++){
 				origen = destinos[i].value;
 				destinos[i].value = getDistance(origen, document.getElementById('saveFabrica_localizacion').value);
@@ -253,7 +250,7 @@ table.imagetable td {
 	</div>
 	<div id="destinos">
 		<s:iterator value="destinoList" status="destinoStatus">
-			<input type="hidden" id='desino_<s:property value="id" />' value='<s:property value="localizacion" />' />
+			<input type="hidden" id='destino_<s:property value="id" />' value='<s:property value="localizacion" />' />
 		</s:iterator>
 	</div>
 

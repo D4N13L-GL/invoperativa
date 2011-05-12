@@ -1,6 +1,7 @@
 package operativa.action;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +31,7 @@ public class PuntosDestinoAbmAction extends ActionSupport implements ModelDriven
 	private List<PuntoDestino> puntoDestinoList;
 	private PuntoDestino puntoDestino = new PuntoDestino();
 	
+	private List<Factory> fabricaList = new ArrayList<Factory>();
 	/**
 	 * Crea o actualiza un punto de destino
 	 * @return
@@ -52,8 +54,8 @@ public class PuntosDestinoAbmAction extends ActionSupport implements ModelDriven
 			Float costo = DistanceUtils.getInstance().getDistance(fabrica.getLatitud(), fabrica.getLongitud(), 
 										puntoDestino.getLatitud(), puntoDestino.getLongitud());
 			Costo nuevo = new Costo();
-			nuevo.setFabrica(fabrica.getId());
-			nuevo.setDestino(puntoDestino.getId());
+			nuevo.setFabrica(fabrica);
+			nuevo.setDestino(puntoDestino);
 			nuevo.setCosto(costo);
 			costoDao.makePersistent(nuevo);
 		}
@@ -76,6 +78,7 @@ public class PuntosDestinoAbmAction extends ActionSupport implements ModelDriven
 	public String list()
 	{
 		puntoDestinoList = deliveryPointDao.findAll();
+		fabricaList = fabricaDao.findAll();
 		return SUCCESS;
 	}
 	
@@ -122,5 +125,13 @@ public class PuntosDestinoAbmAction extends ActionSupport implements ModelDriven
 	@Override
 	public PuntoDestino  getModel() {
 		return puntoDestino;
+	}
+
+	public List<Factory> getFabricaList() {
+		return fabricaList;
+	}
+
+	public void setFabricaList(List<Factory> fabricaList) {
+		this.fabricaList = fabricaList;
 	}
 }

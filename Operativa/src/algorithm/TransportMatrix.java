@@ -99,8 +99,8 @@ public class TransportMatrix {
 		matrix = new TMCell[factories.size()][destinations.size()];
 		for (int i = 0; i < factories.size(); i++) {
 			for (int j = 0; j < destinations.size(); j++) {
-				Costo newCost = costDAO.findCost(factories.get(i),
-						destinations.get(j));
+				Costo newCost = costDAO.findCost(factories.get(i).getId(),
+						destinations.get(j).getId());
 				TMCell newCell = new TMCell();
 				newCell.setCost(newCost.getCosto());
 				matrix[i][j] = newCell;

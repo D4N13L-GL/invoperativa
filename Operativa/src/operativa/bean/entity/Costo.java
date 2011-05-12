@@ -1,10 +1,12 @@
 package operativa.bean.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -16,11 +18,13 @@ public class Costo {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 	
-    @Column(name="fabrica_id")
-    private Integer fabrica;
+	@ManyToOne (cascade = CascadeType.ALL)
+//	@JoinColumn (name="fabrica_id", updatable = false, insertable = false)
+    private Factory fabrica;
 	
-	@Column(name="punto_destino_id")
-    private Integer destino;
+	@ManyToOne (cascade = CascadeType.ALL)
+//	@JoinColumn (name="punto_destino_id", updatable = false, insertable = false)
+    private PuntoDestino punto_destino;
 	
 	@Column(name="costo")
 	private Float costo;
@@ -41,20 +45,20 @@ public class Costo {
 		this.costo = costo;
 	}
 
-	public Integer getFabrica() {
+	public Factory getFabrica() {
 		return fabrica;
 	}
 
-	public void setFabrica(Integer fabrica) {
+	public void setFabrica(Factory fabrica) {
 		this.fabrica = fabrica;
 	}
 
-	public Integer getDestino() {
-		return destino;
+	public PuntoDestino getDestino() {
+		return punto_destino;
 	}
 
-	public void setDestino(Integer destino) {
-		this.destino = destino;
+	public void setDestino(PuntoDestino destino) {
+		this.punto_destino = destino;
 	}
 
 }
