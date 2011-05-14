@@ -2,63 +2,73 @@ package operativa.action;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import operativa.bean.entity.Costo;
-import operativa.bean.entity.Factory;
-import operativa.bean.entity.PuntoDestino;
+import operativa.bean.entity.Ubicacion;
 import operativa.model.dao.CostoDAO;
-import operativa.model.dao.DeliveryPointDAO;
-import operativa.model.dao.FactoryDAO;
-import operativa.utils.DistanceUtils;
+import operativa.model.dao.UbicacionDAO;
+import operativa.model.dto.CostosDTO;
+import operativa.utils.Constantes.TipoUbicacion;
 
 import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+import com.opensymphony.xwork2.Preparable;
 
-public class PuntosDestinoAbmAction extends ActionSupport implements ModelDriven<PuntoDestino>{
+public class PuntosDestinoAbmAction extends ActionSupport implements ModelDriven<Ubicacion>, Preparable{
 	
 
-	private FactoryDAO fabricaDao = new FactoryDAO();
-	private DeliveryPointDAO deliveryPointDao = new DeliveryPointDAO();
+	private UbicacionDAO ubicacionDao = new UbicacionDAO();
 	private CostoDAO costoDao = new CostoDAO();
 
 	private static final long serialVersionUID = 1L;
-	private List<PuntoDestino> puntoDestinoList;
-	private PuntoDestino puntoDestino = new PuntoDestino();
+	private List<Ubicacion> puntoDestinoList;
+	private Ubicacion puntoDestino = new Ubicacion();
 	
-	private List<Factory> fabricaList = new ArrayList<Factory>();
+	private List<CostosDTO> costos = new ArrayList<CostosDTO>();
+	private Map<String, CostosDTO> costosMap = new HashMap<String, CostosDTO>();
+	private List<Ubicacion> nodoList = new ArrayList<Ubicacion>();
+	
+	@Override
+	public void prepare() throws Exception {
+		nodoList = ubicacionDao.findAll();
+		for (Ubicacion destino : nodoList) {
+			CostosDTO nuevo = new CostosDTO(destino);
+			costos.add(nuevo);
+			costosMap.put(destino.getId().toString(), nuevo);
+		}
+	}
+	
 	/**
 	 * Crea o actualiza un punto de destino
 	 * @return
 	 */
 	public String save()
 	{	
-		this.deliveryPointDao.makePersistent(puntoDestino);
-		calcularCostos();
-		deliveryPointDao.commit();
-		return SUCCESS;
-	}
-	
-	/**
-	 * Calcula los costos (distancias) entre la fabrica y todos los puntos de destino
-	 * para crear registros nuevos en la tabla COSTO
-	 */
-	private void calcularCostos() {
-		List<Factory> fabricas = fabricaDao.findAll();
-		for (Factory fabrica : fabricas) {
-			Float costo = DistanceUtils.getInstance().getDistance(fabrica.getLatitud(), fabrica.getLongitud(), 
-										puntoDestino.getLatitud(), puntoDestino.getLongitud());
+		this.puntoDestino.setTipo(TipoUbicacion.DESTINO.toString());
+		this.ubicacionDao.makePersistent(puntoDestino);
+		// En este caso necesito guardar tanto el costo origen-destino, como destino-origen
+		for (CostosDTO costo : costos) {
 			Costo nuevo = new Costo();
-			nuevo.setFabrica(fabrica);
-			nuevo.setDestino(puntoDestino);
-			nuevo.setCosto(costo);
+			nuevo.setDesde(puntoDestino);
+			nuevo.setHasta(costo.getDestino());
+			nuevo.setCosto(costo.getCosto());
 			costoDao.makePersistent(nuevo);
+			Costo nuevo2 = new Costo();
+			nuevo2.setDesde(costo.getDestino());
+			nuevo2.setHasta(puntoDestino);
+			nuevo2.setCosto(costo.getCosto());
+			costoDao.makePersistent(nuevo2);
 		}
+		ubicacionDao.commit();
+		return SUCCESS;
 	}
 	
 	/**
@@ -67,7 +77,7 @@ public class PuntosDestinoAbmAction extends ActionSupport implements ModelDriven
 	 */
 	public String update()
 	{	
-		deliveryPointDao.persistUpdate(puntoDestino);
+		ubicacionDao.persistUpdate(puntoDestino);
 		return SUCCESS;
 	}
 	
@@ -77,8 +87,8 @@ public class PuntosDestinoAbmAction extends ActionSupport implements ModelDriven
 	 */
 	public String list()
 	{
-		puntoDestinoList = deliveryPointDao.findAll();
-		fabricaList = fabricaDao.findAll();
+		puntoDestinoList = ubicacionDao.getByTipoUbicacion(TipoUbicacion.DESTINO.toString());
+		nodoList = ubicacionDao.findAll();
 		return SUCCESS;
 	}
 	
@@ -89,9 +99,9 @@ public class PuntosDestinoAbmAction extends ActionSupport implements ModelDriven
 	public String delete()
 	{
 		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
-		PuntoDestino toDelete = new PuntoDestino();
+		Ubicacion toDelete = new Ubicacion();
 		toDelete.setId(Integer.parseInt(request.getParameter("id")));
-		deliveryPointDao.makeTransient(toDelete);
+		ubicacionDao.makeTransient(toDelete);
 		return SUCCESS;
 	}
 	
@@ -102,36 +112,54 @@ public class PuntosDestinoAbmAction extends ActionSupport implements ModelDriven
 	public String edit()
 	{
 		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
-		puntoDestino = deliveryPointDao.findById(Integer.parseInt((request.getParameter("id"))),false);
+		puntoDestino = ubicacionDao.findById(Integer.parseInt((request.getParameter("id"))),false);
 		return SUCCESS;
-	}
-	
-	public PuntoDestino getPuntoDestino() {
-		return puntoDestino ;
-	}
-
-	public void setPuntoDestino(PuntoDestino puntoDestino ) {
-		this.puntoDestino  = puntoDestino ;
-	}
-
-	public List<PuntoDestino> getPuntoDestinoList() {
-		return puntoDestinoList;
-	}
-
-	public void setPuntoDestinoList(List<PuntoDestino > puntoDestinoList ) {
-		this.puntoDestinoList = puntoDestinoList ;
 	}
 
 	@Override
-	public PuntoDestino  getModel() {
+	public Ubicacion getModel() {
 		return puntoDestino;
 	}
 
-	public List<Factory> getFabricaList() {
-		return fabricaList;
+	public List<Ubicacion> getPuntoDestinoList() {
+		return puntoDestinoList;
 	}
 
-	public void setFabricaList(List<Factory> fabricaList) {
-		this.fabricaList = fabricaList;
+	public void setPuntoDestinoList(List<Ubicacion> puntoDestinoList) {
+		this.puntoDestinoList = puntoDestinoList;
 	}
+
+	public Ubicacion getPuntoDestino() {
+		return puntoDestino;
+	}
+
+	public void setPuntoDestino(Ubicacion puntoDestino) {
+		this.puntoDestino = puntoDestino;
+	}
+
+	public List<CostosDTO> getCostos() {
+		return costos;
+	}
+
+	public void setCostos(List<CostosDTO> costos) {
+		this.costos = costos;
+	}
+
+	public Map<String, CostosDTO> getCostosMap() {
+		return costosMap;
+	}
+
+	public void setCostosMap(Map<String, CostosDTO> costosMap) {
+		this.costosMap = costosMap;
+	}
+
+	public List<Ubicacion> getNodoList() {
+		return nodoList;
+	}
+
+	public void setNodoList(List<Ubicacion> nodoList) {
+		this.nodoList = nodoList;
+	}
+	
+
 }

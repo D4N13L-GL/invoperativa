@@ -12,6 +12,7 @@ import org.jgap.impl.salesman.Salesman;
 
 public class TravelerGeneticSolver extends Salesman {
 
+	private static final long serialVersionUID = 1L;
 	private int cities = 7;
 	private CostoDAO costoDao;
 
