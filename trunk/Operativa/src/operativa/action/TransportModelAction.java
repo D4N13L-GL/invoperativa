@@ -2,9 +2,7 @@ package operativa.action;
 
 import java.util.List;
 
-import operativa.bean.entity.Factory;
-import operativa.bean.entity.PuntoDestino;
-
+import operativa.bean.entity.Ubicacion;
 import algorithm.TransportMatrix;
 import algorithm.VogelAlgorithm;
 
@@ -17,9 +15,9 @@ public class TransportModelAction extends ActionSupport {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private List<Factory> factories;
+	private List<Ubicacion> factories;
 	
-	private List<PuntoDestino> endPoints;
+	private List<Ubicacion> endPoints;
 	
 	public void calculateModel(){
 		

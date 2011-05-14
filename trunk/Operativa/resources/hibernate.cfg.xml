@@ -32,9 +32,8 @@
 	
 
 	<mapping class="operativa.bean.entity.Usuario"/>
-	<mapping class="operativa.bean.entity.Factory"/>
-	<mapping class="operativa.bean.entity.PuntoDestino"/>
 	<mapping class="operativa.bean.entity.Costo"/>
+	<mapping class="operativa.bean.entity.Ubicacion"/>
 
 </session-factory>
 

@@ -3,6 +3,8 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<jsp:include page="/WEB-INF/jsp/purecssmenu.jsp" />
+
 <html>
 <head>
 
@@ -147,7 +149,7 @@ table.imagetable td {
           }
         var directionsService = new google.maps.DirectionsService();
 
-		function getDistance(origen, destino){
+		function getDistance(origen, destino, id){
 		     var request = {
 			    origin:origen, 
 			    destination:destino,
@@ -158,27 +160,68 @@ table.imagetable td {
 				    var totalDist = 0;
 				    var legs = result.routes[0].legs;
 			      	for (var i = 0; i < legs.length; i++)
-				      	totalDist += legs[i].distance.value;
+				      	totalDist += (legs[i].distance.value/1000);
+			      	resultado = document.getElementById(id);
+			      	resultado.value = totalDist + '';
 			    }
-			    else 
+			    else{
+				    alert("error"); 
 				    alert(status);
+			    }
 			  });
-						 
+					 
 		}
         
         function calculateDistance(){
-			div = document.getElementById('destinos');
-			destinos = div.getElementsByTagName('input');
-			for (var i = 0; i < destinos.length; i++){
-				origen = destinos[i].value;
-				destinos[i].value = getDistance(origen, document.getElementById('saveFabrica_localizacion').value);
-			}
-				
-			
+            if (document.getElementById('saveFabrica_localizacion').value == null ||
+            	document.getElementById('saveFabrica_localizacion').value == "")
+            	alert("Debe espeficicar una localización para la fábrica primero");
+            else{
+				div = document.getElementById('destinos');
+				destinos = div.getElementsByTagName('input');
+	
+				for (var i = 0; i < destinos.length; i++){
+					origen = destinos[i].value;
+					getDistance(origen, document.getElementById('saveFabrica_localizacion').value, "costosMap['"+ destinos[i].id +"'].costo");
+				}
+	
+				alert("Se calcularon las distancias con éxito");	
+				document.getElementById("distanciasBtn").disabled=true;
+				document.getElementById("guardarBtn").disabled=false;
+            }
         }
-		
-              
 
+        var fabricasMarkers = new Array();
+        function showHideFabricas(){
+        	if (document.getElementById("mostrarFabCheck").checked)
+        		showFabricas();
+			else
+				hideFabricas();
+        }
+
+        
+        function showFabricas(){
+        	div = document.getElementById('fabricas');
+    		fabricas = div.getElementsByTagName('input');
+    		for ( var i = 0; i < fabricas.length; i++) {
+    			latLng = fabricas[i].value;
+    			latLng = latLng.split("|");
+    			lat = parseFloat(latLng[0]);
+    			lng = parseFloat(latLng[1]);
+    			position = new google.maps.LatLng(lat,lng);
+    			fabricasMarkers.push(new google.maps.Marker({
+    				map: map, 
+    				position: position,
+    				icon: 'http://google-maps-icons.googlecode.com/files/factory.png'  
+    			}));
+        	}
+        }
+
+        function hideFabricas(){
+            for ( var i = 0; i < fabricasMarkers.length; i++) {
+				fabricasMarkers[i].setMap(null);
+			}
+        }
 </script>
 
 <body onload="initialize()" style="font-family: verdana,arial,sans-serif;
@@ -193,20 +236,29 @@ table.imagetable td {
                          margin-left: 30px;
                          margin-top: 50px">
                         
-		<s:form action="saveFabrica.action">
+		<s:form action="saveFabrica">
 		<s:hidden name="id" />
 		<s:textfield name="nombre" label="Nombre"/>
 		<s:textfield name="latitud" label="Latitud" />
 		<s:textfield name="longitud" label="Longitud" />
-		<s:textfield name="produccion" label="Producción" />
+		<s:textfield name="unidades" label="Producción" />
 		<table>
 			<tr>
 				<td><s:textfield name="localizacion" label="Dirección" size="70" /></td>
 				<td><input type="button" value="Localizar" onclick="codeAddress()"></td>
 			</tr>
 		</table>
-		<s:submit value="Guardar" onclick="calculateDistance();"/>
-		<input type="button" onclick="calculateDistance()" value="ASD" />
+		
+		<div align="left">
+			<input value="Calcular Distancias" type="button" id="distanciasBtn" onclick="calculateDistance()"/>
+			<s:submit value="Guardar" id="guardarBtn" disabled="true"/>
+			<input type="checkbox" value="Mostrar Fábricas" id="mostrarFabCheck" onclick="showHideFabricas()"/> Mostrar Fábricas <br>
+		</div>
+		<div id="costos">
+			<s:iterator value="costos">
+    			<s:hidden name="costosMap['%{destino.id}'].costo" value="%{costo}" id="costosMap['%{destino.id}'].costo"/>
+			</s:iterator>
+		</div>
 		</s:form>
     </div>
 	
@@ -221,6 +273,7 @@ table.imagetable td {
 	            top:270px; 
 	            left:0px;
 	            margin-left: 20px;">
+	
 	<table cellpadding="5px" border="1" class="imagetable">
 		<tr>
 			<th>Nombre</th>
@@ -237,7 +290,7 @@ table.imagetable td {
 				<td><s:property value="localizacion" /></td>
 				<td><s:property value="latitud" /></td>
 				<td><s:property value="longitud" /></td>
-				<td><s:property value="produccion" /></td>
+				<td><s:property value="unidades" /></td>
 				<td><s:url id="editURL" action="editFabrica">
 					<s:param name="id" value="%{id}"></s:param>
 				</s:url> <s:a href="%{editURL}">Editar</s:a></td>
@@ -248,11 +301,17 @@ table.imagetable td {
 		</s:iterator>
 	</table>
 	</div>
+	
 	<div id="destinos">
-		<s:iterator value="destinoList" status="destinoStatus">
-			<input type="hidden" id='destino_<s:property value="id" />' value='<s:property value="localizacion" />' />
+		<s:iterator value="costos">
+			<s:hidden name="%{destino.id}" value="%{destino.localizacion}" />
 		</s:iterator>
 	</div>
-
+	<div id="fabricas">
+		<s:iterator value="fabricaList">
+			<s:hidden name="%{nombre}" value="%{latitud}|%{longitud}" />
+		</s:iterator>
+	</div>
+	
 </body>
 </html>

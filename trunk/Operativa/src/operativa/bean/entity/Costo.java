@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.sun.istack.internal.NotNull;
+
 @Entity
 @Table(name = "Costo")
 public class Costo {
@@ -19,14 +21,15 @@ public class Costo {
     private Integer id;
 	
 	@ManyToOne (cascade = CascadeType.ALL)
-//	@JoinColumn (name="fabrica_id", updatable = false, insertable = false)
-    private Factory fabrica;
+	@NotNull
+    private Ubicacion desde;
 	
 	@ManyToOne (cascade = CascadeType.ALL)
-//	@JoinColumn (name="punto_destino_id", updatable = false, insertable = false)
-    private PuntoDestino punto_destino;
+	@NotNull
+    private Ubicacion hasta;
 	
 	@Column(name="costo")
+	@NotNull
 	private Float costo;
 
 	public Integer getId() {
@@ -45,20 +48,21 @@ public class Costo {
 		this.costo = costo;
 	}
 
-	public Factory getFabrica() {
-		return fabrica;
+	public Ubicacion getDesde() {
+		return desde;
 	}
 
-	public void setFabrica(Factory fabrica) {
-		this.fabrica = fabrica;
+	public void setDesde(Ubicacion desde) {
+		this.desde = desde;
 	}
 
-	public PuntoDestino getDestino() {
-		return punto_destino;
+	public Ubicacion getHasta() {
+		return hasta;
 	}
 
-	public void setDestino(PuntoDestino destino) {
-		this.punto_destino = destino;
+	public void setHasta(Ubicacion hasta) {
+		this.hasta = hasta;
 	}
+
 
 }
