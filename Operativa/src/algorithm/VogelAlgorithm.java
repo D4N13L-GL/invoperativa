@@ -2,13 +2,12 @@ package algorithm;
 
 import java.util.List;
 
-import operativa.bean.entity.Factory;
-import operativa.bean.entity.PuntoDestino;
+import operativa.bean.entity.Ubicacion;
 
 public class VogelAlgorithm {
 
 	
-	public TransportMatrix resolve(List<Factory> factories, List<PuntoDestino> destinations){		
+	public TransportMatrix resolve(List<Ubicacion> factories, List<Ubicacion> destinations){		
 		
 		TransportMatrix matrix = new TransportMatrix(factories, destinations);
 		this.resolveReal(matrix);			

@@ -4,17 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import operativa.bean.entity.Costo;
-import operativa.bean.entity.Factory;
-import operativa.bean.entity.PuntoDestino;
+import operativa.bean.entity.Ubicacion;
 import operativa.model.dao.CostoDAO;
 
 public class TransportMatrix {
 
 	private TMCell[][] matrix;
 
-	private List<Factory> factories;
+	private List<Ubicacion> factories;
 
-	private List<PuntoDestino> destinations;
+	private List<Ubicacion> destinations;
 
 	private CostoDAO costDAO;
 
@@ -26,8 +25,8 @@ public class TransportMatrix {
 
 	private Integer[] oferts;
 
-	public TransportMatrix(List<Factory> factories,
-			List<PuntoDestino> destinations) {
+	public TransportMatrix(List<Ubicacion> factories,
+			List<Ubicacion> destinations) {
 
 		this.costDAO = new CostoDAO();
 		this.factories = factories;
@@ -83,11 +82,11 @@ public class TransportMatrix {
 	private void setOfertsAndDemands() {
 
 		for (int i = 0; i < oferts.length; i++) {
-			oferts[i] = this.factories.get(i).getProduccion();
+			oferts[i] = this.factories.get(i).getUnidades();
 		}
 
 		for (int i = 0; i < demands.length; i++) {
-			demands[i] = this.destinations.get(i).getDemanda();
+			demands[i] = this.destinations.get(i).getUnidades();
 		}
 	}
 
