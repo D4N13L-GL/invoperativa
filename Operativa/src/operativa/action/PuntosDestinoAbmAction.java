@@ -60,12 +60,14 @@ public class PuntosDestinoAbmAction extends ActionSupport implements ModelDriven
 			nuevo.setDesde(puntoDestino);
 			nuevo.setHasta(costo.getDestino());
 			nuevo.setCosto(costo.getCosto());
-			costoDao.makePersistent(nuevo);
 			Costo nuevo2 = new Costo();
 			nuevo2.setDesde(costo.getDestino());
 			nuevo2.setHasta(puntoDestino);
 			nuevo2.setCosto(costo.getCosto());
-			costoDao.makePersistent(nuevo2);
+			ArrayList<Costo> costoList = new ArrayList<Costo>();
+			costoList.add(nuevo);
+			costoList.add(nuevo2);
+			costoDao.makePersistent(costoList);
 		}
 		ubicacionDao.commit();
 		return SUCCESS;

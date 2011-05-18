@@ -36,6 +36,10 @@
 			<result name="abmUsuarios" type="redirect-action">listUsuarios</result>
 		</action>
 		
+		<action name="goHome" class="operativa.action.WelcomeAction" method="goHome">
+			<result name="success" >/WEB-INF/jsp/Welcome.jsp</result>
+		</action>
+		
 		<!-- FIN WELCOME PAGE -->
 		
 		

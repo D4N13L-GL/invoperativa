@@ -18,8 +18,8 @@ public class CostoDAO extends GenericHibernateDAO<Costo, Integer> {
 	}
 
 	public Costo findCost(Integer ori_id, Integer dest_id) {
-		List<Costo> result = this.findByCriteria(Restrictions.eq("fabrica.id", ori_id), 
-				Restrictions.eq("punto_destino.id", dest_id));		
+		List<Costo> result = this.findByCriteria(Restrictions.eq("desde.id", ori_id), 
+				Restrictions.eq("hasta.id", dest_id));		
 		return (result.size() > 0 ? result.get(0) : null ); 
 	}
 

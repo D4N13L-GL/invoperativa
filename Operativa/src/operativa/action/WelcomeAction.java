@@ -1,7 +1,11 @@
 package operativa.action;
 
-public class WelcomeAction {
-	
+import com.opensymphony.xwork2.ActionSupport;
+
+public class WelcomeAction extends ActionSupport{
+
+	private static final long serialVersionUID = 1L;
+
 	public String initAbmFabricas(){
 		return "abmFabricas";
 	}
@@ -12,6 +16,10 @@ public class WelcomeAction {
 	
 	public String initAbmPuntosEntrega(){
 		return "abmPuntosEntrega";
+	}
+	
+	public String goHome(){
+		return SUCCESS;
 	}
 	
 }
