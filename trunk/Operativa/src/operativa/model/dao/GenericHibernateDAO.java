@@ -74,6 +74,14 @@ implements GenericDAO<T, ID> {
 		return entity;
 	}
 	
+	public void makePersistent(List<T> entitys){
+		Transaction tx =  this.session.getTransaction();
+		tx.begin();
+		for (T t : entitys) {
+			getSession().save(t);
+		}
+	}
+	
 	public T persistUpdate(T entity){
 		this.session.beginTransaction();
 		getSession().update(entity);

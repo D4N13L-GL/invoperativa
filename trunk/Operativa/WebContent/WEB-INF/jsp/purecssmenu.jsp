@@ -143,7 +143,7 @@ ul.pureCssMenu ul span,ul.pureCssMenu a:hover table span{background-image:url(./
 
 <!-- Start PureCSSMenu.com MENU -->
 <ul class="pureCssMenu pureCssMenum">
-	<li class="pureCssMenui"><a class="pureCssMenui" href="#">Home</a></li>
+	<li class="pureCssMenui"><a class="pureCssMenui" href="<s:url action="goHome.action" />">Home</a></li>
 	<li class="pureCssMenui"><a class="pureCssMenui" href="#"><span>Configuraci&oacute;n</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
 	<ul class="pureCssMenum">
 		<li class="pureCssMenui"><a class="pureCssMenui" href="<s:url action="abmUsuariosWelcome.action" />">Usuarios</a></li>
