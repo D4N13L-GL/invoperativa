@@ -108,5 +108,10 @@
         
         <!-- FIN USUARIOS ABM -->
        
+        <!-- ALGORITMO TRANSPORTE -->
+        <action name="calculateTransport" method="calculateModel" class="operativa.action.TransportModelAction">
+           <result name="success">/WEB-INF/jsp/results/transport_model.jsp</result>
+        </action>
+        <!-- FIN ALGORITMO TRANSPORTE -->
 	</package>
 </struts>

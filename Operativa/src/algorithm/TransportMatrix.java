@@ -41,14 +41,15 @@ public class TransportMatrix {
 		this.setDifferencies();
 	}
 
-	private void setDifferencies() {
+	//Calcula las diferencias maximas por fila y luego por columna
+	public void setDifferencies() {
 
 		for (int i = 0; i < rowDifferencies.length; i++) {
-			float val1 = -1;
-			float val2 = -1;
+			float val1 = -1f;
+			float val2 = -1f;
 			for (int j = 0; j < demands.length; j++) {
 				if (this.matrix[i][j].isValid()) {
-					if (val1 >= this.matrix[i][j].getCost() || val1 == -1) {
+					if (val1 >= this.matrix[i][j].getCost() || val1 == -1f) {
 						val2 = val1;
 						val1 = this.matrix[i][j].getCost();
 					} else if (val2 >= this.matrix[i][j].getCost()
@@ -57,28 +58,59 @@ public class TransportMatrix {
 					}
 				}
 			}
-			rowDifferencies[i] = val2 - val1;
+			if ((val2 == -1f) && (val1 == -1f)){
+				rowDifferencies[i] = 0f;
+				System.out.println("Difference ROW= "+ rowDifferencies[i]);
+			}
+			else {
+				if (val2 == -1f){
+					rowDifferencies[i] = val1;
+					System.out.println("Difference ROW= "+ rowDifferencies[i]);
+				}
+				else{
+					rowDifferencies[i]= val2 - val1;
+					System.out.println("Difference ROW= "+ rowDifferencies[i]);
+				}
+					
+			}
+			
 		}
 
 		for (int i = 0; i < columnDifferencies.length; i++) {
-			float val1 = -1;
-			float val2 = -1;
+			float val1 = -1f;
+			float val2 = -1f;
 			for (int j = 0; j < oferts.length; j++) {
-				if (this.matrix[i][j].isValid()) {
-					if (val1 >= this.matrix[i][j].getCost() || val1 == -1) {
+				if (this.matrix[j][i].isValid()) {
+					if (val1 >= this.matrix[j][i].getCost() || val1 == -1f) {
 						val2 = val1;
-						val1 = this.matrix[i][j].getCost();
-					} else if (val2 >= this.matrix[i][j].getCost()
-							|| val2 == -1) {
-						val2 = this.matrix[i][j].getCost();
+						val1 = this.matrix[j][i].getCost();
+					} else if (val2 >= this.matrix[j][i].getCost()
+							|| val2 == -1f) {
+						val2 = this.matrix[j][i].getCost();
 					}
 				}
-
 			}
-			columnDifferencies[i] = val2 - val1;
+			
+			if ((val2 == -1f) && (val1 == -1f)){
+				columnDifferencies[i] = 0f;
+				System.out.println("Difference COLUMN= "+ columnDifferencies[i]);
+			}
+			else {
+				if (val2 == -1f){
+					columnDifferencies[i] = val1;
+					System.out.println("Difference COLUMN= "+ columnDifferencies[i]);
+				}
+				else{
+					columnDifferencies[i]= val2 - val1;
+					System.out.println("Difference COLUMN= "+ columnDifferencies[i]);
+				}
+					
+			}
 		}
 	}
 
+	//Carga las ofertas y las demandas desde las fabricas y destinos a los arreglos correspondiente
+	//Anda bien!
 	private void setOfertsAndDemands() {
 
 		for (int i = 0; i < oferts.length; i++) {
@@ -87,13 +119,15 @@ public class TransportMatrix {
 
 		for (int i = 0; i < demands.length; i++) {
 			demands[i] = this.destinations.get(i).getUnidades();
+			
 		}
 	}
 
 	public double getCost(int i, int j) {
 		return matrix[i][j].getCost();
 	}
-
+	
+	//Anda bien
 	private void buildMatrix() {
 		matrix = new TMCell[factories.size()][destinations.size()];
 		for (int i = 0; i < factories.size(); i++) {
@@ -116,15 +150,17 @@ public class TransportMatrix {
 		Float maxDifC = new Float(-1);
 
 		for (int i = 0; i < this.rowDifferencies.length; i++) {
-			if (rowDifferencies[i] >= maxDifR)
-				maxDifR = rowDifferencies[i];
-			result[0] = i;
+			if (rowDifferencies[i] >= maxDifR){
+					maxDifR = rowDifferencies[i];
+					result[0] = i;
+			}
 		}
 
 		for (int i = 0; i < this.columnDifferencies.length; i++) {
-			if (columnDifferencies[i] >= maxDifC)
+			if (columnDifferencies[i] >= maxDifC){
 				maxDifC = columnDifferencies[i];
-			result[1] = i;
+				result[1] = i;
+			}
 		}
 
 		if (result[0] > result[1]) {
@@ -132,6 +168,7 @@ public class TransportMatrix {
 		} else {
 			result[0] = -1;
 		}
+		System.out.println("MAXIMA DIFERENCIA!!! " + result[0]+";" + result[1]);
 		return result;
 	}
 
@@ -142,6 +179,7 @@ public class TransportMatrix {
 		for (int i = 0; i < this.matrix.length; i++) {
 			if (this.matrix[i][column].isValid()) {
 				if (this.matrix[i][column].getCost() <= aux || aux == -1f) {
+					System.out.println("ENTRE IF!!!!!!!!!!!");
 					result = i;
 					aux = this.matrix[i][column].getCost();
 				}
@@ -181,14 +219,14 @@ public class TransportMatrix {
 	}
 
 	public void invalidColumn(int column) {
-		for (int i = 0; i < this.matrix.length; i++) {
+		for (int i = 0; i < this.matrix[0].length; i++) {
 			this.matrix[i][column].setValid(false);
 		}
 
 	}
 
 	public void invalidRow(int row) {
-		for (int i = 0; i < this.matrix[0].length; i++) {
+		for (int i = 0; i < this.matrix.length; i++) {
 			this.matrix[row][i].setValid(false);
 		}
 	}
@@ -296,5 +334,15 @@ public class TransportMatrix {
 		}
 
 		return auxRow;
+	}
+
+	public void print() {
+		for (int i = 0; i < this.matrix.length; i++) {
+			for (int j = 0; j < matrix[0].length; j++) {
+				System.out.print(matrix[i][j].getAssign());
+			}
+			System.out.println("");
+		}
+		
 	}
 }
