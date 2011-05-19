@@ -219,14 +219,14 @@ public class TransportMatrix {
 	}
 
 	public void invalidColumn(int column) {
-		for (int i = 0; i < this.matrix[0].length; i++) {
+		for (int i = 0; i < this.matrix.length; i++) {
 			this.matrix[i][column].setValid(false);
 		}
 
 	}
 
 	public void invalidRow(int row) {
-		for (int i = 0; i < this.matrix.length; i++) {
+		for (int i = 0; i < this.matrix[0].length; i++) {
 			this.matrix[row][i].setValid(false);
 		}
 	}
