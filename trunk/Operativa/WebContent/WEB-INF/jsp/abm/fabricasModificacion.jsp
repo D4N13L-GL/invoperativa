@@ -15,7 +15,7 @@
 		<s:textfield name="nombre" label="Nombre"/>
 		<s:textfield name="latitud" label="Latitud" />
 		<s:textfield name="longitud" label="Longitud" />
-		<s:textfield name="produccion" label="Producción" />
+		<s:textfield name="unidades" label="Producción" />
 		<table>
 			<tr>
 				<td><s:textfield name="localizacion" label="Dirección" size="70" /></td>
