@@ -37,7 +37,20 @@ public class TravelerSolver {
 	      System.out.println();
 	      System.out.println("Optimo: " + costoFinal);
 	  }
-
+	
+	/**
+	 * Resuelve el problema del viajante y retorna el costo de la solución óptima. Se obtiene
+	 * el resultado mediante un algoritmo de backtracking con poda.
+	 * 
+	 * @param A Es el array de ciudades. En la primera posición del array tiene que estar la ciudad de origen
+	 * @param L Indica dónde terminan las ciudades visitadas y dónde comienzan las ciudades restantes en el
+	 * 			array A.
+	 * @param lengthSoFar Distancia parcial calculada.
+	 * @param minCost Costo mínimo encontrado. Utilizado para la poda.
+	 * @param n Cantidad de ciudades.
+	 * @param S Array dónde se guardará la solución. Debe ser del mismo tamaño que A.
+	 * @return
+	 */
 	public double tspBacktracking(Integer[] A, int L, double lengthSoFar, double minCost, int n, Integer[] S){
 		if (L == n){
 			lengthSoFar += distance(A[n],A[0]);

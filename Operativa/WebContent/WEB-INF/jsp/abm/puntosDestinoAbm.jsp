@@ -136,8 +136,8 @@ table.imagetable td {
 					latitud = results[0].geometry.location.lat();
 					longitud = results[0].geometry.location.lng();
 					
-					document.getElementById('savePuntoDestino_latitud').value = (latitud+'').replace('.',',');
-					document.getElementById('savePuntoDestino_longitud').value = (longitud+'').replace('.', ',');
+					document.getElementById('savePuntoDestino_latitud').value = (latitud+'').replace('.',',').substring(0,6);
+					document.getElementById('savePuntoDestino_longitud').value = (longitud+'').replace('.', ',').substring(0,6);
 					document.getElementById('savePuntoDestino_localizacion').value = direccion;
 					
                   }
@@ -185,9 +185,10 @@ table.imagetable td {
 					getDistance(origen, document.getElementById('savePuntoDestino_localizacion').value, "costosMap['"+ destinos[i].id +"'].costo");
 				}
 	
-				alert("Se calcularon las distancias con éxito");	
+				document.body.style.cursor='wait';
+				setTimeout("alert('Se calcularon las distancias con éxito'); document.body.style.cursor='default';", 3000);	
 				document.getElementById("distanciasBtn").disabled=true;
-				document.getElementById("guardarBtn").disabled=false;
+				setTimeout("document.getElementById('guardarBtn').disabled=false", 3000);
             }
         }
 
@@ -240,9 +241,9 @@ table.imagetable td {
 		<s:form action="savePuntoDestino" theme="xhtml">
 		<s:hidden name="id" />
 		<s:textfield name="nombre" label="Nombre"/>
-		<s:textfield name="latitud" label="Latitud" />
-		<s:textfield name="longitud" label="Longitud" />
-		<s:textfield name="unidades" label="Producción" />
+		<s:textfield name="latitud" label="Latitud" disabled="true"/>
+		<s:textfield name="longitud" label="Longitud" disabled="true"/>
+		<s:textfield name="unidades" label="Demanda" />
 		<table>
 			<tr>
 				<td><s:textfield name="localizacion" label="Dirección" size="70" /></td>
