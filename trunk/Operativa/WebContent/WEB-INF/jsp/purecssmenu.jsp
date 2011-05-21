@@ -156,7 +156,7 @@ ul.pureCssMenu ul span,ul.pureCssMenu a:hover table span{background-image:url(./
 		<li class="pureCssMenui"><a class="pureCssMenui" href="#">Viajante</a></li>
 	</ul>
 	<!--[if lte IE 6]></td></tr></table></a><![endif]--></li>
-	<li class="pureCssMenui"><a class="pureCssMenui" href="#">Logout</a></li>
+	<li class="pureCssMenui"><a class="pureCssMenui" href="<s:url action="logout.action" />">Logout</a></li>
 </ul>
 
 <!-- End PureCSSMenu.com MENU -->
