@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-
+<jsp:include page="/WEB-INF/jsp/checkLogin.jsp" />
 <jsp:include page="purecssmenu.jsp" />
 
 <html>

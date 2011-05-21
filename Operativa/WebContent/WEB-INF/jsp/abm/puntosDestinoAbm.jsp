@@ -16,7 +16,7 @@ table.imagetable {
 	border-width: 1px;
 	border-color: #999999;
 	border-collapse: collapse;
-	width: 50%;
+	width: 100%;
 }
 table.imagetable th {
 	background:#b5cfd2;
@@ -32,10 +32,26 @@ table.imagetable td {
 	border-style: solid;
 	border-color: #999999;
 }
+
+.text {
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 12px;
+    padding-left: 2px;
+    padding-right: 2px;
+    text-align: right;
+    vertical-align: middle;
+}
+
+.tableTitle {
+	style="background-color: #C8D7DF; 
+	border: 1px solid #808D91; 
+	font-family: arial; 
+	padding: 3px; 
+}
 </style>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Gestión de Fábricas</title>
+<title>Gestión de Puntos de Destino</title>
 </head>
 
 <script type="text/javascript"
@@ -175,7 +191,7 @@ table.imagetable td {
         function calculateDistance(){
             if (document.getElementById('savePuntoDestino_localizacion').value == null ||
             	document.getElementById('savePuntoDestino_localizacion').value == "")
-            	alert("Debe espeficicar una localización para la fábrica primero");
+            	alert("Debe espeficicar una localización para el punto de destino primero");
             else{
 				div = document.getElementById('destinos');
 				destinos = div.getElementsByTagName('input');
@@ -227,81 +243,152 @@ table.imagetable td {
 </script>
 
 <body onload="initialize()" style="font-family: verdana,arial,sans-serif;
-								   font-size:15px;">
-
-	<br />
-    <div id="abm" style="position:absolute; 
-    					 top:150;
-                         left:0;
-                         width: 300px; 
-                         height: 500px;
-                         margin-left: 30px;
-                         margin-top: 50px">
-                        
-		<s:form action="savePuntoDestino" theme="xhtml">
-		<s:hidden name="id" />
-		<s:textfield name="nombre" label="Nombre"/>
-		<s:textfield name="latitud" label="Latitud" disabled="true"/>
-		<s:textfield name="longitud" label="Longitud" disabled="true"/>
-		<s:textfield name="unidades" label="Demanda" />
-		<table>
-			<tr>
-				<td><s:textfield name="localizacion" label="Dirección" size="70" /></td>
-				<td><input type="button" value="Localizar" onclick="codeAddress()"></td>
-			</tr>
-		</table>
-		
-		<div align="left">
-			<input value="Calcular Distancias" type="button" id="distanciasBtn" onclick="calculateDistance()"/>
-			<s:submit value="Guardar" id="guardarBtn" disabled="true"/>
-			<input type="checkbox" value="Mostrar Destinos" id="mostrarFabCheck" onclick="showHideFabricas()"/> Mostrar Fábricas <br>
-		</div>
-		<div id="costos">
+								   font-size:15px;background: #F2F2F2;">
+<s:form action="savePuntoDestino" theme="simple">
+<s:hidden name="id" />
+<br/>
+<table cellpadding="5" cellspacing="5" width="100%" style="width: 100%; border:0px; margin-top: 15px;background: #D8D8D8">
+					        <tr>
+					            <td style="background-color: #C8D7DF;border: 1px solid #808D91;font-family: arial;padding: 3px;">
+					                <div style="float: left;">
+					                	<b>Alta de Punto de Destino</b>
+					                </div>
+					            </td>
+					        </tr>
+				        </table>
+				   		<table cellpadding="5" cellspacing="5" border="0" width="100%" style="background: #D8D8D8">
+				   			<tr>
+					            <td style="background-color: #C8D7DF;border: 1px solid #808D91;font-family: arial;padding: 3px;">
+					                <div style="float: left;">
+					                	Datos del Punto de Destino
+					                </div>
+					            </td>
+					            <td style="background-color: #C8D7DF;border: 1px solid #808D91;font-family: arial;padding: 3px;" >
+				                    <div style="float: left;">
+				                        Ubicación del Punto de Destino
+				                    </div>
+					            </td>
+					        </tr>
+				   		    <tr>
+				   		    	<td width="63%" valign="top" style="border: 1px solid #808D91">
+				   		    		<table cellpadding="5" border="0" width="100%">
+				   		    			<tr>
+				   		    				<td style="text-align: right; font-weight: bold; width: 36%;">
+		                           				<span class="text" >Nombre</span>
+		                        			</td>
+					                        <td style="padding-left: 5px;" width="64%" class="registro">
+					                            <s:textfield name="nombre"/>
+					                        </td>
+					                    </tr>
+					                    <tr>
+					                        <td style="text-align: right; font-weight: bold;">
+					                           <span class="text" > Latitud</span>
+					                        </td>
+					                        <td style="padding-left: 5px;" class="registro">
+					                        	<s:textfield name="latitud"/>
+					                        </td>
+					                    </tr>
+					                    <tr>
+					                        <td style="text-align: right; font-weight: bold;">
+					                           <span class="text" >Longitud</span>
+					                        </td>
+					                        <td style="padding-left: 5px;" class="registro">
+					                        	<s:textfield name="longitud"/>
+					                        </td>
+					                    </tr>
+					                    <tr>
+					                        <td style="text-align: right; font-weight: bold;" >
+					                           	<span class="text" >Localización</span>
+					                        </td>
+					                        <td class="registro">
+					                        	<s:textfield name="localizacion" size="50"/>
+					                        	<input type="button" value="Localizar" onclick="codeAddress()">
+					                        </td>
+					                    </tr>
+					                    <tr>
+					                        <td style="text-align: right; font-weight: bold;">
+					                           	<span class="text" >Demanda</span>
+					                        </td>
+					                        <td style="padding-left: 5px;" class="registro">
+					                        	<s:textfield name="unidades" />
+					                        </td>
+					                    </tr>
+					                </table>
+					                <br/>
+					                
+					                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+						            	<tr>
+					                        <td style="text-align: right; font-weight: bold;">
+					                            <input value="Calcular Distancias" type="button" id="distanciasBtn" onclick="calculateDistance()"/>
+					                        </td>
+					                        <td style="padding-left: 5px;" class="registro">
+					                        	<s:submit value="Guardar" id="guardarBtn" disabled="true"/>
+					                        </td>
+					                    </tr>
+					                </table>
+									<br/>														
+					                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+						            	<tr>
+					                        <td style="background-color: #C8D7DF;border: 1px solid #808D91;font-family: arial;padding: 3px;" style="padding-left: 5px; vertical-align: middle;">
+					                            <div style="float: left">				                            
+					                            	Puntos de Destino Cargadas
+					                            </div>
+					                            <div style="float: right">				                            
+					                            	 <input type="checkbox" id="mostrarFabCheck" onclick="showHideFabricas()"/> Mostrar Puntos de Destino
+					                            </div>
+					                        </td>
+					                    </tr>
+					                </table> 
+					                <br/>
+					                <table cellpadding="5px" border="1" class="imagetable">
+										<tr>
+											<th>Nombre</th>
+											<th>Localizaci&oacute;n</th>
+											<th>Latitud</th>
+											<th>Longitud</th>
+											<th>Demanda</th>
+											<th></th>
+											<th></th>
+										</tr>
+										<s:iterator value="puntoDestinoList" status="destinostatus">
+										<tr>
+											<td><s:property value="nombre" /></td>
+											<td><s:property value="localizacion" /></td>
+											<td><s:property value="latitud" /></td>
+											<td><s:property value="longitud" /></td>
+											<td><s:property value="unidades" /></td>
+											<td><s:url id="editURL" action="editFabrica">
+													<s:param name="id" value="%{id}"></s:param>
+												</s:url> <s:a href="%{editURL}">Editar</s:a></td>
+											<td><s:url id="deleteURL" action="deleteFabrica">
+													<s:param name="id" value="%{id}"></s:param>
+												</s:url> <s:a href="%{deleteURL}">Eliminar</s:a></td>
+										</tr>
+										</s:iterator>	
+									</table>
+					         	</td>
+					         	
+					         	<td width="37%" valign="top" style="border: 1px solid #808D91">
+		                        	<table class="imagen" cellpadding="0" cellspacing="0" border="0" width="100%">
+		                        		<tr>
+		                        			<td height="300">
+		                        				<div id="map_canvas" style="width: 500px; 
+                                						height: 500px;
+                                						right:0
+                                						padding-top: 5px;"></div>
+		                        			</td>
+		                        		</tr>
+		                        	</table>
+		                        </td>
+		                     </tr>
+		            	</table>
+<div id="costos">
 			<s:iterator value="costos">
     			<s:hidden name="costosMap['%{destino.id}'].costo" value="%{costo}" id="costosMap['%{destino.id}'].costo"/>
 			</s:iterator>
-		</div>
-		</s:form>
-    </div>
+</div>		            	
+</s:form>
 	
-    <div id="map_canvas" style="width: 500px; 
-                                height: 500px;
-                                right:0;
-                                position:absolute;
-                                margin-right:60px"></div>
-
-<br />
-	<div style="position:relative; 
-	            top:270px; 
-	            left:0px;
-	            margin-left: 20px;">
-	<table cellpadding="5px" border="1" class="imagetable">
-		<tr>
-			<th>Nombre</th>
-			<th>Localizaci&oacute;n</th>
-			<th>Latitud</th>
-			<th>Longitud</th>
-			<th>Demanda</th>
-			<th></th>
-			<th></th>
-		</tr>
-		<s:iterator value="puntoDestinoList" status="puntoDestinostatus">
-			<tr>
-				<td><s:property value="nombre" /></td>
-				<td><s:property value="localizacion" /></td>
-				<td><s:property value="latitud" /></td>
-				<td><s:property value="longitud" /></td>
-				<td><s:property value="unidades" /></td>
-				<td><s:url id="editURL" action="editPuntoDestino">
-					<s:param name="id" value="%{id}"></s:param>
-				</s:url> <s:a href="%{editURL}">Editar</s:a></td>
-				<td><s:url id="deleteURL" action="deletePuntoDestino">
-					<s:param name="id" value="%{id}"></s:param>
-				</s:url> <s:a href="%{deleteURL}">Eliminar</s:a></td>
-			</tr>
-		</s:iterator>
-	</table>
-	</div>
 	<div id="destinos">
 		<s:iterator value="costos">
 			<s:hidden name="%{destino.id}" value="%{destino.localizacion}" />

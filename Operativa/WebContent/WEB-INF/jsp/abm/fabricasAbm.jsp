@@ -4,6 +4,8 @@
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <jsp:include page="/WEB-INF/jsp/purecssmenu.jsp" />
+<jsp:include page="/WEB-INF/jsp/checkLogin.jsp" />
+
 
 <html>
 <head>
@@ -67,7 +69,7 @@ table.imagetable td {
           geocoder = new google.maps.Geocoder();
           var latlng = new google.maps.LatLng(-38.00,-57.33);
           var myOptions = {
-            zoom: 8,
+            zoom: 7,
             center: latlng,
             mapTypeId: google.maps.MapTypeId.ROADMAP
           };
@@ -155,7 +157,6 @@ table.imagetable td {
 					document.getElementById('saveFabrica_latitud').value = (latitud+'').replace('.',',').substring(0,6);
 					document.getElementById('saveFabrica_longitud').value = (longitud+'').replace('.', ',').substring(0,6);
 					document.getElementById('saveFabrica_localizacion').value = direccion;
-					alert(document.getElementById('saveFabrica_latitud').value);
 					
                   }
                 } else {
