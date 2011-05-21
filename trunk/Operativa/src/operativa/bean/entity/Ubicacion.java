@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.sun.istack.internal.NotNull;
 
 @Entity
@@ -48,6 +49,7 @@ public class Ubicacion {
 	@NotNull
 	private Float longitud;
 	
+	@RequiredStringValidator(message="La latitud es requerida")
 	public Float getLatitud() {
 		return latitud;
 	}
@@ -56,6 +58,7 @@ public class Ubicacion {
 		this.latitud = latitud;
 	}
 
+	@RequiredStringValidator(message="La longitud es requerida")
 	public Float getLongitud() {
 		return longitud;
 	}
@@ -71,7 +74,8 @@ public class Ubicacion {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
+	
+	@RequiredStringValidator(message="El nombre es requerido")
 	public String getNombre() {
 		return nombre;
 	}
@@ -79,7 +83,8 @@ public class Ubicacion {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
+	
+	@RequiredStringValidator(message="La localización es requerida")
 	public String getLocalizacion() {
 		return localizacion;
 	}
@@ -99,7 +104,8 @@ public class Ubicacion {
 	public Integer getUnidades() {
 		return unidades;
 	}
-
+	
+	@RequiredStringValidator(message="Debe especificar una cantidad")
 	public void setUnidades(Integer unidades) {
 		this.unidades = unidades;
 	}

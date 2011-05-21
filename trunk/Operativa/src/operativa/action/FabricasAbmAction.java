@@ -36,20 +36,28 @@ public class FabricasAbmAction extends ActionSupport implements ModelDriven<Ubic
 	private Map<String, CostosDTO> costosMap = new HashMap<String, CostosDTO>();
 	private List<Ubicacion> destinoList = new ArrayList<Ubicacion>();
 	
+	private boolean esEdicion = false;
 	
 	@Override
 	public void prepare() throws Exception {
+		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
+		esEdicion =request.getParameter("id") != null; 
+		if (esEdicion){
+			fabrica = ubicacionDao.findById(Integer.parseInt((request.getParameter("id"))),false);
+		}
+		
 		destinoList = ubicacionDao.getByTipoUbicacion(TipoUbicacion.DESTINO.toString());
 		for (Ubicacion destino : destinoList) {
 			CostosDTO nuevo = new CostosDTO(destino);
 			costos.add(nuevo);
 			costosMap.put(destino.getId().toString(), nuevo);
 		}
+		
 	}
 
 	
 	/**
-	 * Crea una fabrica y calcula los costos a todos los puntos de destino
+	 * Crea una fabrica y calcula los costos a toads los puntos de destino
 	 * insertandolos en la tabla COSTO
 	 * @return
 	 */
@@ -59,25 +67,24 @@ public class FabricasAbmAction extends ActionSupport implements ModelDriven<Ubic
 		this.ubicacionDao.makePersistent(fabrica);
 		for (CostosDTO costo : costos) {
 			Costo nuevo = new Costo();
-			nuevo.setDesde(fabrica);
-			nuevo.setHasta(costo.getDestino());
+			if (esEdicion){
+				nuevo = costoDao.findCost(fabrica.getId(), costo.getDestino().getId());
+			}
+			else{
+				nuevo = new Costo();
+				nuevo.setDesde(fabrica);
+				nuevo.setHasta(costo.getDestino());
+			}
 			nuevo.setCosto(costo.getCosto());
-			costoDao.makePersistent(nuevo);
+			if (esEdicion)
+				costoDao.persistUpdate(nuevo);
+			else 
+				costoDao.makePersistent(nuevo);
 		}
 		ubicacionDao.commit();
 		return SUCCESS;
 	}
 
-	/**
-	 * Actualiza una fabrica
-	 * @return
-	 */
-	public String update()
-	{	
-		ubicacionDao.persistUpdate(fabrica);
-		return SUCCESS;
-	}
-	
 	/**
 	 * Lista todas las fabricas
 	 * @return
@@ -96,9 +103,11 @@ public class FabricasAbmAction extends ActionSupport implements ModelDriven<Ubic
 	public String delete()
 	{
 		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
-		Ubicacion toDelete = new Ubicacion();
-		toDelete.setId(Integer.parseInt(request.getParameter("id")));
+		Ubicacion toDelete = ubicacionDao.findById(Integer.parseInt(request.getParameter("id")), false);
+		List<Costo> costosABorrar = costoDao.findAllContaining(toDelete.getId());
+		costoDao.makeTransient(costosABorrar);
 		ubicacionDao.makeTransient(toDelete);
+		ubicacionDao.commit();
 		return SUCCESS;
 	}
 	

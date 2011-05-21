@@ -20,11 +20,11 @@ public class Costo {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 	
-	@ManyToOne (cascade = CascadeType.ALL)
+	@ManyToOne (cascade = {CascadeType.MERGE, CascadeType.PERSIST})
 	@NotNull
     private Ubicacion desde;
 	
-	@ManyToOne (cascade = CascadeType.ALL)
+	@ManyToOne (cascade = {CascadeType.MERGE, CascadeType.PERSIST})
 	@NotNull
     private Ubicacion hasta;
 	

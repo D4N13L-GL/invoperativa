@@ -87,11 +87,27 @@ implements GenericDAO<T, ID> {
 		getSession().update(entity);
 		return entity;
 	}
+	
+	public void persistUpdate(List<T> entitys){
+		Transaction tx =  this.session.getTransaction();
+		tx.begin();
+		for (T t : entitys) {
+			getSession().update(t);
+		}
+	}
 
 	public void makeTransient(T entity) {
 		Transaction tx =  this.session.getTransaction();
 		tx.begin();
 		getSession().delete(entity);
+	}
+	
+	public void makeTransient(List<T> entity) {
+		Transaction tx =  this.session.getTransaction();
+		tx.begin();
+		for (T t : entity) {
+			getSession().delete(t);	
+		}
 	}
 	
 	public abstract void makeTransient(ID id);

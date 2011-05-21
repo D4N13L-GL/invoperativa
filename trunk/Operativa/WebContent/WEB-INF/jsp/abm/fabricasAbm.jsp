@@ -249,7 +249,7 @@ table.imagetable td {
 <br/>
 <table cellpadding="5" cellspacing="5" width="100%" style="width: 100%; border:0px; margin-top: 15px;background: #D8D8D8">
 					        <tr>
-					            <td style="background-color: #C8D7DF;border: 1px solid #808D91;font-family: arial;padding: 3px;">
+					            <td style="background-color: #C8D7DF; border: 1px solid #808D91;font-family: arial;padding: 3px;">
 					                <div style="float: left;">
 					                	<b>Alta de Fábrica</b>
 					                </div>
@@ -359,7 +359,7 @@ table.imagetable td {
 											<td><s:property value="unidades" /></td>
 											<td><s:url id="editURL" action="editFabrica">
 													<s:param name="id" value="%{id}"></s:param>
-												</s:url> <s:a href="%{editURL}">Editar</s:a></td>
+												</s:url> <s:a onclick="return confirm('Se borrarán todos los costos asignados a esta fábrica, desea continuar?')" href="%{editURL}">Editar</s:a></td>
 											<td><s:url id="deleteURL" action="deleteFabrica">
 													<s:param name="id" value="%{id}"></s:param>
 												</s:url> <s:a href="%{deleteURL}">Eliminar</s:a></td>
