@@ -22,6 +22,10 @@
 			<result name="register">/WEB-INF/jsp/abm/usuariosAbm.jsp</result>
 		</action>
 		
+		<action name="logout" class="operativa.action.LogoutAction">
+			<result name="success">/WEB-INF/jsp/Login.jsp</result>
+		</action>
+		
 		<!-- WELCOME PAGE -->
 		
 		<action name="abmFabricasWelcome" class="operativa.action.WelcomeAction" method="initAbmFabricas">
