@@ -57,18 +57,23 @@
 		
 		<action name="savePuntoDestino" method="save" class="operativa.action.PuntosDestinoAbmAction">
            <result name="success" type="redirect-action">listPuntoDestino</result>
+           <result name="input">/WEB-INF/jsp/abm/puntosDestinoAbm.jsp</result>
         </action>
-        <action name="updatePuntoDestino" method="update" class="operativa.action.PuntosDestinoAbmAction">
+        <action name="updatePuntoDestino" method="save" class="operativa.action.PuntosDestinoAbmAction">
            <result name="success" type="redirect-action">listPuntoDestino</result>
+           <result name="input">/WEB-INF/jsp/abm/puntosDestinoModificacion.jsp</result>
         </action>        
         <action name="listPuntoDestino" method="list" class="operativa.action.PuntosDestinoAbmAction">
             <result name="success">/WEB-INF/jsp/abm/puntosDestinoAbm.jsp</result>
+            <result name="input">/WEB-INF/jsp/abm/puntosDestinoAbm.jsp</result>
         </action>
         <action name="editPuntoDestino" method="edit" class="operativa.action.PuntosDestinoAbmAction">
             <result name="success">/WEB-INF/jsp/abm/puntosDestinoModificacion.jsp</result>
+            <result name="input">/WEB-INF/jsp/abm/puntosDestinoAbm.jsp</result>
         </action>
         <action name="deletePuntoDestino" method="delete" class="operativa.action.PuntosDestinoAbmAction">
             <result name="success" type="redirect-action">listPuntoDestino</result>
+            <result name="input">/WEB-INF/jsp/abm/puntosDestinoAbm.jsp</result>
         </action>
         
         <!-- FIN PUNTO DESTINO ABM -->
@@ -77,18 +82,23 @@
 		
 		<action name="saveFabrica" method="save" class="operativa.action.FabricasAbmAction">
            <result name="success" type="redirect-action">listFabrica</result>
+           <result name="input">/WEB-INF/jsp/abm/fabricasAbm.jsp</result>
         </action>
-        <action name="updateFabrica" method="update" class="operativa.action.FabricasAbmAction">
+        <action name="updateFabrica" method="save" class="operativa.action.FabricasAbmAction">
            <result name="success" type="redirect-action">listFabrica</result>
+           <result name="input">/WEB-INF/jsp/abm/fabricasModificacion.jsp</result>
         </action>        
         <action name="listFabrica" method="list" class="operativa.action.FabricasAbmAction">
             <result name="success">/WEB-INF/jsp/abm/fabricasAbm.jsp</result>
+            <result name="input">/WEB-INF/jsp/abm/fabricasAbm.jsp</result>
         </action>
         <action name="editFabrica" method="edit" class="operativa.action.FabricasAbmAction">
             <result name="success">/WEB-INF/jsp/abm/fabricasModificacion.jsp</result>
+            <result name="input">/WEB-INF/jsp/abm/fabricasAbm.jsp</result>
         </action>
         <action name="deleteFabrica" method="delete" class="operativa.action.FabricasAbmAction">
             <result name="success" type="redirect-action">listFabrica</result>
+            <result name="input">/WEB-INF/jsp/abm/fabricasAbm.jsp</result>
         </action>
         
         <!-- FIN FABRICAS ABM -->

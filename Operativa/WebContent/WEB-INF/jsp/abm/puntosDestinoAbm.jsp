@@ -357,10 +357,10 @@ table.imagetable td {
 											<td><s:property value="latitud" /></td>
 											<td><s:property value="longitud" /></td>
 											<td><s:property value="unidades" /></td>
-											<td><s:url id="editURL" action="editFabrica">
+											<td><s:url id="editURL" action="editPuntoDestino">
 													<s:param name="id" value="%{id}"></s:param>
 												</s:url> <s:a href="%{editURL}">Editar</s:a></td>
-											<td><s:url id="deleteURL" action="deleteFabrica">
+											<td><s:url id="deleteURL" action="editPuntoDestino">
 													<s:param name="id" value="%{id}"></s:param>
 												</s:url> <s:a href="%{deleteURL}">Eliminar</s:a></td>
 										</tr>
