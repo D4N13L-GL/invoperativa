@@ -19,6 +19,7 @@
 		<action name="login" class="operativa.action.LoginAction">
 			<result name="success">/WEB-INF/jsp/Welcome.jsp</result>
 			<result name="error">/WEB-INF/jsp/Login.jsp</result>
+			<result name="input">/WEB-INF/jsp/Login.jsp</result>
 			<result name="register">/WEB-INF/jsp/abm/usuariosAbm.jsp</result>
 		</action>
 		

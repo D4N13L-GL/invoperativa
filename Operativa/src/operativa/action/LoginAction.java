@@ -7,7 +7,10 @@ import operativa.model.dao.UserDAO;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
+import com.opensymphony.xwork2.validator.annotations.Validation;
 
+@Validation
 public class LoginAction extends ActionSupport {
 	
 	private static final long serialVersionUID = 1L;
@@ -36,6 +39,7 @@ public class LoginAction extends ActionSupport {
 		return "error";
 	}
 	
+	@RequiredStringValidator(message="Ingrese el nombre de usuario")
 	public String getUsername() {
 		return username;
 	}
@@ -43,7 +47,8 @@ public class LoginAction extends ActionSupport {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
+	
+	@RequiredStringValidator(message="Ingrese el password")
 	public String getPassword() {
 		return password;
 	}

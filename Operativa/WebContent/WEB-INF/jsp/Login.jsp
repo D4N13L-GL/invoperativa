@@ -1,37 +1,124 @@
-<%@ page contentType="text/html; charset=utf-8" language="java" import="java.sql.*" errorPage="" %>
-<%@ taglib prefix="s" uri="/struts-tags"%>    
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>GestiÃ³n de Usuarios</title>
-<style type="text/css">
+<title>Login - Trabajo Final Investigación Operativa</title>
 
-   @import "./style.css";
+<style>
+body {
+font: 12px verdana, arial, helvetica, sans-serif;
+background-color:#FFFFFF;
+} 
 
-</style></head> 
-  
-    
+table.wwFormTable {
+font: 12px verdana, arial, helvetica, sans-serif;
+border-width: 1px;
+border-color: black;
+border-style: solid;
+color: black;
+background-color: #C8D7DF;
+width: 30%;
+margin-left:35%;
+margin-right:35%;
+margin-top:15%;
+} 
+
+table.wwFormTable th {
+}
+
+table.wwFormTable tr td {
+background-color: #C8D7DF;
+margin: 5px;
+padding: 5px;
+}
+
+.tdLabel {
+/*
+border-width: 1px;
+border-color: #afa;
+border-style: solid;
+*/
+font-weight: bold;
+align: top;
+} 
+
+.label {
+} 
+
+.errorMessage {
+color: red;
+font-size: 12px;
+} 
+
+#headerDiv {
+border-style: solid;
+border-width: 1px 1px 0px;
+border-color: black;
+padding: 5px;
+background-color: blue;
+/* height: 22px; */
+height: 1.8em;
+/* margin-bottom: 12px; */
+}
+
+#buttonBar {
+border-width: 0px 1px 1px;
+border-style: solid;
+border-color: black;
+color: white;
+margin-bottom: 12px;
+background-color: black;
+height: 1.6em;
+padding: 5px;
+}
+
+#appName {
+color: white;
+font-size: 1.8em;
+}
+
+#pageTitle {
+font-size: 1.4em;
+color: red;
+clear: none;
+}
+
+#appName, #pageTitle {
+float: right;
+}
+
+#menuContainer {
+float: left;
+}
+
+#brandingContainer {
+float: right:
+text-align: right;
+}
+</style>
+
+</head>
 <body>
-<div class="container">
-  <div class="header">  </div>
-  <div class="content">
-<h4>Ingrese los datos de logueo:</h4>
-<s:actionerror />
-<s:form action="login.action" method="post">
-	<s:textfield name="username" key="label.username" size="20" />
-	<s:password name="password" key="label.password" size="20" cssClass="p" />
-	<s:submit method="execute" key="label.login" align="center" />
-	<s:submit id="buttonRegister" method="register" type="input" value="Registrarse" cssClass="buttonRegister" />
-	
+
+<s:form action="login.action" method="POST" validate="true">
+<tr>
+<td colspan="2">
+Login
+</td>
+
+</tr>
+
+  <tr>
+   <td colspan="2">
+         <s:actionerror />
+   </td>
+  </tr>
+
+<s:textfield name="username" label="Login name"/>
+<s:password name="password" label="Password"/>
+<s:submit value="Login" align="center"/>
+
 </s:form>
 
-</div>
- 
-  <div class="footer">
-    <p>&nbsp;</p>
-    <!-- end .footer --></div>
-  <!-- end .container --></div>
 </body>
+
 </html>
