@@ -45,6 +45,10 @@
 			<result name="success" >/WEB-INF/jsp/Welcome.jsp</result>
 		</action>
 		
+		<action name="viajanteAction" class="operativa.action.TravelerAction" method="prepareViajante">
+			<result name="viajante" >/WEB-INF/jsp/results/traveler.jsp</result>
+		</action>
+		
 		<!-- FIN WELCOME PAGE -->
 		
 		

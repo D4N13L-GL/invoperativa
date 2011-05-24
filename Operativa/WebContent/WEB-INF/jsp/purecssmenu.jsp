@@ -153,7 +153,7 @@ ul.pureCssMenu ul span,ul.pureCssMenu a:hover table span{background-image:url(./
 	<li class="pureCssMenui"><a class="pureCssMenui" href="#"><span>C&aacute;lculos</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
 	<ul class="pureCssMenum">
 		<li class="pureCssMenui"><a class="pureCssMenui" href="<s:url action="calculateTransport.action" />">Transporte</a></li>
-		<li class="pureCssMenui"><a class="pureCssMenui" href="#">Viajante</a></li>
+		<li class="pureCssMenui"><a class="pureCssMenui" href="<s:url action="viajanteAction.action" />">Viajante</a></li>
 	</ul>
 	<!--[if lte IE 6]></td></tr></table></a><![endif]--></li>
 	<li class="pureCssMenui"><a class="pureCssMenui" href="<s:url action="logout.action" />">Logout</a></li>
