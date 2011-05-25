@@ -387,19 +387,21 @@ public class TransportMatrix {
 		}		
 	}
 	
-	public List<List<TMCell>> getMatrixByRow(){
+	public List<TMViewRow> getMatrixByRow(){
 		
-		List<List<TMCell>> result = new ArrayList<List<TMCell>>();
+		List<TMViewRow> result = new ArrayList<TMViewRow>();
 		
 		for (int i = 0; i < this.matrix.length; i++) {
-			List<TMCell> row = new ArrayList<TMCell>();
-			
+			TMViewRow row = new TMViewRow();
+			List<TMCell> list = new ArrayList<TMCell>();
 			for (int j = 0; j < this.matrix[0].length; j++) {
-				row.add(this.matrix[i][j]);
+				list.add(j,this.matrix[i][j]);
 			}
+			row.setFactory(this.factories.get(i));
+			row.setList(list);
 			result.add(i,row);
 		}
-		
+
 		return result;
 	}
 
