@@ -9,6 +9,8 @@ public class TMViewRow {
 	private List<TMCell> list;
 	
 	private Ubicacion factory;
+	
+	private List<Ubicacion> path;
 
 	public List<TMCell> getList() {
 		return list;
@@ -24,5 +26,15 @@ public class TMViewRow {
 
 	public void setFactory(Ubicacion factory) {
 		this.factory = factory;
-	}	
+	}
+
+	public List<Ubicacion> getPath() {
+		return path;
+	}
+
+	public void setPath(List<Ubicacion> path) {
+		this.path = path;
+	}
+	
+	
 }
