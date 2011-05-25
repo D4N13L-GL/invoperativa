@@ -394,11 +394,17 @@ public class TransportMatrix {
 		for (int i = 0; i < this.matrix.length; i++) {
 			TMViewRow row = new TMViewRow();
 			List<TMCell> list = new ArrayList<TMCell>();
+			List<Ubicacion> path = new ArrayList<Ubicacion>();
+			path.add(this.factories.get(i));
 			for (int j = 0; j < this.matrix[0].length; j++) {
 				list.add(j,this.matrix[i][j]);
+				if (this.matrix[i][j].getAssign() > 0) {
+					path.add(this.destinations.get(j));
+				}
 			}
 			row.setFactory(this.factories.get(i));
 			row.setList(list);
+			row.setPath(path);
 			result.add(i,row);
 		}
 
