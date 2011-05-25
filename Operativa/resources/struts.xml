@@ -23,6 +23,10 @@
 			<result name="register">/WEB-INF/jsp/abm/usuariosAbm.jsp</result>
 		</action>
 		
+		<action name="register" class="operativa.action.LoginAction" method="register">
+			<result name="register">/WEB-INF/jsp/abm/usuariosAbm.jsp</result>
+		</action>
+		
 		<action name="logout" class="operativa.action.LogoutAction">
 			<result name="success">/WEB-INF/jsp/Login.jsp</result>
 		</action>
@@ -128,7 +132,7 @@
         <!-- FIN USUARIOS ABM -->
        
         <!-- ALGORITMO TRANSPORTE -->
-        <action name="calculateTransport" method="calculateModel" class="operativa.action.TransportModelAction">
+        <action name="calculateTrasnsport" method="calculateModel" class="operativa.action.TransportModelAction">
            <result name="success">/WEB-INF/jsp/results/transport_model.jsp</result>
         </action>
         <!-- FIN ALGORITMO TRANSPORTE -->

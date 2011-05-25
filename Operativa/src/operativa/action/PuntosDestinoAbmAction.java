@@ -17,6 +17,7 @@ import operativa.utils.Constantes.TipoUbicacion;
 
 import org.apache.struts2.ServletActionContext;
 
+import com.mysql.jdbc.StringUtils;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -41,7 +42,7 @@ public class PuntosDestinoAbmAction extends ActionSupport implements ModelDriven
 	@Override
 	public void prepare() throws Exception {
 		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
-		esEdicion =request.getParameter("id") != null; 
+		esEdicion = !StringUtils.isEmptyOrWhitespaceOnly(request.getParameter("id")); 
 		if (esEdicion){
 			puntoDestino = ubicacionDao.findById(Integer.parseInt((request.getParameter("id"))),false);
 		}
@@ -80,8 +81,8 @@ public class PuntosDestinoAbmAction extends ActionSupport implements ModelDriven
 			}
 			else{
 				nuevo2 = new Costo();
-				nuevo2.setDesde(puntoDestino);
-				nuevo2.setHasta(costo.getDestino());
+				nuevo2.setDesde(costo.getDestino());
+				nuevo2.setHasta(puntoDestino);
 			}
 			nuevo2.setCosto(costo.getCosto());
 			

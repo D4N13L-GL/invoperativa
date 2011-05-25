@@ -150,7 +150,7 @@ table.imagetable td {
 					        </tr>
 				   		    <tr>
 				   		    	<td width="50%" valign="top" style="border: 1px solid #808D91">
-				   		    		<div id="divIndicaciones">
+				   		    		<div id="divIndicaciones" style="height: 650px; overflow: scroll; font-size: 10px; font-family: serif">
 				   		    		
 				   		    		</div>					                
 					         	</td>

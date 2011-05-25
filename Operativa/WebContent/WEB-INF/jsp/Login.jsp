@@ -19,7 +19,7 @@ background-color: #C8D7DF;
 width: 30%;
 margin-left:35%;
 margin-right:35%;
-margin-top:15%;
+margin-top:3%;
 } 
 
 table.wwFormTable th {
@@ -100,9 +100,15 @@ text-align: right;
 <body>
 
 <s:form action="login.action" method="POST" validate="true">
+<center>
+	<h2>Trabajo Final Investigación Operativa</h2>
+</center>
+<center>
+	<img alt="UNICEN" src="http://www.soc.unicen.edu.ar/cnza2/imagenes/logo_unicen.jpg"	>
+</center>
 <tr>
 <td colspan="2">
-Login
+<div align="left">Introduzca sus datos para ingresar</div>
 </td>
 
 </tr>
@@ -113,11 +119,15 @@ Login
    </td>
   </tr>
 
-<s:textfield name="username" label="Login name"/>
+<s:textfield name="username" label="Nombre de Usuario"/>
 <s:password name="password" label="Password"/>
-<s:submit value="Login" align="center"/>
+<div align="right" style="margin-right: 5%">
+<s:submit value="Ingresar"/>
+</div>
 
 </s:form>
+
+
 
 </body>
 
