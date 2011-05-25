@@ -42,7 +42,8 @@ public class PuntosDestinoAbmAction extends ActionSupport implements ModelDriven
 	@Override
 	public void prepare() throws Exception {
 		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
-		esEdicion = !StringUtils.isEmptyOrWhitespaceOnly(request.getParameter("id")); 
+		
+		esEdicion =request.getParameter("id") != null && request.getParameter("id") != "";
 		if (esEdicion){
 			puntoDestino = ubicacionDao.findById(Integer.parseInt((request.getParameter("id"))),false);
 		}
