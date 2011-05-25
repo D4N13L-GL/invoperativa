@@ -384,7 +384,40 @@ public class TransportMatrix {
 				System.out.print(matrix[i][j].getAssign());
 			}
 			System.out.println("");
+		}		
+	}
+	
+	public List<List<TMCell>> getMatrixByRow(){
+		
+		List<List<TMCell>> result = new ArrayList<List<TMCell>>();
+		
+		for (int i = 0; i < this.matrix.length; i++) {
+			List<TMCell> row = new ArrayList<TMCell>();
+			
+			for (int j = 0; j < this.matrix[0].length; j++) {
+				row.add(this.matrix[i][j]);
+			}
+			result.add(i,row);
 		}
 		
+		return result;
 	}
+
+	public List<Ubicacion> getFactories() {
+		return factories;
+	}
+
+	public void setFactories(List<Ubicacion> factories) {
+		this.factories = factories;
+	}
+
+	public List<Ubicacion> getDestinations() {
+		return destinations;
+	}
+
+	public void setDestinations(List<Ubicacion> destinations) {
+		this.destinations = destinations;
+	}
+	
+	
 }
