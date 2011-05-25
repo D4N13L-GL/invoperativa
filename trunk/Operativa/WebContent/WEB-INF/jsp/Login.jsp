@@ -104,7 +104,7 @@ text-align: right;
 	<h2>Trabajo Final Investigación Operativa</h2>
 </center>
 <center>
-	<img alt="UNICEN" src="http://www.soc.unicen.edu.ar/cnza2/imagenes/logo_unicen.jpg"	>
+	<img alt="UNICEN" src="http://3.bp.blogspot.com/_1CabVGTatqE/Ssvli-J-VVI/AAAAAAAAAD8/WdGlWmPfDeE/s200/unicen+logo.jpg"	>
 </center>
 <tr>
 <td colspan="2">

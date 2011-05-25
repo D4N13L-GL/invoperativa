@@ -150,7 +150,7 @@ table.imagetable td {
 					        </tr>
 				   		    <tr>
 				   		    	<td width="50%" valign="top" style="border: 1px solid #808D91">
-				   		    		<div id="divIndicaciones" style="height: 650px; overflow: scroll; font-size: 10px; font-family: serif">
+				   		    		<div id="divIndicaciones" style="height: 400px; overflow: scroll; font-size: 14px; font-family: serif">
 				   		    		
 				   		    		</div>					                
 					         	</td>
@@ -160,7 +160,7 @@ table.imagetable td {
 		                        		<tr>
 		                        			<td height="300">
 		                        				<div id="map_canvas" style="width: 600px; 
-                                						height: 600px;
+                                						height: 400px;
                                 						right:0
                                 						padding-top: 5px;"></div>
 		                        			</td>
