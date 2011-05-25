@@ -421,5 +421,18 @@ public class TransportMatrix {
 		this.destinations = destinations;
 	}
 	
-	
+	public List<Ubicacion> getPathByFactory(int fac_id){
+		
+		List<Ubicacion> result = new ArrayList<Ubicacion>();
+		
+		result.add(this.factories.get(fac_id));
+		
+		for (int i = 0; i < this.matrix[0].length; i++) {
+			if (this.matrix[fac_id][i].getAssign() > 0) {
+				result.add(this.destinations.get(i));
+			}
+		}
+		
+		return result;
+	}
 }
