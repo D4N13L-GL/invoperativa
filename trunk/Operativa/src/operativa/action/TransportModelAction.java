@@ -32,7 +32,11 @@ public class TransportModelAction extends ActionSupport {
 		endPoints = dao.getByTipoUbicacion(Constantes.TipoUbicacion.DESTINO.toString());
 		
 		//Ejecuto el algoritmo con las fabricas y puntos de destino
-		TransportMatrix matrix = vogel.resolve(factories, endPoints);	
+		TransportMatrix matrix = vogel.resolve(factories, endPoints);
+		
+		/**
+		 * TODO Aca se deberia acoplar el algoritmo para sacar la mejor solucion
+		 */
 		
 	}
 	

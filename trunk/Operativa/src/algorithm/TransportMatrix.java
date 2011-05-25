@@ -3,9 +3,9 @@ package algorithm;
 import java.util.ArrayList;
 import java.util.List;
 
-import operativa.bean.entity.Costo;
 import operativa.bean.entity.Ubicacion;
 import operativa.model.dao.CostoDAO;
+import operativa.utils.Constantes;
 
 public class TransportMatrix {
 
@@ -31,17 +31,52 @@ public class TransportMatrix {
 		this.costDAO = new CostoDAO();
 		this.factories = factories;
 		this.destinations = destinations;
+		
+		this.balanceMatrix();
+		
 		this.rowDifferencies = new Float[factories.size()];
 		this.columnDifferencies = new Float[destinations.size()];
 		this.demands = new Integer[destinations.size()];
 		this.oferts = new Integer[factories.size()];
-
+		
 		this.buildMatrix();
 		this.setOfertsAndDemands();
 		this.setDifferencies();
 	}
 
+	private void balanceMatrix() {
+		
+		int ofertaTotal = 0;
+		int demandaTotal = 0;
+		for (int i = 0; i < factories.size(); i++) {
+			ofertaTotal += factories.get(i).getUnidades(); 
+		}
+		
+		for (int i = 0; i < destinations.size(); i++) {
+			demandaTotal += destinations.get(i).getUnidades();
+		}
+		
+		int diff = ofertaTotal - demandaTotal;
+		
+		if (diff > 0){
+			Ubicacion newOne = new Ubicacion();
+			newOne.setUnidades(diff);
+			newOne.setNombre("FalseDestination");
+			newOne.setTipo(Constantes.TipoUbicacion.DESTINO.toString());
+			this.destinations.add(newOne);
+		} else {
+			if (diff < 0){
+				Ubicacion newOne = new Ubicacion();
+				newOne.setUnidades(-diff);
+				newOne.setNombre("FalseFactory");
+				newOne.setTipo(Constantes.TipoUbicacion.FABRICA.toString());
+				this.factories.add(newOne);
+			}
+		}
+	}
+
 	//Calcula las diferencias maximas por fila y luego por columna
+	//Anda bien
 	public void setDifferencies() {
 
 		for (int i = 0; i < rowDifferencies.length; i++) {
@@ -132,10 +167,19 @@ public class TransportMatrix {
 		matrix = new TMCell[factories.size()][destinations.size()];
 		for (int i = 0; i < factories.size(); i++) {
 			for (int j = 0; j < destinations.size(); j++) {
-				Costo newCost = costDAO.findCost(factories.get(i).getId(),
-						destinations.get(j).getId());
+				float costo;
+				
+				if (factories.get(i).getNombre() == "FalseFactory") {
+					costo = 0f;
+				}else
+					if (destinations.get(j).getNombre() == "FalseDestination") {
+						costo = 0f;
+					}else {
+						costo = costDAO.findCost(factories.get(i).getId(),
+								destinations.get(j).getId()).getCosto();
+					}
 				TMCell newCell = new TMCell();
-				newCell.setCost(newCost.getCosto());
+				newCell.setCost(costo);
 				matrix[i][j] = newCell;
 			}
 		}
@@ -168,7 +212,6 @@ public class TransportMatrix {
 		} else {
 			result[0] = -1;
 		}
-		System.out.println("MAXIMA DIFERENCIA!!! " + result[0]+";" + result[1]);
 		return result;
 	}
 
@@ -179,7 +222,6 @@ public class TransportMatrix {
 		for (int i = 0; i < this.matrix.length; i++) {
 			if (this.matrix[i][column].isValid()) {
 				if (this.matrix[i][column].getCost() <= aux || aux == -1f) {
-					System.out.println("ENTRE IF!!!!!!!!!!!");
 					result = i;
 					aux = this.matrix[i][column].getCost();
 				}
