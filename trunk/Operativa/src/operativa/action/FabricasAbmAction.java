@@ -17,6 +17,7 @@ import operativa.utils.Constantes.TipoUbicacion;
 
 import org.apache.struts2.ServletActionContext;
 
+import com.mysql.jdbc.StringUtils;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -41,7 +42,7 @@ public class FabricasAbmAction extends ActionSupport implements ModelDriven<Ubic
 	@Override
 	public void prepare() throws Exception {
 		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
-		esEdicion =request.getParameter("id") != null; 
+		esEdicion =!StringUtils.isEmptyOrWhitespaceOnly(request.getParameter("id")); 
 		if (esEdicion){
 			fabrica = ubicacionDao.findById(Integer.parseInt((request.getParameter("id"))),false);
 		}
