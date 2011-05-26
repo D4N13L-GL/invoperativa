@@ -403,7 +403,7 @@ public class TransportMatrix {
 				}
 			}
 			row.setFactory(this.factories.get(i));
-			row.setList(list);
+			row.setCells(list);
 			row.setPath(path);
 			result.add(i,row);
 		}

@@ -17,7 +17,6 @@ import operativa.utils.Constantes.TipoUbicacion;
 
 import org.apache.struts2.ServletActionContext;
 
-import com.mysql.jdbc.StringUtils;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
