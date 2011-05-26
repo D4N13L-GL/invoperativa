@@ -80,9 +80,9 @@ table.imagetable td {
 		  directionsService = new google.maps.DirectionsService();
        	}
 
-       function calcRoute() {
+       function calcRoute(id) {
     	   var waypts = [];
-    	   var destinos = document.getElementById("destinosLista").getElementsByTagName('input');
+    	   var destinos = document.getElementById(id).getElementsByTagName('input');
     	   var start = destinos[0].value;
     	   var end = destinos[0].value;
     	   for (var i = 1; i < destinos.length; i++) {
@@ -99,7 +99,6 @@ table.imagetable td {
     	       optimizeWaypoints: true,
     	       travelMode: google.maps.DirectionsTravelMode.DRIVING
     	   };
-    	   
     	   directionsService.route(request, function(response, status) {
     	     if (status == google.maps.DirectionsStatus.OK) {
     	       directionsDisplay.setDirections(response);
@@ -115,6 +114,7 @@ table.imagetable td {
     	         summaryPanel.innerHTML += route.legs[i].distance.text + "<br /><br />";
     	       }
     	     }
+    	 
     	   });
     	 }
 
@@ -122,13 +122,10 @@ table.imagetable td {
 
 <body onload="initialize()" style="font-family: verdana,arial,sans-serif;
 								   font-size:15px;background: #F2F2F2;">
-
-<s:hidden name="id" />
 <br/>
 <table cellpadding="5" cellspacing="5" width="100%" style="width: 100%; border:0px; margin-top: 15px;background: #D8D8D8">
 					        <tr>
 					            <td style="background-color: #C8D7DF;border: 1px solid #808D91;font-family: arial;padding: 3px;">
-					                <input type="button" onclick="calcRoute()" value="Calcular Recorrido"/>
 					                <div style="float: left;">
 					                	<b>Recorrido de Entrega</b>
 					                </div>
@@ -169,11 +166,39 @@ table.imagetable td {
 		                        </td>
 		                     </tr>
 		            	</table>
-
-	<div id="destinosLista">
-		<s:iterator value="recorrido">
-			<s:hidden name="%{nombre}" value="%{localizacion}" />
-		</s:iterator>
-	</div>
+		            	<div style="height: 300px; overflow: scroll;" >
+		           		<table cellpadding="5px" border="1" class="imagetable">
+							<tr>
+								<th>Fábricas -/- Destinos</th>
+<!--								Fila con todos los nombres de destino-->
+								<s:iterator value="listDestinos" id="destino">
+									<th><s:property value="#destino.nombre"/> (D:<s:property value="#destino.unidades"/>)</th>
+								</s:iterator>
+								<th>Recorrido</th>
+							</tr>
+							
+							<s:iterator value="matrixByRow" id="row">
+								<div id="destinosLista_<s:property value="#row.factory.id" />">
+									<s:iterator value="#row.path" id="ubicacion">
+										<input type="hidden" id="<s:property value="#ubicacion.nombre" />" value="<s:property value="#ubicacion.localizacion" />" />
+									</s:iterator>
+								</div>
+								<tr>
+<!--									Nombre de la fabrica-->
+									<td><s:property value="#row.factory.nombre" /> (O:<s:property value="#row.factory.unidades"/>)</td>
+									
+<!--										Fila con todas las asignaciones-->
+									<s:iterator value="#row.cells" id="cell">
+										<td><center><s:property value="#cell.assign"/></center></td>
+									</s:iterator>
+									
+									<td><center>
+										<input type="button" value="ver en mapa" onclick="calcRoute('destinosLista_<s:property value="#row.factory.id" />');" />
+											
+									</center></td>
+								</tr>
+							</s:iterator>	
+						</table>
+		           		</div>
 </body>
 </html>

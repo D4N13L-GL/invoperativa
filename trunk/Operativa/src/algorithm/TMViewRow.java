@@ -6,18 +6,18 @@ import operativa.bean.entity.Ubicacion;
 
 public class TMViewRow {
 
-	private List<TMCell> list;
+	private List<TMCell> cells;
 	
 	private Ubicacion factory;
 	
 	private List<Ubicacion> path;
 
-	public List<TMCell> getList() {
-		return list;
+	public List<TMCell> getCells() {
+		return cells;
 	}
 
-	public void setList(List<TMCell> list) {
-		this.list = list;
+	public void setCells(List<TMCell> cells) {
+		this.cells = cells;
 	}
 
 	public Ubicacion getFactory() {
