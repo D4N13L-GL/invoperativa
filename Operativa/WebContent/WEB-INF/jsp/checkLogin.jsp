@@ -5,7 +5,7 @@
 	</head>
     <body>
       <s:if test="#session['logged-in'] != 'true'">
-	      <jsp:forward page="/WEB-INF/jsp/Login.jsp" />  
+	      <jsp:forward page="/WEB-INF/jsp/login.jsp" />  
 	  </s:if>
     </body>
 </html>

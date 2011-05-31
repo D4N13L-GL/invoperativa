@@ -4,51 +4,11 @@
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <jsp:include page="/WEB-INF/jsp/purecssmenu.jsp" />
+<jsp:include page="/WEB-INF/jsp/checkLogin.jsp" />
+<jsp:include page="/WEB-INF/jsp/estilos.jsp" />
 
 <html>
 <head>
-
-<style type="text/css">
-table.imagetable {
-	font-family: verdana,arial,sans-serif;
-	font-size:11px;
-	color:#333333;
-	border-width: 1px;
-	border-color: #999999;
-	border-collapse: collapse;
-	width: 100%;
-}
-table.imagetable th {
-	background:#b5cfd2;
-	border-width: 1px;
-	padding: 8px;
-	border-style: solid;
-	border-color: #999999;
-}
-table.imagetable td {
-	background:#dcddc0;
-	border-width: 1px;
-	padding: 8px;
-	border-style: solid;
-	border-color: #999999;
-}
-
-.text {
-    font-family: Arial,Helvetica,sans-serif;
-    font-size: 12px;
-    padding-left: 2px;
-    padding-right: 2px;
-    text-align: right;
-    vertical-align: middle;
-}
-
-.tableTitle {
-	style="background-color: #C8D7DF; 
-	border: 1px solid #808D91; 
-	font-family: arial; 
-	padding: 3px; 
-}
-</style>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Gestión de Puntos de Destino</title>
@@ -249,7 +209,7 @@ table.imagetable td {
 <br/>
 <table cellpadding="5" cellspacing="5" width="100%" style="width: 100%; border:0px; margin-top: 15px;background: #D8D8D8">
 					        <tr>
-					            <td style="background-color: #C8D7DF;border: 1px solid #808D91;font-family: arial;padding: 3px;">
+					            <td class="tdHeader">
 					                <div style="float: left;">
 					                	<b>Alta de Punto de Destino</b>
 					                </div>
@@ -258,12 +218,12 @@ table.imagetable td {
 				        </table>
 				   		<table cellpadding="5" cellspacing="5" border="0" width="100%" style="background: #D8D8D8">
 				   			<tr>
-					            <td style="background-color: #C8D7DF;border: 1px solid #808D91;font-family: arial;padding: 3px;">
+					            <td class="tdHeader">
 					                <div style="float: left;">
 					                	Datos del Punto de Destino
 					                </div>
 					            </td>
-					            <td style="background-color: #C8D7DF;border: 1px solid #808D91;font-family: arial;padding: 3px;" >
+					            <td class="tdHeader" >
 				                    <div style="float: left;">
 				                        Ubicación del Punto de Destino
 				                    </div>
@@ -329,7 +289,7 @@ table.imagetable td {
 									<br/>														
 					                <table cellpadding="0" cellspacing="0" border="0" width="100%">
 						            	<tr>
-					                        <td style="background-color: #C8D7DF;border: 1px solid #808D91;font-family: arial;padding: 3px;" style="padding-left: 5px; vertical-align: middle;">
+					                        <td class="tdHeader" style="padding-left: 5px; vertical-align: middle;">
 					                            <div style="float: left">				                            
 					                            	Puntos de Destino Cargadas
 					                            </div>
@@ -360,9 +320,9 @@ table.imagetable td {
 											<td><s:url id="editURL" action="editPuntoDestino">
 													<s:param name="id" value="%{id}"></s:param>
 												</s:url> <s:a href="%{editURL}">Editar</s:a></td>
-											<td><s:url id="deleteURL" action="editPuntoDestino">
+											<td><s:url id="deleteURL" action="deletePuntoDestino">
 													<s:param name="id" value="%{id}"></s:param>
-												</s:url> <s:a href="%{deleteURL}">Eliminar</s:a></td>
+												</s:url> <s:a onclick="return confirm('Se borrarán todos los costos asignados a este destino, desea continuar?')" href="%{deleteURL}">Eliminar</s:a></td>
 										</tr>
 										</s:iterator>	
 									</table>

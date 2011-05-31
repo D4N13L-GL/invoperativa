@@ -22,4 +22,8 @@ public class WelcomeAction extends ActionSupport{
 		return SUCCESS;
 	}
 	
+	public String inicioCalculos(){
+		return SUCCESS;
+	}
+	
 }
