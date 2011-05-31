@@ -17,9 +17,9 @@
 		<default-interceptor-ref name="paramsPrepareParamsStack"/>
 		
 		<action name="login" class="operativa.action.LoginAction">
-			<result name="success">/WEB-INF/jsp/Welcome.jsp</result>
-			<result name="error">/WEB-INF/jsp/Login.jsp</result>
-			<result name="input">/WEB-INF/jsp/Login.jsp</result>
+			<result name="success">/WEB-INF/jsp/welcome.jsp</result>
+			<result name="error">/WEB-INF/jsp/login.jsp</result>
+			<result name="input">/WEB-INF/jsp/login.jsp</result>
 			<result name="register">/WEB-INF/jsp/abm/usuariosAbm.jsp</result>
 		</action>
 		
@@ -28,7 +28,7 @@
 		</action>
 		
 		<action name="logout" class="operativa.action.LogoutAction">
-			<result name="success">/WEB-INF/jsp/Login.jsp</result>
+			<result name="success">/WEB-INF/jsp/login.jsp</result>
 		</action>
 		
 		<!-- WELCOME PAGE -->
@@ -46,18 +46,22 @@
 		</action>
 		
 		<action name="goHome" class="operativa.action.WelcomeAction" method="goHome">
-			<result name="success" >/WEB-INF/jsp/Welcome.jsp</result>
+			<result name="success" >/WEB-INF/jsp/welcome.jsp</result>
 		</action>
 		
 		<action name="viajanteAction" class="operativa.action.TravelerAction" method="prepareViajante">
 			<result name="viajante" >/WEB-INF/jsp/results/traveler.jsp</result>
 		</action>
 		
+		<action name="inicioCalculosAction" method="inicioCalculos" class="operativa.action.WelcomeAction">
+           <result name="success" type="redirect-action">inicioCalculosPrepare</result>
+        </action>
+		
 		<!-- FIN WELCOME PAGE -->
 		
 		
 		<action name="abmUsuarios" class="operativa.action.UsuariosAbmAction">
-			<result name="exito">/WEB-INF/jsp/Welcome.jsp</result>
+			<result name="exito">/WEB-INF/jsp/welcome.jsp</result>
 			<result name="error">/WEB-INF/jsp/abm/usuariosAbm.jsp</result>
 		</action>
 		
@@ -136,5 +140,24 @@
            <result name="success">/WEB-INF/jsp/results/transport_model.jsp</result>
         </action>
         <!-- FIN ALGORITMO TRANSPORTE -->
+        
+        <action name="inicioCalculosPrepare" method="init" class="operativa.action.InicioCalculosAction">
+           <result name="success">/WEB-INF/jsp/inicioCalculos.jsp</result>
+           <result name="error">/WEB-INF/jsp/inicioCalculos.jsp</result>
+           <result name="nextStep" type="redirect-action">mostrarResultados</result>
+        </action>
+        
+        <action name="nextStepAction" method="nextStep" class="operativa.action.InicioCalculosAction">
+           <result name="error">/WEB-INF/jsp/inicioCalculos.jsp</result>
+           <result name="nextStep" type="redirect-action">
+           		<param name="actionName">mostrarResultados</param>
+    			<param name="fabricas">${fabricasListaString}</param>
+    			<param name="destinos">${destinosListaString}</param>
+           </result>
+        </action>
+        
+        <action name="mostrarResultados" method="calculateModel" class="operativa.action.TravelerAction">
+           <result name="success">/WEB-INF/jsp/results/traveler.jsp</result>
+        </action>
 	</package>
 </struts>

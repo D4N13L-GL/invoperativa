@@ -5,52 +5,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <jsp:include page="/WEB-INF/jsp/purecssmenu.jsp" />
 <jsp:include page="/WEB-INF/jsp/checkLogin.jsp" />
-
+<jsp:include page="/WEB-INF/jsp/estilos.jsp" />
 
 <html>
 <head>
-
-<style type="text/css">
-table.imagetable {
-	font-family: verdana,arial,sans-serif;
-	font-size:11px;
-	color:#333333;
-	border-width: 1px;
-	border-color: #999999;
-	border-collapse: collapse;
-	width: 100%;
-}
-table.imagetable th {
-	background:#b5cfd2;
-	border-width: 1px;
-	padding: 8px;
-	border-style: solid;
-	border-color: #999999;
-}
-table.imagetable td {
-	background:#dcddc0;
-	border-width: 1px;
-	padding: 8px;
-	border-style: solid;
-	border-color: #999999;
-}
-
-.text {
-    font-family: Arial,Helvetica,sans-serif;
-    font-size: 12px;
-    padding-left: 2px;
-    padding-right: 2px;
-    text-align: right;
-    vertical-align: middle;
-}
-
-.tableTitle {
-	style="background-color: #C8D7DF; 
-	border: 1px solid #808D91; 
-	font-family: arial; 
-	padding: 3px; 
-}
-</style>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Gestión de Fábricas</title>
@@ -203,7 +161,7 @@ table.imagetable td {
 					getDistance(origen, document.getElementById('saveFabrica_localizacion').value, "costosMap['"+ destinos[i].id +"'].costo");
 				}
 				document.body.style.cursor='wait';
-				setTimeout("alert('Se calcularon las distancias con éxito'); document.body.style.cursor='default';", 2000);	
+				setTimeout("alert('Se calcularon las distancias con éxito'); document.body.style.cursor='default';", destinos.length * 200);	
 				document.getElementById("distanciasBtn").disabled=true;
 				setTimeout("document.getElementById('guardarBtn').disabled=false", 2000);
             }
@@ -249,7 +207,7 @@ table.imagetable td {
 <br/>
 <table cellpadding="5" cellspacing="5" width="100%" style="width: 100%; border:0px; margin-top: 15px;background: #D8D8D8">
 					        <tr>
-					            <td style="background-color: #C8D7DF; border: 1px solid #808D91;font-family: arial;padding: 3px;">
+					            <td class="tdHeader">
 					                <div style="float: left;">
 					                	<b>Alta de Fábrica</b>
 					                </div>
@@ -258,12 +216,12 @@ table.imagetable td {
 				        </table>
 				   		<table cellpadding="5" cellspacing="5" border="0" width="100%" style="background: #D8D8D8">
 				   			<tr>
-					            <td style="background-color: #C8D7DF;border: 1px solid #808D91;font-family: arial;padding: 3px;">
+					            <td class="tdHeader">
 					                <div style="float: left;">
 					                	Datos de la Fábrica
 					                </div>
 					            </td>
-					            <td style="background-color: #C8D7DF;border: 1px solid #808D91;font-family: arial;padding: 3px;" >
+					            <td class="tdHeader" >
 				                    <div style="float: left;">
 				                        Ubicación de la Fábrica
 				                    </div>
@@ -329,7 +287,7 @@ table.imagetable td {
 									<br/>														
 					                <table cellpadding="0" cellspacing="0" border="0" width="100%">
 						            	<tr>
-					                        <td style="background-color: #C8D7DF;border: 1px solid #808D91;font-family: arial;padding: 3px;" style="padding-left: 5px; vertical-align: middle;">
+					                        <td class="tdHeader" style="padding-left: 5px; vertical-align: middle;">
 					                            <div style="float: left">				                            
 					                            	Fábricas Cargadas
 					                            </div>
@@ -359,10 +317,10 @@ table.imagetable td {
 											<td><s:property value="unidades" /></td>
 											<td><s:url id="editURL" action="editFabrica">
 													<s:param name="id" value="%{id}"></s:param>
-												</s:url> <s:a onclick="return confirm('Se borrarán todos los costos asignados a esta fábrica, desea continuar?')" href="%{editURL}">Editar</s:a></td>
+												</s:url> <s:a href="%{editURL}">Editar</s:a></td>
 											<td><s:url id="deleteURL" action="deleteFabrica">
 													<s:param name="id" value="%{id}"></s:param>
-												</s:url> <s:a href="%{deleteURL}">Eliminar</s:a></td>
+												</s:url> <s:a onclick="return confirm('Se borrarán todos los costos asignados a esta fábrica, desea continuar?')" href="%{deleteURL}">Eliminar</s:a></td>
 										</tr>
 										</s:iterator>	
 									</table>

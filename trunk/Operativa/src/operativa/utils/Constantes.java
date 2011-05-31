@@ -7,7 +7,7 @@ public class Constantes {
 	}
 	
 	public enum ParametrosRequest {
-		ORIGEN, LISTA_DESTINOS, ID
+		ORIGEN, LISTA_DESTINOS, ID, LISTA_FABRICAS_ALGORITMO, LISTA_DESTINOS_ALGORITMO
 	}
 
 }

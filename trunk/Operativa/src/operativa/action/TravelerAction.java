@@ -3,14 +3,18 @@ package operativa.action;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import operativa.bean.entity.Ubicacion;
 import operativa.model.dao.UbicacionDAO;
-import operativa.utils.Constantes;
+
+import org.apache.struts2.ServletActionContext;
 
 import algorithm.TMViewRow;
 import algorithm.TransportMatrix;
 import algorithm.VogelAlgorithm;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class TravelerAction extends ActionSupport{
@@ -33,19 +37,25 @@ public class TravelerAction extends ActionSupport{
 		return "viajante";
 	}
 	
-	private List<Ubicacion> factories;
-	private List<Ubicacion> listDestinos;
+	private List<Ubicacion> factories = new ArrayList<Ubicacion>();
+	private List<Ubicacion> listDestinos= new ArrayList<Ubicacion>();
 	private TransportMatrix matrix;
 		
-	public void calculateModel(){
+	public String calculateModel(){
 		
 		
 		VogelAlgorithm vogel = new VogelAlgorithm();
-		UbicacionDAO dao = new UbicacionDAO();
 		
-		//Extraigo las fabricas y los puntos destino de la base
-		factories = dao.getByTipoUbicacion(Constantes.TipoUbicacion.FABRICA.toString());
-		listDestinos = dao.getByTipoUbicacion(Constantes.TipoUbicacion.DESTINO.toString());
+		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
+		//Obtengo fabricas y destinos del request
+		String[] fabIds = request.getParameter("fabricas").split(",");
+		String[] destIds = request.getParameter("destinos").split(",");
+		for (int i = 0; i < fabIds.length; i++) {
+			factories.add(ubicacionDao.findById(Integer.parseInt(fabIds[i]), true));
+		}
+		for (int i = 0; i < destIds.length; i++) {
+			listDestinos.add(ubicacionDao.findById(Integer.parseInt(destIds[i]), true));
+		}
 		
 		//Ejecuto el algoritmo con las fabricas y puntos de destino
 		matrix = vogel.resolve(factories, listDestinos);
@@ -53,7 +63,7 @@ public class TravelerAction extends ActionSupport{
 		/**
 		 * TODO Aca se deberia acoplar el algoritmo para sacar la mejor solucion
 		 */
-		
+		return SUCCESS;
 	}
 
 	public Ubicacion getOrigen() {
