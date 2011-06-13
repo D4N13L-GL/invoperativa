@@ -167,7 +167,7 @@ public class TransportMatrix {
 		matrix = new TMCell[factories.size()][destinations.size()];
 		for (int i = 0; i < factories.size(); i++) {
 			for (int j = 0; j < destinations.size(); j++) {
-				float costo;
+				float costo = 0f;
 				
 				if (factories.get(i).getNombre() == "FalseFactory") {
 					costo = 0f;
@@ -175,8 +175,14 @@ public class TransportMatrix {
 					if (destinations.get(j).getNombre() == "FalseDestination") {
 						costo = 0f;
 					}else {
-						costo = costDAO.findCost(factories.get(i).getId(),
+						try{
+							costo = costDAO.findCost(factories.get(i).getId(),
 								destinations.get(j).getId()).getCosto();
+						}catch (NullPointerException e){
+							System.out.println("Falta dato de Costo para: " + factories.get(i).getId() + "-" + 
+												factories.get(i).getNombre() + "  ,  " + destinations.get(j).getId()
+												+ "-" + destinations.get(j).getNombre());
+						}
 					}
 				TMCell newCell = new TMCell();
 				newCell.setCost(costo);
