@@ -5,15 +5,12 @@
 <title>Bienvenido! - Trabajo Final Investigación Operativa</title>
 </head>
 <jsp:include page="/WEB-INF/jsp/checkLogin.jsp" />
-<jsp:include page="purecssmenu.jsp" />
+<jsp:include page="tabbedMenu.jsp" />
 
-<body style="font-family: verdana,arial,sans-serif;font-size:15px;">
+<body>
 <br/><br/>
 	<center>
-		<h2>Trabajo Final Investigación Operativa</h2>
-	</center>
-	<center>
-		<img alt="UNICEN" src="http://3.bp.blogspot.com/_1CabVGTatqE/Ssvli-J-VVI/AAAAAAAAAD8/WdGlWmPfDeE/s200/unicen+logo.jpg"	>
+		<h3>Bienvenido, elija una oción del menú para comenzar.</h3>
 	</center>
 </body>
 </html>

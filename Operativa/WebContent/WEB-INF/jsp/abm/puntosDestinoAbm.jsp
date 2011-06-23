@@ -3,7 +3,7 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<jsp:include page="/WEB-INF/jsp/purecssmenu.jsp" />
+<jsp:include page="/WEB-INF/jsp/tabbedMenu.jsp" />
 <jsp:include page="/WEB-INF/jsp/checkLogin.jsp" />
 <jsp:include page="/WEB-INF/jsp/estilos.jsp" />
 
@@ -203,11 +203,11 @@
 </script>
 
 <body onload="initialize()" style="font-family: verdana,arial,sans-serif;
-								   font-size:15px;background: #F2F2F2;">
+								   font-size:15px;">
 <s:form action="savePuntoDestino" theme="simple">
 <s:hidden name="id" />
 <br/>
-<table cellpadding="5" cellspacing="5" width="100%" style="width: 100%; border:0px; margin-top: 15px;background: #D8D8D8">
+<table cellpadding="5" cellspacing="5" width="100%" style="width: 100%; border:0px; margin-top: 15px;background: #DFF1FF">
 					        <tr>
 					            <td class="tdHeader">
 					                <div style="float: left;">
@@ -216,7 +216,7 @@
 					            </td>
 					        </tr>
 				        </table>
-				   		<table cellpadding="5" cellspacing="5" border="0" width="100%" style="background: #D8D8D8">
+				   		<table cellpadding="5" cellspacing="5" border="0" width="100%" style="background: #DFF1FF">
 				   			<tr>
 					            <td class="tdHeader">
 					                <div style="float: left;">
