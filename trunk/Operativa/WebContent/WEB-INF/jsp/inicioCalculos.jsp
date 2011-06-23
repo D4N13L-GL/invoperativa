@@ -5,7 +5,7 @@
 <html>
 <head>
 <jsp:include page="/WEB-INF/jsp/estilos.jsp" />
-<jsp:include page="/WEB-INF/jsp/purecssmenu.jsp" />
+<jsp:include page="/WEB-INF/jsp/tabbedMenu.jsp" />
 <jsp:include page="/WEB-INF/jsp/checkLogin.jsp" />
 
 
@@ -37,7 +37,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Inicio de Cálculos</title>
 </head>
-<body style="font-family: verdana,arial,sans-serif;font-size:15px;background: #F2F2F2;">
+<body style="font-family: verdana,arial,sans-serif;font-size:15px;">
 <br/><br/>
 <ul>
 	<li><h5>Elija las fábricas y los puntos de destino que desea tener en cuenta para la distribución de mercadería.</h5></li>
@@ -46,7 +46,7 @@
 <br/>
 <s:form id="formInicioCalculos" theme="simple" action="nextStepAction">
 <s:actionerror />
-<table cellspacing="5" border="0" width="100%" style="background: #F2F2F2;">
+<table cellspacing="5" border="0" width="100%" style="background: #DFF1FF">
 				   			<tr>
 					            <td class="tdHeader">
 					                <div style="float: left;">
