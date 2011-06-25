@@ -3,7 +3,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 
-<title>Centered Menu</title>
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
@@ -127,6 +126,7 @@ html,body {
 <div id="wrap">
 <div id="header"></div>
 <div id="nav">
+	<center>
 	<ul>
 		<li id="t1"><a href="<s:url action="goHome.action" />"><span>Home</span></a></li>
 		<li id="t6"><a href="<s:url action="abmFabricasWelcome.action" />"><span>Fábricas</span></a></li>
@@ -135,6 +135,7 @@ html,body {
 		<li id="t5"><a href="<s:url action="logout.action" />"><span>Logout</span></a></li>
 
 	</ul>
+	</center>
 </div>
 </div>
 </body>

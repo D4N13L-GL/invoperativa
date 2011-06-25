@@ -7,7 +7,7 @@
 <jsp:include page="/WEB-INF/jsp/checkLogin.jsp" />
 <jsp:include page="tabbedMenu.jsp" />
 
-<body>
+<body style="background: #F2FBEF">
 <br/><br/>
 	<center>
 		<h3>Bienvenido, elija una oción del menú para comenzar.</h3>
