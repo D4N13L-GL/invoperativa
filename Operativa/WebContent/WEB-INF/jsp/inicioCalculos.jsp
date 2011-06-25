@@ -37,7 +37,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Inicio de Cálculos</title>
 </head>
-<body style="font-family: verdana,arial,sans-serif;font-size:15px;">
+<body style="font-family: verdana,arial,sans-serif;font-size:15px;background: #F2FBEF">
 <br/><br/>
 <ul>
 	<li><h5>Elija las fábricas y los puntos de destino que desea tener en cuenta para la distribución de mercadería.</h5></li>
@@ -46,7 +46,8 @@
 <br/>
 <s:form id="formInicioCalculos" theme="simple" action="nextStepAction">
 <s:actionerror />
-<table cellspacing="5" border="0" width="100%" style="background: #DFF1FF">
+<center>
+<table cellspacing="5" border="0" width="90%" style="background: #F2FBEF">
 				   			<tr>
 					            <td class="tdHeader">
 					                <div style="float: left;">
@@ -128,6 +129,7 @@
 					        </tr>
 					        
 </table>
+</center>
 <br/>
 <div align="center" >
 	<s:submit value="Siguiente" id="siguienteBtn" method="nextStep"/>

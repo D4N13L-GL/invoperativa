@@ -5,7 +5,7 @@
 <jsp:include page="/WEB-INF/jsp/estilos.jsp" />
 
 </head>
-<body>
+<body >
 
 <s:form action="login.action" method="POST" validate="true">
 <center>

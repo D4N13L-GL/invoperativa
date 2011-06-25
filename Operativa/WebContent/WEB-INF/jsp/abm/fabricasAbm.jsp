@@ -201,11 +201,12 @@
 </script>
 
 <body onload="initialize()" style="font-family: verdana,arial,sans-serif;
-								   font-size:15px;">
+								   font-size:15px;background: #F2FBEF">
 <s:form action="saveFabrica" theme="simple">
 <s:hidden name="id" />
 <br/>
-<table cellpadding="5" cellspacing="5" width="100%" style="width: 100%; border:0px; margin-top: 15px;background: #DFF1FF">
+<center>
+<table cellpadding="5" cellspacing="5" width="90%" style="width: 90%; border:0px; margin-top: 15px;background: #F2FBEF">
 					        <tr>
 					            <td class="tdHeader">
 					                <div style="float: left;">
@@ -214,7 +215,7 @@
 					            </td>
 					        </tr>
 				        </table>
-				   		<table cellpadding="5" cellspacing="5" border="0" width="100%" style="background: #DFF1FF">
+				   		<table cellpadding="5" cellspacing="5" border="0" width="90%" style="background: #F2FBEF">
 				   			<tr>
 					            <td class="tdHeader">
 					                <div style="float: left;">
@@ -340,6 +341,7 @@
 		                        </td>
 		                     </tr>
 		            	</table>
+</center>
 <div id="costos">
 			<s:iterator value="costos">
     			<s:hidden name="costosMap['%{destino.id}'].costo" value="%{costo}" id="costosMap['%{destino.id}'].costo"/>
@@ -357,5 +359,6 @@
 			<s:hidden name="%{nombre}" value="%{latitud}|%{longitud}" />
 		</s:iterator>
 	</div>
+	
 </body>
 </html>
