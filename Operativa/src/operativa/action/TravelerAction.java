@@ -10,6 +10,7 @@ import operativa.model.dao.UbicacionDAO;
 
 import org.apache.struts2.ServletActionContext;
 
+import algorithm.OptimalTransport;
 import algorithm.TMViewRow;
 import algorithm.TransportMatrix;
 import algorithm.VogelAlgorithm;
@@ -63,6 +64,11 @@ public class TravelerAction extends ActionSupport{
 		/**
 		 * TODO Aca se deberia acoplar el algoritmo para sacar la mejor solucion
 		 */
+		
+		OptimalTransport oT = new OptimalTransport();
+		
+		matrix = oT.getOptimalSolution(matrix);
+		
 		return SUCCESS;
 	}
 
