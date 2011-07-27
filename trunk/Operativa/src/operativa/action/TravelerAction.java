@@ -26,18 +26,6 @@ public class TravelerAction extends ActionSupport{
 	private Ubicacion origen;
 	private List<Ubicacion> recorrido = new ArrayList<Ubicacion>();
 	
-	public String prepareViajante(){
-		origen = ubicacionDao.findById(21, false);
-		recorrido.add(origen);
-		recorrido.add(ubicacionDao.findById(22, false));
-		recorrido.add(ubicacionDao.findById(24, false));
-		recorrido.add(ubicacionDao.findById(25, false));
-		recorrido.add(ubicacionDao.findById(26, false));
-		recorrido.add(ubicacionDao.findById(27, false));
-		calculateModel();
-		return "viajante";
-	}
-	
 	private List<Ubicacion> factories = new ArrayList<Ubicacion>();
 	private List<Ubicacion> listDestinos= new ArrayList<Ubicacion>();
 	private TransportMatrix matrix;
