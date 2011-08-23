@@ -56,7 +56,7 @@ html,body {
 	/* CSS for the tabs starts here */
 	#header {
 		height:140px;
-		background:url(http://www.uploadimage.com.ar/images/04138758473408524518.png) 0 0 no-repeat;
+		background:url(http://invoperativa.googlecode.com/svn/trunk/Operativa/WebContent/WEB-INF/images/header.png) 0 0 no-repeat;
 	}
 	#nav {
 		float:left;
@@ -74,7 +74,7 @@ html,body {
 		float:left;
 		margin:0 0 0 -1px;
 		padding:0 0 0 6px;
-		background:url(http://www.456bereastreet.com/lab/inverted_tabs/nav1.gif) 0 100% no-repeat;
+		background:url(http://invoperativa.googlecode.com/svn/trunk/Operativa/WebContent/WEB-INF/images/nav1.gif) 0 100% no-repeat;
 	}
 	#nav li:hover {
 		background-position:-6px 100%;
@@ -85,12 +85,12 @@ html,body {
 		color:#473215;
 		font-weight:bold;
 		font-family:Georgia,Times,"Times New Roman",serif;
-		background:url(http://www.456bereastreet.com/lab/inverted_tabs/nav2.gif) 100% 100% no-repeat;
+		background:url(http://invoperativa.googlecode.com/svn/trunk/Operativa/WebContent/WEB-INF/images/nav2.gif) 100% 100% no-repeat;
 		padding:5px 14px 12px 8px;
 		text-decoration:none;
 	}
 	#nav li:hover a {
-		background-image:url(http://www.456bereastreet.com/lab/inverted_tabs/nav1.gif);
+		background-image:url(http://invoperativa.googlecode.com/svn/trunk/Operativa/WebContent/WEB-INF/images/nav1.gif);
 	}
 	/* Hide from IE5-Mac \*/
 	#nav a {float:none;}
