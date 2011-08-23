@@ -8,31 +8,34 @@ import org.ejml.alg.dense.linsol.LinearSolverFactory;
 import org.ejml.alg.dense.linsol.LinearSolverSafe;
 import org.ejml.data.DenseMatrix64F;
 
-
 public class OptimalTransport {
 
 	private double[][] coefCosts;
 
+	private final int maxOptimalTimes = 10;
+	private int optimalTime;
 	private int firstCol;
 	private int firstRow;
 
 	public OptimalTransport() {
 		super();
+		optimalTime = 0;
 	}
 
 	public TransportMatrix getOptimalSolution(TransportMatrix m) {
 		List<Integer> uDualList = new ArrayList<Integer>();
 		List<Integer> vDualList = new ArrayList<Integer>();
 		loadDualLists(m, uDualList, vDualList);
-
 		return searchForOptimalSolution(m, uDualList, vDualList);
 
 	}
 
 	public TransportMatrix searchForOptimalSolution(TransportMatrix m,
 			List<Integer> uDualList, List<Integer> vDualList) {
-		if (!this.isOptimo(m, uDualList, vDualList)) {
+		if (!this.isOptimo(m, uDualList, vDualList)
+				&& optimalTime <= maxOptimalTimes) {
 			TransportMatrix matrix = retrieveSolution(m, uDualList, vDualList);
+			optimalTime++;
 			return getOptimalSolution(m);
 		} else
 			return m;
@@ -83,11 +86,11 @@ public class OptimalTransport {
 			List<TMCell> toRestTeta, double minTeta) {
 
 		for (TMCell tmCell : toSumTeta) {
-			tmCell.setAssign((int) (tmCell.getAssign() + (int)minTeta));
+			tmCell.setAssign((int) (tmCell.getAssign() + (int) minTeta));
 		}
 
 		for (TMCell tmCell : toRestTeta) {
-			tmCell.setAssign((int) (tmCell.getAssign() - (int)minTeta));
+			tmCell.setAssign((int) (tmCell.getAssign() - (int) minTeta));
 		}
 
 	}
@@ -125,10 +128,10 @@ public class OptimalTransport {
 			List<TMCell> toRestTeta, boolean add, int step, int deep) {
 
 		if (step == 4) {
-			System.out.println("Nuevo: "+add);
-			System.out.println("Columna: "+maxCol);
-			System.out.println("Fila: "+firstRow);
-			
+			System.out.println("Nuevo: " + add);
+			System.out.println("Columna: " + maxCol);
+			System.out.println("Fila: " + firstRow);
+
 			if (add)
 				toSumTeta.add(m.getCell(maxRow, firstCol));
 			else
@@ -149,9 +152,9 @@ public class OptimalTransport {
 		}
 
 		if (m.isValidByRow(maxRow, newColumn)) {
-			System.out.println("Nuevo: "+add);
-			System.out.println("Columna: "+newColumn);
-			System.out.println("Fila: "+maxRow);
+			System.out.println("Nuevo: " + add);
+			System.out.println("Columna: " + newColumn);
+			System.out.println("Fila: " + maxRow);
 			if (add)
 				toSumTeta.add(m.getCell(maxRow, newColumn));
 			else
@@ -172,9 +175,9 @@ public class OptimalTransport {
 			boolean add, int step, int deep) {
 
 		if (step == 4) {
-			System.out.println("Nuevo: "+add);
-			System.out.println("Columna: "+maxCol);
-			System.out.println("Fila: "+firstRow);
+			System.out.println("Nuevo: " + add);
+			System.out.println("Columna: " + maxCol);
+			System.out.println("Fila: " + firstRow);
 			if (add)
 				toSumTeta.add(m.getCell(maxRow, firstCol));
 			else
@@ -194,9 +197,9 @@ public class OptimalTransport {
 		}
 
 		if (m.isValidByRow(maxRow, newColumn)) {
-			System.out.println("Nuevo: "+add);
-			System.out.println("Columna: "+newColumn);
-			System.out.println("Fila: "+maxRow);
+			System.out.println("Nuevo: " + add);
+			System.out.println("Columna: " + newColumn);
+			System.out.println("Fila: " + maxRow);
 			if (add)
 				toSumTeta.add(m.getCell(maxRow, newColumn));
 			else
@@ -217,15 +220,15 @@ public class OptimalTransport {
 			List<TMCell> toRestTeta, boolean add, int step, int deep) {
 
 		if (step == 4) {
-			System.out.println("Nuevo: "+add);
-			System.out.println("Columna: "+maxCol);
-			System.out.println("Fila: "+maxRow);
-			
+			System.out.println("Nuevo: " + add);
+			System.out.println("Columna: " + maxCol);
+			System.out.println("Fila: " + maxRow);
+
 			if (add)
 				toSumTeta.add(m.getCell(firstRow, maxCol));
 			else
 				toRestTeta.add(m.getCell(firstRow, maxCol));
-			
+
 			return true;
 		}
 		if (deep == 4) {
@@ -240,9 +243,9 @@ public class OptimalTransport {
 		}
 
 		if (m.isValidByCol(newRow, maxCol)) {
-			System.out.println("Nuevo: "+add);
-			System.out.println("Columna: "+maxCol);
-			System.out.println("Fila: "+newRow);
+			System.out.println("Nuevo: " + add);
+			System.out.println("Columna: " + maxCol);
+			System.out.println("Fila: " + newRow);
 			if (add)
 				toSumTeta.add(m.getCell(newRow, maxCol));
 			else
@@ -263,9 +266,9 @@ public class OptimalTransport {
 			boolean add, int step, int deep) {
 
 		if (step == 4) {
-			System.out.println("Nuevo: "+add);
-			System.out.println("Columna: "+maxCol);
-			System.out.println("Fila: "+maxRow);
+			System.out.println("Nuevo: " + add);
+			System.out.println("Columna: " + maxCol);
+			System.out.println("Fila: " + maxRow);
 			if (add)
 				toSumTeta.add(m.getCell(firstRow, maxCol));
 			else
@@ -284,9 +287,9 @@ public class OptimalTransport {
 		}
 
 		if (m.isValidByCol(newRow, maxCol)) {
-			System.out.println("Nuevo: "+add);
-			System.out.println("Columna: "+maxCol);
-			System.out.println("Fila: "+newRow);
+			System.out.println("Nuevo: " + add);
+			System.out.println("Columna: " + maxCol);
+			System.out.println("Fila: " + newRow);
 			if (add)
 				toSumTeta.add(m.getCell(newRow, maxCol));
 			else
