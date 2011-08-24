@@ -36,7 +36,7 @@ public class OptimalTransport {
 				&& optimalTime <= maxOptimalTimes) {
 			TransportMatrix matrix = retrieveSolution(m, uDualList, vDualList);
 			optimalTime++;
-			return getOptimalSolution(m);
+			return getOptimalSolution(matrix);
 		} else
 			return m;
 	}
