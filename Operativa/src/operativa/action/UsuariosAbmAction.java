@@ -15,10 +15,23 @@ import operativa.model.dao.UserDAO;
 
 public class UsuariosAbmAction extends ActionSupport implements ModelDriven<Usuario>{
 
-	
+
+	private static final long serialVersionUID = 1L;
 	private UserDAO userDAO = new UserDAO();
 	private List<Usuario> usersList;
 	private Usuario user = new Usuario();
+	
+	public String execute(){
+		try{
+			this.save();
+		}
+		catch (Exception e){
+			addActionError("No se pudo crear el usuario;");
+			return ERROR;
+		}
+		addActionMessage("Usuario creado con éxito");
+		return SUCCESS;
+	}
 	
 	/**
 	 * Crea o actualiza una Usuario
@@ -27,6 +40,7 @@ public class UsuariosAbmAction extends ActionSupport implements ModelDriven<Usua
 	public String save()
 	{	
 		userDAO.makePersistent(this.getUser());
+		userDAO.commit();
 		return SUCCESS;
 	}
 	
