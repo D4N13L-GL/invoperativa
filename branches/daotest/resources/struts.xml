@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.custom.i18n.resources" value="ApplicationResources" />
+
+	<include file="struts-default.xml" />
+
+	<package name="default" extends="struts-default" namespace="/">
+
+		<default-interceptor-ref name="paramsPrepareParamsStack" />
+
+		<action name="login" class="operativa.action.LoginAction">
+			<interceptor-ref name="defaultStack">
+				<param name="validation.excludeMethods">register</param>
+			</interceptor-ref>
+			<result name="success">/WEB-INF/jsp/welcome.jsp</result>
+			<result name="error">/WEB-INF/jsp/login.jsp</result>
+			<result name="input">/WEB-INF/jsp/login.jsp</result>
+			<result name="register">/WEB-INF/jsp/abm/usuariosAbm.jsp</result>
+		</action>
+
+		<action name="register" class="operativa.action.LoginAction"
+			method="register">
+			<result name="register">/WEB-INF/jsp/abm/usuariosAbm.jsp</result>
+		</action>
+
+		<action name="logout" class="operativa.action.LogoutAction">
+			<result name="success">/WEB-INF/jsp/login.jsp</result>
+		</action>
+
+		<!-- WELCOME PAGE -->
+
+		<action name="abmFabricasWelcome" class="operativa.action.WelcomeAction"
+			method="initAbmFabricas">
+			<result name="abmFabricas" type="redirect-action">listFabrica</result>
+		</action>
+
+		<action name="abmPuntosDestinoWelcome" class="operativa.action.WelcomeAction"
+			method="initAbmPuntosEntrega">
+			<result name="abmPuntosEntrega" type="redirect-action">listPuntoDestino</result>
+		</action>
+
+		<action name="abmUsuariosWelcome" class="operativa.action.WelcomeAction"
+			method="initAbmUsuarios">
+			<result name="abmUsuarios" type="redirect-action">listUsuarios</result>
+		</action>
+
+		<action name="goHome" class="operativa.action.WelcomeAction"
+			method="goHome">
+			<result name="success">/WEB-INF/jsp/welcome.jsp</result>
+		</action>
+
+		<action name="viajanteAction" class="operativa.action.TravelerAction"
+			method="prepareViajante">
+			<result name="viajante">/WEB-INF/jsp/results/traveler.jsp
+			</result>
+		</action>
+
+		<action name="inicioCalculosAction" method="inicioCalculos"
+			class="operativa.action.WelcomeAction">
+			<result name="success" type="redirect-action">inicioCalculosPrepare</result>
+		</action>
+
+		<!-- FIN WELCOME PAGE -->
+
+
+		<action name="abmUsuarios" class="operativa.action.UsuariosAbmAction">
+			<result name="success">/WEB-INF/jsp/login.jsp</result>
+			<result name="error">/WEB-INF/jsp/abm/usuariosAbm.jsp</result>
+		</action>
+
+		<!-- PUNTO DESTINO ABM -->
+
+		<action name="savePuntoDestino" method="save"
+			class="operativa.action.PuntosDestinoAbmAction">
+			<result name="success" type="redirect-action">listPuntoDestino</result>
+			<result name="input">/WEB-INF/jsp/abm/puntosDestinoAbm.jsp</result>
+		</action>
+		<action name="updatePuntoDestino" method="save"
+			class="operativa.action.PuntosDestinoAbmAction">
+			<result name="success" type="redirect-action">listPuntoDestino</result>
+			<result name="input">/WEB-INF/jsp/abm/puntosDestinoModificacion.jsp
+			</result>
+		</action>
+		<action name="listPuntoDestino" method="list"
+			class="operativa.action.PuntosDestinoAbmAction">
+			<result name="success">/WEB-INF/jsp/abm/puntosDestinoAbm.jsp</result>
+			<result name="input">/WEB-INF/jsp/abm/puntosDestinoAbm.jsp</result>
+		</action>
+		<action name="editPuntoDestino" method="edit"
+			class="operativa.action.PuntosDestinoAbmAction">
+			<result name="success">/WEB-INF/jsp/abm/puntosDestinoModificacion.jsp
+			</result>
+			<result name="input">/WEB-INF/jsp/abm/puntosDestinoAbm.jsp</result>
+		</action>
+		<action name="deletePuntoDestino" method="delete"
+			class="operativa.action.PuntosDestinoAbmAction">
+			<result name="success" type="redirect-action">listPuntoDestino</result>
+			<result name="input">/WEB-INF/jsp/abm/puntosDestinoAbm.jsp</result>
+		</action>
+
+		<!-- FIN PUNTO DESTINO ABM -->
+
+		<!-- FABRICAS ABM -->
+
+		<action name="saveFabrica" method="save"
+			class="operativa.action.FabricasAbmAction">
+			<result name="success" type="redirect-action">listFabrica</result>
+			<result name="input">/WEB-INF/jsp/abm/fabricasAbm.jsp</result>
+		</action>
+		<action name="updateFabrica" method="save"
+			class="operativa.action.FabricasAbmAction">
+			<result name="success" type="redirect-action">listFabrica</result>
+			<result name="input">/WEB-INF/jsp/abm/fabricasModificacion.jsp
+			</result>
+		</action>
+		<action name="listFabrica" method="list"
+			class="operativa.action.FabricasAbmAction">
+			<result name="success">/WEB-INF/jsp/abm/fabricasAbm.jsp</result>
+			<result name="input">/WEB-INF/jsp/abm/fabricasAbm.jsp</result>
+		</action>
+		<action name="editFabrica" method="edit"
+			class="operativa.action.FabricasAbmAction">
+			<result name="success">/WEB-INF/jsp/abm/fabricasModificacion.jsp
+			</result>
+			<result name="input">/WEB-INF/jsp/abm/fabricasAbm.jsp</result>
+		</action>
+		<action name="deleteFabrica" method="delete"
+			class="operativa.action.FabricasAbmAction">
+			<result name="success" type="redirect-action">listFabrica</result>
+			<result name="input">/WEB-INF/jsp/abm/fabricasAbm.jsp</result>
+		</action>
+
+		<!-- FIN FABRICAS ABM -->
+
+		<!-- USUARIOS ABM -->
+
+		<action name="saveUsuario" method="save"
+			class="operativa.action.UsuariosAbmAction">
+			<result name="success" type="redirect-action">listUsuario</result>
+		</action>
+		<action name="updateUsuario" method="update"
+			class="operativa.action.UsuariosAbmAction">
+			<result name="success" type="redirect-action">listUsuario</result>
+		</action>
+		<action name="listUsuarios" method="list"
+			class="operativa.action.UsuariosAbmAction">
+			<result name="success">/WEB-INF/jsp/abm/usuariosAbm.jsp</result>
+		</action>
+		<action name="editUsuario" method="edit"
+			class="operativa.action.UsuariosAbmAction">
+			<result name="success">/WEB-INF/jsp/abm/usuariosModificacion.jsp
+			</result>
+		</action>
+		<action name="deleteUsuario" method="delete"
+			class="operativa.action.UsuariosAbmAction">
+			<result name="success" type="redirect-action">listUsuario</result>
+		</action>
+
+		<!-- FIN USUARIOS ABM -->
+
+		<!-- ALGORITMO TRANSPORTE -->
+		<action name="calculateTransport" method="calculateModel"
+			class="operativa.action.TravelerAction">
+			<result name="success">/WEB-INF/jsp/results/transport_model.jsp</result>
+		</action>
+		<!-- FIN ALGORITMO TRANSPORTE -->
+
+		<action name="inicioCalculosPrepare" method="init"
+			class="operativa.action.InicioCalculosAction">
+			<result name="success">/WEB-INF/jsp/inicioCalculos.jsp</result>
+			<result name="error">/WEB-INF/jsp/inicioCalculos.jsp</result>
+			<result name="nextStep" type="redirect-action">mostrarResultados</result>
+		</action>
+
+		<action name="nextStepAction" method="nextStep"
+			class="operativa.action.InicioCalculosAction">
+			<result name="error">/WEB-INF/jsp/inicioCalculos.jsp</result>
+			<result name="nextStep" type="redirect-action">
+				<param name="actionName">mostrarResultados</param>
+				<param name="fabricas">${fabricasListaString}</param>
+				<param name="destinos">${destinosListaString}</param>
+			</result>
+		</action>
+
+		<action name="mostrarResultados" method="calculateModel"
+			class="operativa.action.TravelerAction">
+			<result name="success">/WEB-INF/jsp/results/traveler.jsp</result>
+		</action>
+	</package>
+</struts>
