@@ -75,8 +75,8 @@
 					latitud = results[0].geometry.location.lat();
 					longitud = results[0].geometry.location.lng();
 					
-					document.getElementById('saveFabrica_latitud').value = (latitud+'');
-					document.getElementById('saveFabrica_longitud').value = (longitud+'');
+					document.getElementById('saveFabrica_latitud').value = (latitud+'').replace('.',',').substring(0,6);
+					document.getElementById('saveFabrica_longitud').value = (longitud+'').replace('.',',').substring(0,6);
 					document.getElementById('saveFabrica_localizacion').value = direccion;
 
 				}
@@ -161,9 +161,9 @@
 					getDistance(origen, document.getElementById('saveFabrica_localizacion').value, "costosMap['"+ destinos[i].id +"'].costo");
 				}
 				document.body.style.cursor='wait';
-				setTimeout("alert('Se calcularon las distancias con éxito'); document.body.style.cursor='default';", destinos.length * 200);	
+				setTimeout("alert('Se calcularon las distancias con éxito'); document.body.style.cursor='default';", destinos.length * 300);	
 				document.getElementById("distanciasBtn").disabled=true;
-				setTimeout("document.getElementById('guardarBtn').disabled=false", 2000);
+				setTimeout("document.getElementById('guardarBtn').disabled=false", destinos.length * 300);
             }
         }
 

@@ -71,7 +71,7 @@ implements GenericDAO<T, ID> {
 		Transaction tx =  this.session.getTransaction();
 		tx.begin();
 		getSession().save(entity);
-		flush();
+//		flush();
 		return entity;
 	}
 	
@@ -81,13 +81,13 @@ implements GenericDAO<T, ID> {
 		for (T t : entitys) {
 			getSession().save(t);
 		}
-		flush();
+//		flush();
 	}
 	
 	public T persistUpdate(T entity){
 		this.session.beginTransaction();
 		getSession().update(entity);
-		flush();
+//		flush();
 		return entity;
 	}
 	
@@ -97,14 +97,14 @@ implements GenericDAO<T, ID> {
 		for (T t : entitys) {
 			getSession().update(t);
 		}
-		flush();
+//		flush();
 	}
 
 	public void makeTransient(T entity) {
 		Transaction tx =  this.session.getTransaction();
 		tx.begin();
 		getSession().delete(entity);
-		flush();
+//		flush();
 	}
 	
 	public void makeTransient(List<T> entity) {
@@ -113,7 +113,7 @@ implements GenericDAO<T, ID> {
 		for (T t : entity) {
 			getSession().delete(t);	
 		}
-		flush();
+//		flush();
 	}
 	
 	public abstract void makeTransient(ID id);
