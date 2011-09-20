@@ -83,6 +83,11 @@ public class FabricasAbmAction extends ActionSupport implements ModelDriven<Ubic
 				costoDao.makePersistent(nuevo);
 		}
 		ubicacionDao.commit();
+		try {
+			this.prepare();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return SUCCESS;
 	}
 

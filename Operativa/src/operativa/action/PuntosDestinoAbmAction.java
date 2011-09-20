@@ -62,6 +62,7 @@ public class PuntosDestinoAbmAction extends ActionSupport implements ModelDriven
 	{	
 		this.puntoDestino.setTipo(TipoUbicacion.DESTINO.toString());
 		this.ubicacionDao.makePersistent(puntoDestino);
+		nodoList.add(puntoDestino);
 		// En este caso necesito guardar tanto el costo origen-destino, como destino-origen
 		for (CostosDTO costo : costos) {
 			Costo nuevo = new Costo();
@@ -95,8 +96,19 @@ public class PuntosDestinoAbmAction extends ActionSupport implements ModelDriven
 			else 
 				costoDao.makePersistent(costoList);
 		}
+		this.refreshCostos();
 		ubicacionDao.commit();
 		return SUCCESS;
+	}
+	
+	private void refreshCostos(){
+		costos.clear();
+		costosMap.clear();
+		for (Ubicacion destino : nodoList) {
+			CostosDTO nuevo = new CostosDTO(destino);
+			costos.add(nuevo);
+			costosMap.put(destino.getId().toString(), nuevo);
+		}
 	}
 	
 	/**

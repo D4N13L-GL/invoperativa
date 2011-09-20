@@ -75,8 +75,8 @@
 					latitud = results[0].geometry.location.lat();
 					longitud = results[0].geometry.location.lng();
 					
-					document.getElementById('savePuntoDestino_latitud').value = (latitud+'');
-					document.getElementById('savePuntoDestino_longitud').value = (longitud+'');
+					document.getElementById('savePuntoDestino_latitud').value = (latitud+'').replace('.',',').substring(0,6);
+					document.getElementById('savePuntoDestino_longitud').value = (longitud+'').replace('.',',').substring(0,6);
 					document.getElementById('savePuntoDestino_localizacion').value = direccion;
 
 				}
@@ -162,9 +162,9 @@
 				}
 	
 				document.body.style.cursor='wait';
-				setTimeout("alert('Se calcularon las distancias con éxito'); document.body.style.cursor='default';", 3000);	
+				setTimeout("alert('Se calcularon las distancias con éxito'); document.body.style.cursor='default';", destinos.length * 300);	
 				document.getElementById("distanciasBtn").disabled=true;
-				setTimeout("document.getElementById('guardarBtn').disabled=false", 3000);
+				setTimeout("document.getElementById('guardarBtn').disabled=false", destinos.length * 300);
             }
         }
 
