@@ -46,10 +46,12 @@
     	   var start = destinos[0].value;
     	   var end = destinos[0].value;
     	   for (var i = 1; i < destinos.length; i++) {
-    	       waypts.push({
-    	           location:destinos[i].value,
-    	           stopover:true
-    	       }); 
+    		   if (destinos[i].id != 'FalseDestination'){
+    	       		waypts.push({
+    	           		location:destinos[i].value,
+    	           		stopover:true
+    	       		}); 
+    		   }
     	   }
 
     	   var request = {
